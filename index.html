@@ -77,7 +77,7 @@
   <div id="cloudMessage" class="cloud-message" role="status">正在建立匿名云端身份…</div>
   <div id="cloudReport" class="cloud-report" hidden></div>
 </section>
-<section id="memoryPanel" class="panel active"><div class="box"><h2>📝 A卷：基础知识填空</h2><p>以原知识单第1—19点为基础，覆盖呼吸路径、肺活量、牙齿、消化器官等。第12、13题保留表格。</p><div class="round-bar no-print"><label><strong>当前填写：</strong>第 <select data-round-select="m" aria-label="A卷当前轮次"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> 轮</label><button type="button" class="grade-btn" id="grade-m" onclick="gradeRound('m')">批改并显示答案</button><span class="grade-status" id="grade-status-m" aria-live="polite"></span><span class="small">每轮有独立的空白答题框；不会看到上轮填写的内容。</span></div><div class="statsbar no-print"><b id="tickCount-m">0/57 次打勾</b><div class="progress-track"><div class="progress-fill" id="progress-m"></div></div></div><div class="round-bar no-print"><span id="round-m-1">第1轮 0/19 已掌握</span><span id="round-m-2">第2轮 0/19 已掌握</span><span id="round-m-3">第3轮 0/19 已掌握</span></div><p class="small">完成当前轮后，先点“批改并显示答案”；未勾选题目会显示参考答案，已勾选掌握的题目不会显示。确认后，再在末尾标记本轮核对完成。</p></div><article id="m1" class="q-card memory-card" data-q="1" data-part="m">
+<section id="memoryPanel" class="panel active"><div class="box"><h2>📝 A卷：基础知识填空</h2><p>以原知识单第1—19点为基础，覆盖呼吸路径、肺活量、牙齿、消化器官等。第12、13题保留表格。</p><div class="round-bar no-print"><label><strong>当前填写：</strong>第 <select data-round-select="m" aria-label="A卷当前轮次"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> 轮</label><button type="button" class="grade-btn" id="grade-m" onclick="gradeRound('m')">批改并显示答案</button><span class="grade-status" id="grade-status-m" aria-live="polite"></span><span class="small">每轮有独立的空白答题框；不会看到上轮填写的内容。</span></div><div class="statsbar no-print"><b id="tickCount-m">0/57 次打勾</b><div class="progress-track"><div class="progress-fill" id="progress-m"></div></div></div><div class="round-bar no-print"><span id="round-m-1">第1轮 0/19 已掌握</span><span id="round-m-2">第2轮 0/19 已掌握</span><span id="round-m-3">第3轮 0/19 已掌握</span></div><p class="small">本轮所有填空或情境回答都填写后，“批改并显示答案”才会开放。批改后，未勾选掌握的题目显示参考答案；答案按轮次保存，切换到其他轮再切回来仍会保留。确认后，再标记本轮核对完成。</p></div><article id="m1" class="q-card memory-card" data-q="1" data-part="m">
 <div class="card-head"><span class="qid">01</span><h3>1．呼吸器官</h3><span class="q-badge">知识填空</span></div>
 <div class="body-copy"><p class="line">鱼是用<input aria-label="第1题第1空" autocomplete="off" class="answer-input" data-id="m-1-1" placeholder="填写答案" spellcheck="false" type="text"/>呼吸的，蚕是用<input aria-label="第1题第2空" autocomplete="off" class="answer-input" data-id="m-1-2" placeholder="填写答案" spellcheck="false" type="text"/>呼吸的，人是用<input aria-label="第1题第3空" autocomplete="off" class="answer-input" data-id="m-1-3" placeholder="填写答案" spellcheck="false" type="text"/>呼吸的。</p></div>
 <div class="eval"><div class="marks-label">这题独立答对了，才打勾：</div><div class="checks"><label class="check-item"><input type="checkbox" data-tick="m-1-1" aria-label="第1题第1次掌握"/><span>第1次</span></label><label class="check-item"><input type="checkbox" data-tick="m-1-2" aria-label="第1题第2次掌握"/><span>第2次</span></label><label class="check-item"><input type="checkbox" data-tick="m-1-3" aria-label="第1题第3次掌握"/><span>第3次</span></label></div></div>
@@ -304,45 +304,90 @@ function prepareAnswerBlocks(){
     source.hidden=true;
   });
 }
+function roundCompletion(part){
+  const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
+  let total=0,complete=0,missingFields=0;
+  document.querySelectorAll(selector).forEach(card=>{
+    const fields=Array.from(card.querySelectorAll('input.answer-input,textarea.answer-area'));
+    if(!fields.length)return;
+    total++;
+    const missing=fields.filter(field=>!String(field.value||'').trim()).length;
+    if(missing===0)complete++;
+    missingFields+=missing;
+  });
+  return {total,complete,missingQuestions:total-complete,missingFields,allComplete:total>0&&complete===total};
+}
+function roundEvaluated(part,r){
+  const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
+  let evaluated=true;
+  document.querySelectorAll(selector).forEach(card=>{
+    const key=part+'-'+Number(card.dataset.q)+'-'+r;
+    if(!state.ticks[key]&&!state.graded[key])evaluated=false;
+  });
+  return evaluated;
+}
 function renderGrades(){
+  let cleaned=false;
   for(const part of ['m','s']){
     const r=Number(state.rounds[part]||1);
     const roundDone=!!state.done[part+'-'+r];
+    const completion=roundCompletion(part);
     let shown=0,available=0,mastered=0;
     const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
     document.querySelectorAll(selector).forEach(card=>{
       const number=Number(card.dataset.q);
       const key=part+'-'+number+'-'+r;
+      const fields=Array.from(card.querySelectorAll('input.answer-input,textarea.answer-area'));
+      const cardComplete=!fields.length||fields.every(field=>String(field.value||'').trim());
+      if(!cardComplete&&state.graded[key]){delete state.graded[key];cleaned=true;}
       const isMastered=!!state.ticks[key];
       const isGraded=!!state.graded[key];
       const answer=card.querySelector('.grade-answer');
-      if(answer)answer.hidden=!(isGraded&&!isMastered);
+      if(answer)answer.hidden=!isGraded;
       if(isMastered)mastered++;
       else if(isGraded)shown++;
       else available++;
     });
     const button=$('grade-'+part);
     const status=$('grade-status-'+part);
-    if(!button)continue;
-    if(available===0){
-      button.disabled=true;
-      button.textContent=shown?'本轮未掌握题目的答案已显示':'本轮已全部勾选掌握';
-      if(status)status.textContent=shown
-        ?'第'+r+'轮已显示 '+shown+' 道未掌握题目的参考答案。'
-        :'第'+r+'轮19题均已勾选掌握。';
-    }else{
-      button.disabled=false;
-      button.textContent=roundDone
-        ?'批改并显示答案（未掌握题）'
-        :(shown?'显示剩余未勾选答案':'批改并显示答案');
-      if(status)status.textContent=roundDone
-        ?'第'+r+'轮已经完成核对；仍可点击查看未掌握题目的参考答案。'
-        :'第'+r+'轮：已勾选 '+mastered+' 题，已显示 '+shown+' 道答案，还可批改 '+available+' 题。';
+    if(button){
+      if(!completion.allComplete){
+        button.disabled=true;
+        button.textContent='完成本轮作答后可批改';
+        if(status)status.textContent='已完成 '+completion.complete+'/'+completion.total+' 道需作答题，还差 '+completion.missingQuestions+' 道。请先填写本轮所有空格或情境回答。';
+      }else if(available===0){
+        button.disabled=true;
+        button.textContent=shown?'本轮未掌握题目的答案已显示':'本轮已全部勾选掌握';
+        if(status)status.textContent=shown
+          ?'第'+r+'轮已显示 '+shown+' 道未勾选题目的参考答案。'
+          :'第'+r+'轮题目均已勾选掌握。';
+      }else{
+        button.disabled=false;
+        button.textContent=shown?'显示剩余未勾选答案':'批改并显示答案';
+        if(status)status.textContent=(roundDone?'第'+r+'轮已标记核对完成；仍可查看答案。 ':'')+
+          '已勾选掌握 '+mastered+' 题，已显示 '+shown+' 道答案；点击后显示其余未掌握题目的参考答案。';
+      }
     }
+    const canFinish=completion.allComplete&&roundEvaluated(part,r);
+    document.querySelectorAll('button[data-finish="'+part+'"]').forEach(finishButton=>{
+      const finishRound=Number(finishButton.dataset.round);
+      const alreadyDone=!!state.done[part+'-'+finishRound];
+      finishButton.disabled=!alreadyDone&&(finishRound!==r||!canFinish);
+      finishButton.title=finishButton.disabled
+        ?(finishRound!==r?'请先切换到第'+finishRound+'轮。':'请完成全部作答并批改后，再标记本轮核对完成。'):'';
+    });
   }
+  if(cleaned)save();
 }
 window.gradeRound=function(part){
   const r=Number(state.rounds[part]||1);
+  const completion=roundCompletion(part);
+  if(!completion.allComplete){
+    renderGrades();
+    const status=$('grade-status-'+part);
+    if(status)status.textContent='暂不能批改：已完成 '+completion.complete+'/'+completion.total+' 道需作答题，还差 '+completion.missingQuestions+' 道。请先完成全部作答。';
+    return;
+  }
   let revealed=0;
   const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
   document.querySelectorAll(selector).forEach(card=>{
@@ -357,7 +402,7 @@ window.gradeRound=function(part){
   renderGrades();
   const status=$('grade-status-'+part);
   if(status)status.textContent=revealed
-    ?'第'+r+'轮已显示 '+revealed+' 道未勾选题目的参考答案。'
+    ?'第'+r+'轮已显示 '+revealed+' 道未勾选题目的参考答案。答案已按轮次保存，切换轮次后再切回来仍会保留。'
     :'本轮没有需要显示的题目答案。';
 }
 function render(){renderGrades();for(const part of ['m','s']){const ticks=Object.entries(state.ticks).filter(([k,v])=>v && k.startsWith(part+'-')).length;const el=$('tickCount-'+part);if(el)el.textContent=ticks+'/57 次打勾';for(let r=1;r<=3;r++){let num=0;for(let i=1;i<=19;i++){if(state.ticks[part+'-'+i+'-'+r])num++;}let out=$('round-'+part+'-'+r);if(out)out.textContent='第'+r+'轮 '+num+'/19 已掌握'+(state.done[part+'-'+r]?' · 已核对':'');}const doneEl=$('finished-'+part);if(doneEl)doneEl.textContent='已完成轮次：'+([1,2,3].filter(r=>state.done[part+'-'+r]).join('、')||'暂无');}if(active==='r')report();}
@@ -373,8 +418,26 @@ function download(){const blob=new Blob([exportText()],{type:'application/json;c
 function test(){try{const v='t-'+Date.now();localStorage.setItem('son-science-test',v);const ok=localStorage.getItem('son-science-test')===v;localStorage.removeItem('son-science-test');announce(ok?'当前窗口可写入本机存储；但仍需关闭并从同一网址重新进入核验，建议定期备份。':'当前钉钉预览不允许保存。请改用 HTTPS 固定网址打开。',!ok);}catch(e){announce('当前窗口禁止本机保存，请使用固定 HTTPS 网址并备份。',true);}}
 async function copyText(){const el=$('backuptext');if(!el.value)backup();el.focus();el.select();try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(el.value);}else if(!document.execCommand('copy')){throw Error('copy failed');}announce('已复制备份文本，去钉钉在线文档粘贴保存。');}catch(e){announce('自动复制受限。请长按已选中的文本，选择“拷贝”，再粘贴到钉钉在线文档。',true);}}
 document.querySelectorAll('button.tab').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.panel)));
-document.querySelectorAll('button[data-finish]').forEach(b=>b.addEventListener('click',()=>{let part=b.dataset.finish;let r=Number(b.dataset.round);const k=part+'-'+r;state.done[k]=!state.done[k];state.dates[k]=new Date().toLocaleDateString('zh-CN');save();render();announce(state.done[k]?'第'+r+'轮已标记为核对完成；没打勾的题目保留为未掌握／未答对。':'已撤销本轮完成标记。');}));
-document.querySelectorAll('[data-id]').forEach(el=>{el.addEventListener('input',()=>{state.values[valueKey(el)]=el.value;save();});});
+document.querySelectorAll('button[data-finish]').forEach(b=>b.addEventListener('click',()=>{
+  let part=b.dataset.finish,r=Number(b.dataset.round),k=part+'-'+r;
+  if(!state.done[k]){
+    if(r!==Number(state.rounds[part]||1)){
+      announce('请先切换到第'+r+'轮，再完成本轮核对。',true);
+      return;
+    }
+    const completion=roundCompletion(part);
+    if(!completion.allComplete||!roundEvaluated(part,r)){
+      renderGrades();
+      announce('请先完成本轮全部作答，再批改并核对答案，最后才能标记完成。',true);
+      return;
+    }
+  }
+  state.done[k]=!state.done[k];
+  state.dates[k]=new Date().toLocaleDateString('zh-CN');
+  save();render();
+  announce(state.done[k]?'第'+r+'轮已标记为核对完成；没打勾的题目保留为未掌握／未答对。':'已撤销本轮完成标记。');
+}));
+document.querySelectorAll('[data-id]').forEach(el=>{el.addEventListener('input',()=>{state.values[valueKey(el)]=el.value;save();renderGrades();});});
 document.querySelectorAll('select[data-round-select]').forEach(el=>{el.addEventListener('change',()=>{state.rounds[el.dataset.roundSelect]=Number(el.value);populate();save();announce('已切换到第'+el.value+'轮：这一轮的答题输入是独立的，不会显示上一轮填写的答案。');});});
 document.querySelectorAll('input[data-tick]').forEach(el=>{el.addEventListener('change',()=>{state.ticks[el.dataset.tick]=el.checked;save();render();});});
 $('student').addEventListener('input',e=>{state.name=e.target.value;save();});
@@ -765,12 +828,17 @@ async function restoreCloud() {
         const number = Number(String(row.correct_char || "").split("-").pop());
         if (!number) return;
         const tickKey = part.key + "-" + number + "-" + roundNumber;
+        const parsed = parseGivenAnswer(row.given_answer);
+        const restoredFields = Object.values(parsed.fields || {}).map(value => String(value == null ? "" : value).trim());
+        const restoredAnswerComplete = restoredFields.length > 0 && restoredFields.every(Boolean);
         if (CONFIG.grade === 4) {
           state.ticks[tickKey] = !!row.is_correct;
-          // Restored completed rounds should also show answers for questions not marked as mastered.
-          if (!row.is_correct) state.graded[tickKey] = true;
-        } else state.tick[tickKey] = !!row.is_correct;
-        const parsed = parseGivenAnswer(row.given_answer);
+          if (!row.is_correct && restoredAnswerComplete) state.graded[tickKey] = true;
+        } else {
+          state.tick[tickKey] = !!row.is_correct;
+          state.graded = state.graded || {};
+          if (!row.is_correct && restoredAnswerComplete) state.graded[tickKey] = true;
+        }
         Object.keys(parsed.fields).forEach((fieldName) => {
           const value = String(parsed.fields[fieldName] == null ? "" : parsed.fields[fieldName]);
           if (CONFIG.grade === 4) {
