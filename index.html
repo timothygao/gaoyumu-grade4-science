@@ -333,7 +333,7 @@ function renderGrades(){
     }else{
       button.disabled=false;
       button.textContent=roundDone
-        ?'显示未掌握题目的答案'
+        ?'批改并显示答案（未掌握题）'
         :(shown?'显示剩余未勾选答案':'批改并显示答案');
       if(status)status.textContent=roundDone
         ?'第'+r+'轮已经完成核对；仍可点击查看未掌握题目的参考答案。'
