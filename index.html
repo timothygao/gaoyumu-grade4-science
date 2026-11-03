@@ -324,24 +324,25 @@ function renderGrades(){
     const button=$('grade-'+part);
     const status=$('grade-status-'+part);
     if(!button)continue;
-    if(roundDone){
+    if(available===0){
       button.disabled=true;
-      button.textContent='本轮已核对，批改已锁定';
-      if(status)status.textContent='第'+r+'轮已完成核对。';
-    }else if(available===0){
-      button.disabled=true;
-      button.textContent=shown?'本轮答案已全部显示':'本轮已全部勾选掌握';
-      if(status)status.textContent=shown?'已显示 '+shown+' 道未掌握题目的参考答案。':'本轮19题均已勾选掌握。';
+      button.textContent=shown?'本轮未掌握题目的答案已显示':'本轮已全部勾选掌握';
+      if(status)status.textContent=shown
+        ?'第'+r+'轮已显示 '+shown+' 道未掌握题目的参考答案。'
+        :'第'+r+'轮19题均已勾选掌握。';
     }else{
       button.disabled=false;
-      button.textContent=shown?'显示剩余未勾选答案':'批改并显示答案';
-      if(status)status.textContent='第'+r+'轮：已勾选 '+mastered+' 题，已显示 '+shown+' 道答案，还可批改 '+available+' 题。';
+      button.textContent=roundDone
+        ?'显示未掌握题目的答案'
+        :(shown?'显示剩余未勾选答案':'批改并显示答案');
+      if(status)status.textContent=roundDone
+        ?'第'+r+'轮已经完成核对；仍可点击查看未掌握题目的参考答案。'
+        :'第'+r+'轮：已勾选 '+mastered+' 题，已显示 '+shown+' 道答案，还可批改 '+available+' 题。';
     }
   }
 }
 window.gradeRound=function(part){
   const r=Number(state.rounds[part]||1);
-  if(state.done[part+'-'+r]){renderGrades();return;}
   let revealed=0;
   const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
   document.querySelectorAll(selector).forEach(card=>{
