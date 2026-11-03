@@ -748,6 +748,7 @@ async function restoreCloud() {
       state.values = state.values || {};
       state.ticks = state.ticks || {};
       state.done = state.done || {};
+      state.graded = state.graded || {};
     } else {
       state.draft = state.draft || {};
       state.tick = state.tick || {};
@@ -763,8 +764,11 @@ async function restoreCloud() {
         const number = Number(String(row.correct_char || "").split("-").pop());
         if (!number) return;
         const tickKey = part.key + "-" + number + "-" + roundNumber;
-        if (CONFIG.grade === 4) state.ticks[tickKey] = !!row.is_correct;
-        else state.tick[tickKey] = !!row.is_correct;
+        if (CONFIG.grade === 4) {
+          state.ticks[tickKey] = !!row.is_correct;
+          // Restored completed rounds should also show answers for questions not marked as mastered.
+          if (!row.is_correct) state.graded[tickKey] = true;
+        } else state.tick[tickKey] = !!row.is_correct;
         const parsed = parseGivenAnswer(row.given_answer);
         Object.keys(parsed.fields).forEach((fieldName) => {
           const value = String(parsed.fields[fieldName] == null ? "" : parsed.fields[fieldName]);
