@@ -26,6 +26,17 @@
 .cloud-report-row small{display:block;color:#6d8293;margin-top:3px;overflow-wrap:anywhere}
 @media(max-width:600px){.cloud-archive{padding:13px}.cloud-actions button{flex:1 1 calc(50% - 8px)}.cloud-head h3{font-size:16px}}
 
+
+.grade-btn{background:#edf5ff;border:1px solid #9dbde0;color:#174c7c;font-weight:800;padding:8px 14px;border-radius:9px}
+.grade-btn:hover:not(:disabled){background:#dcecff}
+.grade-btn:disabled{opacity:.58;cursor:not-allowed;background:#eef1f4;color:#718096;border-color:#d3dbe3}
+.grade-status{font-size:12px;color:var(--muted);align-self:center}
+.grade-answer{margin-top:11px;padding:11px 13px;border-left:4px solid var(--green);border-radius:8px;background:#eff8f5;color:#28534d;font-size:14px;line-height:1.8}
+.grade-answer[hidden]{display:none!important}
+.grade-answer .answer-content{margin-top:5px}
+.grade-answer .answer-note{margin:7px 0 0}
+.key{display:none!important}
+@media print{.grade-btn,.grade-status,.grade-answer{display:none!important}}
 </style></head><body>
 <header class="top"><div class="container"><span class="ribbon">小学四年级科学 · 第四单元</span><h1>呼吸与消化 · 科学闯关</h1><p>19组知识点 · 独立填空卷 + 进阶情境卷 · 三轮学习追踪</p></div></header>
 <main class="container main"><nav class="nav no-print" aria-label="学习模式"><button class="tab active" data-panel="m">✏️ A卷 · 基础填空</button><button class="tab" data-panel="s">🧠 B卷 · 情境挑战</button><button class="tab" data-panel="r">📊 诊断与备份</button></nav>
@@ -66,7 +77,7 @@
   <div id="cloudMessage" class="cloud-message" role="status">正在建立匿名云端身份…</div>
   <div id="cloudReport" class="cloud-report" hidden></div>
 </section>
-<section id="memoryPanel" class="panel active"><div class="box"><h2>📝 A卷：基础知识填空</h2><p>以原知识单第1—19点为基础，覆盖呼吸路径、肺活量、牙齿、消化器官等。第12、13题保留表格。</p><div class="round-bar no-print"><label><strong>当前填写：</strong>第 <select data-round-select="m" aria-label="A卷当前轮次"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> 轮</label><span class="small">每轮有独立的空白答题框；不会看到上轮填写的内容。</span></div><div class="statsbar no-print"><b id="tickCount-m">0/57 次打勾</b><div class="progress-track"><div class="progress-fill" id="progress-m"></div></div></div><div class="round-bar no-print"><span id="round-m-1">第1轮 0/19 已掌握</span><span id="round-m-2">第2轮 0/19 已掌握</span><span id="round-m-3">第3轮 0/19 已掌握</span></div><p class="small">下面每题有第1次、第2次、第3次勾选。做完一轮后在末尾标记核对完成。</p></div><article id="m1" class="q-card memory-card" data-q="1" data-part="m">
+<section id="memoryPanel" class="panel active"><div class="box"><h2>📝 A卷：基础知识填空</h2><p>以原知识单第1—19点为基础，覆盖呼吸路径、肺活量、牙齿、消化器官等。第12、13题保留表格。</p><div class="round-bar no-print"><label><strong>当前填写：</strong>第 <select data-round-select="m" aria-label="A卷当前轮次"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> 轮</label><button type="button" class="grade-btn" id="grade-m" onclick="gradeRound('m')">批改并显示答案</button><span class="grade-status" id="grade-status-m" aria-live="polite"></span><span class="small">每轮有独立的空白答题框；不会看到上轮填写的内容。</span></div><div class="statsbar no-print"><b id="tickCount-m">0/57 次打勾</b><div class="progress-track"><div class="progress-fill" id="progress-m"></div></div></div><div class="round-bar no-print"><span id="round-m-1">第1轮 0/19 已掌握</span><span id="round-m-2">第2轮 0/19 已掌握</span><span id="round-m-3">第3轮 0/19 已掌握</span></div><p class="small">完成当前轮后，先点“批改并显示答案”；未勾选题目会显示参考答案，已勾选掌握的题目不会显示。确认后，再在末尾标记本轮核对完成。</p></div><article id="m1" class="q-card memory-card" data-q="1" data-part="m">
 <div class="card-head"><span class="qid">01</span><h3>1．呼吸器官</h3><span class="q-badge">知识填空</span></div>
 <div class="body-copy"><p class="line">鱼是用<input aria-label="第1题第1空" autocomplete="off" class="answer-input" data-id="m-1-1" placeholder="填写答案" spellcheck="false" type="text"/>呼吸的，蚕是用<input aria-label="第1题第2空" autocomplete="off" class="answer-input" data-id="m-1-2" placeholder="填写答案" spellcheck="false" type="text"/>呼吸的，人是用<input aria-label="第1题第3空" autocomplete="off" class="answer-input" data-id="m-1-3" placeholder="填写答案" spellcheck="false" type="text"/>呼吸的。</p></div>
 <div class="eval"><div class="marks-label">这题独立答对了，才打勾：</div><div class="checks"><label class="check-item"><input type="checkbox" data-tick="m-1-1" aria-label="第1题第1次掌握"/><span>第1次</span></label><label class="check-item"><input type="checkbox" data-tick="m-1-2" aria-label="第1题第2次掌握"/><span>第2次</span></label><label class="check-item"><input type="checkbox" data-tick="m-1-3" aria-label="第1题第3次掌握"/><span>第3次</span></label></div></div>
@@ -162,7 +173,7 @@
 <div class="eval"><div class="marks-label">这题独立答对了，才打勾：</div><div class="checks"><label class="check-item"><input type="checkbox" data-tick="m-19-1" aria-label="第19题第1次掌握"/><span>第1次</span></label><label class="check-item"><input type="checkbox" data-tick="m-19-2" aria-label="第19题第2次掌握"/><span>第2次</span></label><label class="check-item"><input type="checkbox" data-tick="m-19-3" aria-label="第19题第3次掌握"/><span>第3次</span></label></div></div>
 <details class="key"><summary>答完再看 · 参考答案</summary><div class="answer-content"><p>深呼吸；氧气供应；情绪。</p></div><p class="answer-note">情境题只要科学道理正确、解释合理即可，不要求一字不差。</p></details></article>
 <div class="box no-print"><h3>A卷 · 本轮核对完成</h3><div class="round-bar"><button data-finish="m" data-round="1">第1轮完成／撤销</button><button data-finish="m" data-round="2">第2轮完成／撤销</button><button data-finish="m" data-round="3">第3轮完成／撤销</button></div><p id="finished-m" class="small"></p></div></section>
-<section id="scenePanel" class="panel"><div class="box"><h2>🔍 B卷：独立生活情境挑战</h2><p>与基础卷完全分开，题干避免直接给出关键答案。需要自己判断、说明原因，有些题目还需要结合多个知识点。</p><p class="small">建议先做A卷，再隔一段时间做B卷；作答时不要切回A卷查看。</p><div class="round-bar no-print"><label><strong>当前填写：</strong>第 <select data-round-select="s" aria-label="B卷当前轮次"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> 轮</label><span class="small">切换轮次后，答题框互相独立。</span></div><div class="round-bar no-print"><span id="round-s-1">第1轮 0/19 已掌握</span><span id="round-s-2">第2轮 0/19 已掌握</span><span id="round-s-3">第3轮 0/19 已掌握</span></div></div><article id="s1" class="q-card scene-card" data-q="1" data-part="s">
+<section id="scenePanel" class="panel"><div class="box"><h2>🔍 B卷：独立生活情境挑战</h2><p>与基础卷完全分开，题干避免直接给出关键答案。需要自己判断、说明原因，有些题目还需要结合多个知识点。</p><p class="small">建议先做A卷，再隔一段时间做B卷；作答时不要切回A卷查看。完成当前轮后，先批改并查看未勾选题目的参考答案，再标记核对完成。</p><div class="round-bar no-print"><label><strong>当前填写：</strong>第 <select data-round-select="s" aria-label="B卷当前轮次"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> 轮</label><button type="button" class="grade-btn" id="grade-s" onclick="gradeRound('s')">批改并显示答案</button><span class="grade-status" id="grade-status-s" aria-live="polite"></span><span class="small">切换轮次后，答题框互相独立。</span></div><div class="round-bar no-print"><span id="round-s-1">第1轮 0/19 已掌握</span><span id="round-s-2">第2轮 0/19 已掌握</span><span id="round-s-3">第3轮 0/19 已掌握</span></div></div><article id="s1" class="q-card scene-card" data-q="1" data-part="s">
 <div class="card-head"><span class="qid">01</span><h3>水族馆的秘密</h3><span class="q-badge">情境挑战</span></div>
 <div class="body-copy"><p class="scene-text">你参观水族馆时发现，水里的鱼、桑叶上的蚕和岸边的人都需要呼吸。请分别说明三者依靠什么器官呼吸，并解释为什么它们不能简单交换呼吸器官。</p><textarea data-id="s-1-response" class="answer-area" placeholder="用自己的话回答。先独立思考，写完后再核对。"></textarea></div>
 <div class="eval"><div class="marks-label">这题独立答对了，才打勾：</div><div class="checks"><label class="check-item"><input type="checkbox" data-tick="s-1-1" aria-label="第1题第1次掌握"/><span>第1次</span></label><label class="check-item"><input type="checkbox" data-tick="s-1-2" aria-label="第1题第2次掌握"/><span>第2次</span></label><label class="check-item"><input type="checkbox" data-tick="s-1-3" aria-label="第1题第3次掌握"/><span>第3次</span></label></div></div>
@@ -263,7 +274,7 @@
 (function(){
 'use strict';
 const KEY='son-science-breath-digest-v1';
-const empty=()=>({version:1,values:{},ticks:{},done:{},name:'',dates:{},rounds:{m:1,s:1}});
+const empty=()=>({version:1,values:{},ticks:{},done:{},graded:{},name:'',dates:{},rounds:{m:1,s:1}});
 let state=empty(), storageOk=false;
 try {const s=localStorage.getItem(KEY); if(s){const p=JSON.parse(s); if(p&&p.version===1){state={...empty(),...p,rounds:{...empty().rounds,...(p.rounds||{})}};}}} catch(e){}
 let active='m';
@@ -273,7 +284,82 @@ function announce(msg,error=false){const el=$('statusMsg');el.textContent=msg;el
 function tab(part){active=part;for(const [name,id] of [['m','memoryPanel'],['s','scenePanel'],['r','reportPanel']]) $(id).classList.toggle('active',name===part);document.querySelectorAll('button.tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.panel===part));if(part==='r')report();window.scrollTo({top:0,behavior:'instant'});}
 function valueKey(el){const part=el.closest('.q-card').dataset.part;return part+'-'+(state.rounds[part]||1)+'-'+el.dataset.id;}
 function populate(){document.querySelectorAll('[data-id]').forEach(el=>{el.value=state.values[valueKey(el)]||'';});document.querySelectorAll('input[data-tick]').forEach(el=>el.checked=!!state.ticks[el.dataset.tick]);if($('student'))$('student').value=state.name||'';document.querySelectorAll('select[data-round-select]').forEach(el=>el.value=state.rounds[el.dataset.roundSelect]||1);for(const k in state.dates){const el=$('date-'+k);if(el)el.value=state.dates[k];}render();}
-function render(){for(const part of ['m','s']){const ticks=Object.entries(state.ticks).filter(([k,v])=>v && k.startsWith(part+'-')).length;const el=$('tickCount-'+part);if(el)el.textContent=ticks+'/57 次打勾';for(let r=1;r<=3;r++){let num=0;for(let i=1;i<=19;i++){if(state.ticks[part+'-'+i+'-'+r])num++;}let out=$('round-'+part+'-'+r);if(out)out.textContent='第'+r+'轮 '+num+'/19 已掌握'+(state.done[part+'-'+r]?' · 已核对':'');}const doneEl=$('finished-'+part);if(doneEl)doneEl.textContent='已完成轮次：'+([1,2,3].filter(r=>state.done[part+'-'+r]).join('、')||'暂无');}if(active==='r')report();}
+
+function prepareAnswerBlocks(){
+  document.querySelectorAll('.q-card').forEach(card=>{
+    const source=card.querySelector('details.key');
+    const content=source&&source.querySelector('.answer-content');
+    if(!content)return;
+    const answer=document.createElement('div');
+    answer.className='grade-answer';
+    answer.hidden=true;
+    const heading=document.createElement('strong');
+    heading.textContent='参考答案：';
+    answer.appendChild(heading);
+    answer.appendChild(content.cloneNode(true));
+    const note=source.querySelector('.answer-note');
+    if(note)answer.appendChild(note.cloneNode(true));
+    const evalBlock=card.querySelector('.eval');
+    if(evalBlock)evalBlock.insertAdjacentElement('afterend',answer);
+    source.hidden=true;
+  });
+}
+function renderGrades(){
+  for(const part of ['m','s']){
+    const r=Number(state.rounds[part]||1);
+    const roundDone=!!state.done[part+'-'+r];
+    let shown=0,available=0,mastered=0;
+    const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
+    document.querySelectorAll(selector).forEach(card=>{
+      const number=Number(card.dataset.q);
+      const key=part+'-'+number+'-'+r;
+      const isMastered=!!state.ticks[key];
+      const isGraded=!!state.graded[key];
+      const answer=card.querySelector('.grade-answer');
+      if(answer)answer.hidden=!(isGraded&&!isMastered);
+      if(isMastered)mastered++;
+      else if(isGraded)shown++;
+      else available++;
+    });
+    const button=$('grade-'+part);
+    const status=$('grade-status-'+part);
+    if(!button)continue;
+    if(roundDone){
+      button.disabled=true;
+      button.textContent='本轮已核对，批改已锁定';
+      if(status)status.textContent='第'+r+'轮已完成核对。';
+    }else if(available===0){
+      button.disabled=true;
+      button.textContent=shown?'本轮答案已全部显示':'本轮已全部勾选掌握';
+      if(status)status.textContent=shown?'已显示 '+shown+' 道未掌握题目的参考答案。':'本轮19题均已勾选掌握。';
+    }else{
+      button.disabled=false;
+      button.textContent=shown?'显示剩余未勾选答案':'批改并显示答案';
+      if(status)status.textContent='第'+r+'轮：已勾选 '+mastered+' 题，已显示 '+shown+' 道答案，还可批改 '+available+' 题。';
+    }
+  }
+}
+window.gradeRound=function(part){
+  const r=Number(state.rounds[part]||1);
+  if(state.done[part+'-'+r]){renderGrades();return;}
+  let revealed=0;
+  const selector=part==='m'?'#memoryPanel .q-card':'#scenePanel .q-card';
+  document.querySelectorAll(selector).forEach(card=>{
+    const number=Number(card.dataset.q);
+    const key=part+'-'+number+'-'+r;
+    if(state.ticks[key]||state.graded[key])return;
+    if(!card.querySelector('.grade-answer'))return;
+    state.graded[key]=true;
+    revealed++;
+  });
+  save();
+  renderGrades();
+  const status=$('grade-status-'+part);
+  if(status)status.textContent=revealed
+    ?'第'+r+'轮已显示 '+revealed+' 道未勾选题目的参考答案。'
+    :'本轮没有需要显示的题目答案。';
+}
+function render(){renderGrades();for(const part of ['m','s']){const ticks=Object.entries(state.ticks).filter(([k,v])=>v && k.startsWith(part+'-')).length;const el=$('tickCount-'+part);if(el)el.textContent=ticks+'/57 次打勾';for(let r=1;r<=3;r++){let num=0;for(let i=1;i<=19;i++){if(state.ticks[part+'-'+i+'-'+r])num++;}let out=$('round-'+part+'-'+r);if(out)out.textContent='第'+r+'轮 '+num+'/19 已掌握'+(state.done[part+'-'+r]?' · 已核对':'');}const doneEl=$('finished-'+part);if(doneEl)doneEl.textContent='已完成轮次：'+([1,2,3].filter(r=>state.done[part+'-'+r]).join('、')||'暂无');}if(active==='r')report();}
 function report(){let html='';for(const part of ['m','s']){const label=part==='m'?'基础填空卷':'生活情境卷';let categories={first:[],second:[],third:[],none:[],unstable:[]};for(let i=1;i<=19;i++){let v=[1,2,3].map(r=>!!state.ticks[part+'-'+i+'-'+r]);if(v[0])categories.first.push(i);else if(v[1])categories.second.push(i);else if(v[2])categories.third.push(i);else categories.none.push(i);if(v[0]&&!v[2]&&state.done[part+'-3'])categories.unstable.push(i);}
 const done3=!!state.done[part+'-3'];const r3=[1,2,3].map(r=>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19].filter(i=>state.ticks[part+'-'+i+'-'+r]).length);
 const total=19;const fmt=(a)=>a.length?a.map(i=>'第'+i+'题').join('、'):'无';html+=`<div class="box"><h3>${label}</h3><div class="summary-grid"><div class="metric"><b>${r3[0]}/${total}</b><span>第1轮答对</span></div><div class="metric"><b>${r3[1]}/${total}</b><span>第2轮答对</span></div><div class="metric"><b>${r3[2]}/${total}</b><span>第3轮答对</span></div></div><p class="small">${done3?'第3轮已核对':'第3轮尚未标记完成。未勾选可能表示未作答，请不要直接认定不会。'}</p><div class="reviewlist"><div class="review-col"><h4>第一次就会（${categories.first.length}题）</h4><p>${fmt(categories.first)}</p></div><div class="review-col"><h4>第二次才会（${categories.second.length}题）</h4><p>${fmt(categories.second)}</p></div><div class="review-col"><h4>第三次才会（${categories.third.length}题）</h4><p>${fmt(categories.third)}</p></div><div class="review-col warn"><h4>${done3?'三轮均未勾选':'暂未出现答对记录'}（${categories.none.length}题）</h4><p>${fmt(categories.none)}</p></div></div>${done3?'<p class="small">注意：第一轮会、第三轮不会的题也值得重练：'+fmt(categories.unstable)+'</p>':''}</div>`;}
@@ -294,7 +380,7 @@ $('student').addEventListener('input',e=>{state.name=e.target.value;save();});
 $('testSave').addEventListener('click',test);$('doBackup').addEventListener('click',backup);$('copyBackup').addEventListener('click',copyText);$('restoreBackup').addEventListener('click',restore);$('downloadBackup').addEventListener('click',download);$('printNow').addEventListener('click',()=>window.print());$('backupOpen').addEventListener('click',()=>{tab('r');backup();$('backuptext').scrollIntoView({block:'center'});});
 $('onlyReview').addEventListener('change',e=>{document.querySelectorAll('.q-card').forEach(x=>{const p=x.dataset.part;const i=x.dataset.q;const round=Number($('focus-round').value);x.hidden=e.target.checked && !!state.ticks[p+'-'+i+'-'+round];});});
 $('focus-round').addEventListener('change',()=>{$('onlyReview').dispatchEvent(new Event('change'));});
-populate();tab('m');test();
+prepareAnswerBlocks();populate();tab('m');test();
 })();
 </script><script type="module">
 
