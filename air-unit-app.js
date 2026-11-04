@@ -157,7 +157,7 @@ function finishRound(){
  save();render();
  if(unlocked)syncPending();
 }
-function changeAnswer(id,v){const d=rd();if(d.graded||d.done)return;d.answers[id]=v;if(short(v))d.skipped[id]=false;if(!short(v))d.ticks[id]=false;save();updateActionButtons();}
+function changeAnswer(id,v){const d=rd();if(d.graded||d.done)return;d.answers[id]=v;if(short(v))d.skipped[id]=false;if(!short(v))d.ticks[id]=false;save();const checkbox=document.querySelector('[data-tick="'+id+'"]');if(checkbox){checkbox.disabled=!short(v);checkbox.checked=!!d.ticks[id];}updateActionButtons();}
 function updateActionButtons(){const t=totals();$("grade").disabled=rd().graded||rd().done||t.ready<t.want;$("headline-count").textContent=t.want;$("now-action").textContent=friendlyNext();}
 function changeTick(id,on){const d=rd();if(d.graded||d.done)return;if(on&&!short(d.answers[id])){alert("请先独立作答，再勾选掌握。");return;}d.ticks[id]=on;save();render();}
 function toggleSkip(id){const d=rd();if(d.graded||d.done)return;d.skipped[id]=!d.skipped[id];if(d.skipped[id]){d.answers[id]="";d.ticks[id]=false;}save();render();}
