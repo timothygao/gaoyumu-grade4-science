@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>三年级下册·250生字闯关复习卷</title>
+<style>
+  :root{
+    --ink:#243247;
+    --muted:#66758a;
+    --paper:#fffdf8;
+    --line:#dce7ef;
+    --blue:#2d77b9;
+    --blue-soft:#eef7ff;
+    --green:#267054;
+    --green-soft:#effaf4;
+    --gold:#b66a08;
+    --gold-soft:#fff6df;
+    --red:#b43b3b;
+    --red-soft:#fff0f0;
+    --shadow:0 12px 28px rgba(37,62,92,.10);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    color:var(--ink);
+    background:linear-gradient(180deg,#f3f9fd 0,#f6f3ec 55%,#f3f9fd 100%);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif;
+    line-height:1.68;
+  }
+  .page{max-width:1100px;margin:0 auto;padding:28px 18px 56px}
+  .hero{
+    background:linear-gradient(135deg,#e9f6ff 0%,#fffdf8 65%,#fff1d2 100%);
+    border:1px solid #d9ebf5;border-radius:22px;padding:28px 28px 24px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden
+  }
+  .hero:after{content:"字";position:absolute;right:26px;top:-14px;font-size:130px;font-weight:800;color:rgba(45,119,185,.08);line-height:1}
+  h1{font-size:29px;line-height:1.3;margin:0 0 8px;letter-spacing:.5px;position:relative;z-index:1}
+  .sub{margin:0;color:var(--muted);position:relative;z-index:1}
+  .badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+  .badge{font-size:13px;padding:4px 11px;border-radius:999px;border:1px solid #cce2f1;background:#fff;color:#2d77b9}
+  .notice{
+    margin-top:18px;padding:13px 15px;border-left:4px solid var(--gold);
+    background:var(--gold-soft);border-radius:10px;font-size:14px
+  }
+  .setup{display:grid;grid-template-columns:1fr auto;gap:12px;margin-top:18px;align-items:end}
+  label{font-weight:700;font-size:14px}
+  input[type="text"]{width:100%;border:1.6px solid #bcd2e2;border-radius:10px;padding:10px 12px;font-size:16px;outline:none;background:#fff}
+  input[type="text"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,119,185,.12)}
+  button{border:0;border-radius:10px;padding:11px 16px;font-size:15px;font-weight:700;cursor:pointer;transition:.18s transform,.18s box-shadow,.18s background}
+  button:hover{transform:translateY(-1px);box-shadow:0 8px 16px rgba(37,62,92,.14)}
+  .primary{background:var(--blue);color:#fff}
+  .secondary{background:#eaf5fc;color:#195a92}
+  .ghost{background:#fff;border:1px solid #c8ddeb;color:#24537d}
+  .statusbar{
+    margin:24px 0 12px;padding:13px 16px;background:#fff;border:1px solid #dce9f0;border-radius:12px;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 4px 13px rgba(37,62,92,.05)
+  }
+  .round-title{font-weight:800}
+  .progress-wrap{display:flex;align-items:center;gap:10px;min-width:260px}
+  .progress{height:10px;border-radius:999px;background:#eaf0f5;overflow:hidden;flex:1}
+  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#42a5d8,#2d77b9);transition:width .25s}
+  .progress-text{font-size:13px;color:var(--muted);white-space:nowrap}
+  .section-title{margin:30px 0 12px;display:flex;align-items:center;gap:9px}
+  .section-title h2{font-size:20px;margin:0}
+  .section-title span{font-size:13px;background:#eaf5fc;color:#24537d;padding:3px 9px;border-radius:999px}
+  .section-note{margin:-5px 0 14px;color:var(--muted);font-size:14px}
+  .question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .question{
+    background:var(--paper);border:1px solid #dfe9ee;border-radius:15px;padding:17px 17px 15px;
+    box-shadow:0 4px 13px rgba(37,62,92,.055);position:relative
+  }
+  .question.wide{grid-column:1 / -1}
+  .q-number{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:50%;background:#eaf5fc;color:#246298;font-size:13px;font-weight:800;margin-right:8px;vertical-align:middle}
+  .q-kind{font-size:12px;color:#7b8ca1}
+  .prompt{font-size:16px;margin:11px 0 12px;min-height:54px}
+  .blank-word{font-size:20px;letter-spacing:4px;color:#1f4e75;font-weight:800;margin:5px 0 9px}
+  .pinyin{display:inline-block;margin:2px 0 8px;padding:3px 9px;border-radius:999px;background:#f3f8fb;color:#5f788f;font-size:13px;letter-spacing:.8px;font-family:Arial,"PingFang SC",sans-serif}
+  .onechar{width:58px!important;display:inline-block;text-align:center;font-size:21px!important;font-weight:700;padding:7px!important;margin-left:6px;vertical-align:middle}
+  .options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .option{display:flex;gap:8px;align-items:center;border:1px solid #d5e2eb;border-radius:9px;padding:8px 9px;background:#fff;font-size:14px;cursor:pointer}
+  .option:hover{background:#f5fbff}
+  .option input{accent-color:var(--blue)}
+  .feedback{display:none;margin-top:12px;padding:9px 11px;border-radius:9px;font-size:14px;line-height:1.55}
+  .question.correct{border-color:#a8d7bd;background:#fbfffc}
+  .question.correct .feedback{display:block;background:var(--green-soft);color:#1b623e}
+  .question.wrong{border-color:#e8b8b8;background:#fffdfd}
+  .question.wrong .feedback{display:block;background:var(--red-soft);color:#963535}
+  .submitbar{position:sticky;bottom:14px;margin-top:26px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border:1px solid #d5e7f0;border-radius:15px;padding:12px;box-shadow:var(--shadow);display:flex;gap:10px;justify-content:center;z-index:10}
+  .report{display:none;margin-top:26px;background:#fff;border:1px solid #d5e7f0;border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .report-head{padding:22px 24px;background:linear-gradient(135deg,#e9f7ff,#f8fffb)}
+  .report-head h2{margin:0 0 6px;font-size:23px}
+  .score{font-size:37px;font-weight:900;color:#1f6da7;line-height:1.1;margin:6px 0}
+  .report-body{padding:20px 24px}
+  .level{display:inline-block;border-radius:999px;padding:4px 11px;background:#eef7ff;color:#245d8e;font-size:13px;font-weight:700}
+  .mistakes{padding:14px;border-radius:12px;background:#fff8eb;border:1px solid #f0d9a5;margin-top:16px}
+  .mistakes h3{font-size:16px;margin:0 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1px solid #efc873;background:#fffdf5;color:#885009;border-radius:999px;padding:4px 9px;font-size:14px}
+  .study-box{margin-top:15px;padding:14px;border-radius:12px;background:#effaf4;border:1px solid #bfe4ce}
+  .study-box strong{color:#1d6c43}
+  .vault{display:none;margin-top:22px;background:#fff;border:1px solid #d5e7f0;border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .vault-head{padding:17px 20px;background:#f6fbff;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .vault-head h2{font-size:20px;margin:0}
+  .vault-body{padding:17px 20px}
+  .lesson-group{margin-bottom:16px;padding-bottom:14px;border-bottom:1px dashed #dae6ed}
+  .lesson-group:last-child{border-bottom:none}
+  .lesson-name{font-size:14px;color:#47617b;font-weight:800;margin-bottom:8px}
+  .char-btn{width:34px;height:34px;padding:0;margin:3px;border-radius:8px;background:#fff;border:1px solid #d6e4ec;color:#25415c;font-size:17px}
+  .char-btn:hover{background:#eaf5fc;border-color:#9bc7e3}
+  .word-popup{margin-top:13px;padding:12px 14px;border-radius:10px;background:#fff8ea;border:1px solid #f1d7a4;font-size:15px;display:none}
+  .footer-note{margin-top:22px;text-align:center;color:#7890a5;font-size:12px}
+  .hidden{display:none!important}
+  @media (max-width:760px){
+    .page{padding:16px 10px 45px}
+    .hero{padding:22px 18px}
+    h1{font-size:25px}
+    .setup{grid-template-columns:1fr}
+    .statusbar{align-items:flex-start;flex-direction:column}
+    .progress-wrap{width:100%;min-width:0}
+    .question-grid{grid-template-columns:1fr}
+    .question.wide{grid-column:auto}
+    .options{grid-template-columns:1fr}
+    .submitbar{bottom:8px;flex-direction:column}
+    .submitbar button{width:100%}
+  }
+  @media print{
+    body{background:#fff}
+    .hero,.statusbar,.question,.report,.vault{box-shadow:none}
+    .submitbar{position:static}
+    .primary,.secondary,.ghost{border:1px solid #aaa;color:#000;background:#fff}
+  }
+/* 匿名云端安全版补充样式 */
+.cloud-grid > div:last-child { min-width: 170px; }
+.memory-status { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* 简洁首页布局 */
+.study-launch{margin-top:18px;position:relative;z-index:1}
+.launch-main{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr auto;gap:11px;align-items:end}
+.launch-main .field label{display:block;margin-bottom:5px;font-size:13px;font-weight:800;color:#405870}
+.launch-main input,.launch-main select{width:100%;padding:10px 11px;border:1.5px solid #bfd5e5;border-radius:10px;background:#fff;color:#223346;font-size:15px}
+.start-big{min-width:120px;height:43px;white-space:nowrap}
+.compact-parent{margin-top:14px}
+.compact-parent summary{font-size:15px}
+.compact-parent .parent-zone-body{padding:14px 16px}
+.compact-parent .cloud-box{margin-top:12px}
+.sql-wrap,#sqlBox,#copySqlBtn{display:none!important}
+@media(max-width:980px){
+  .launch-main{grid-template-columns:1fr 1fr}
+  .start-big{grid-column:1/-1;width:100%}
+}
+@media(max-width:560px){
+  .launch-main{grid-template-columns:1fr}
+}
+
+</style>
+
+<style id="growth-style">
+.memory-controls{margin:15px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}
+.memory-controls .field label{font-weight:700;font-size:13px;color:#40586f;display:block;margin-bottom:4px}
+.memory-controls input,.memory-controls select{width:100%;padding:9px 10px;border:1.4px solid #bfd5e5;border-radius:9px;background:#fff;font-size:14px}
+.memory-status{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:1}.memory-pill{border-radius:999px;padding:4px 9px;font-size:12px;background:#eef7ff;color:#2c628d;border:1px solid #cfe4f1}.memory-pill.ok{background:#effaf4;color:#196241;border-color:#bde3cd}.memory-pill.warn{background:#fff6df;color:#80550c;border-color:#edd69b}
+.parent-zone{margin-top:26px;background:#fff;border:1px solid #d8e7ef;border-radius:16px;box-shadow:0 10px 25px rgba(32,57,85,.08);overflow:hidden}.parent-zone summary{padding:15px 18px;cursor:pointer;font-weight:800;color:#25415c;background:#f7fbfe}.parent-zone-body{padding:17px 18px}.parent-zone p{margin:0 0 12px;color:#61768a;font-size:14px}.parent-actions{display:flex;gap:9px;flex-wrap:wrap}.growth-card{margin-top:15px;border:1px solid #d8e7ef;border-radius:14px;overflow:hidden;display:none}.growth-head{padding:15px 17px;background:linear-gradient(135deg,#eef8ff,#f8fffb);display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.growth-head h2{font-size:19px;margin:0}.growth-body{padding:15px 17px}.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.metric{border:1px solid #d8e8f0;border-radius:10px;padding:10px;background:#fbfdff}.metric b{display:block;color:#236ea6;font-size:22px;line-height:1.1}.metric span{font-size:12px;color:#6e8092}.rank-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.rank-col{border:1px solid #dbe7ed;border-radius:10px;padding:11px;min-height:80px}.rank-col h3{margin:0 0 8px;font-size:15px}.rank-col.focus{background:#fff7f0;border-color:#edc3ab}.rank-col.reinforce{background:#fffbed;border-color:#ecd99c}.rank-col.mastered{background:#f3fbf6;border-color:#c5e4cf}.rank-item{padding:7px 0;border-bottom:1px dashed #d7e5ed;font-size:13px}.rank-item:last-child{border-bottom:0}.rank-char{display:inline-flex;justify-content:center;align-items:center;width:28px;height:28px;margin-right:5px;border:1px solid #d5e4eb;border-radius:7px;background:#fff;font-size:18px;font-weight:800;vertical-align:middle}.rank-meta{display:block;margin-left:33px;color:#65798d;font-size:12px;line-height:1.45}.cloud-box{margin-top:15px;padding:13px;border:1px solid #d6eaf5;border-radius:12px;background:#f5faff}.cloud-box strong{color:#254a69}.cloud-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.cloud-grid label{display:block;font-size:12px;color:#526c83;font-weight:700;margin-bottom:3px}.cloud-grid input{width:100%;padding:9px 10px;border:1.4px solid #bfd5e5;border-radius:9px;font-size:14px}.cloud-message{margin-top:9px;padding:8px 10px;border-radius:8px;font-size:13px;display:none}.cloud-message.ok{display:block;background:#effaf4;color:#1e6a43}.cloud-message.err{display:block;background:#fff0f0;color:#963939}.sql-wrap{position:relative;margin-top:11px}.sql-wrap pre{margin:0;max-height:280px;overflow:auto;white-space:pre-wrap;background:#1f2b36;color:#e6f1f7;border-radius:10px;padding:13px;font-size:12px;line-height:1.5}.sql-wrap button{position:absolute;top:8px;right:8px}.growth-note{margin-top:11px;color:#65798d;font-size:12px}.growth-banner{margin-top:10px;padding:9px 11px;border-radius:9px;background:#effaf4;color:#1c6640;font-size:13px;border:1px solid #bce1cc}.hidden-growth{display:none!important}
+@media(max-width:760px){.memory-controls,.cloud-grid,.rank-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr 1fr}}
+</style>
+
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <h1>三年级下册 · 250生字闯关复习卷</h1>
+    <p class="sub">教材写字表第119-120页 · 自动积累错字，期末只复习真正不稳的字。</p>
+    <div class="badges">
+      <span class="badge">250字分5轮复习</span>
+      <span class="badge">每轮50字拼音默写 + 易混字辨析 + 自动错字档案</span>
+      <span class="badge">答案在批改后解锁</span>
+      <span class="badge">离线可用</span>
+    </div>
+    <div class="notice">
+      <strong>玩法：</strong>每次做一轮，共80题。第一关有拼音提示；第二关专门考近形字、同音字。完成批改后，系统会显示正确答案、完整词语、错字本和“本轮写字任务”。做完5轮，就能覆盖写字表中的全部250个字。
+    </div>
+    <div class="study-launch">
+      <div class="launch-main">
+        <div class="field">
+          <label for="studentName">小勇士姓名（可不填）</label>
+          <input id="studentName" type="text" maxlength="16" value="高语牧" readonly />
+        </div>
+        <div class="field">
+          <label for="semester">学期</label>
+          <input id="semester" maxlength="12" placeholder="例如：2026春" />
+        </div>
+        <div class="field">
+          <label for="phase">本次阶段</label>
+          <select id="phase">
+            <option value="预习">预习</option>
+            <option value="复习">复习</option>
+            <option value="期末总测">期末总测</option>
+            <option value="错字专项">错字专项</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="roundSelect">选择练习轮次</label>
+          <select id="roundSelect">
+            <option value="0">第1轮（第1—50字）</option>
+            <option value="1">第2轮（第51—100字）</option>
+            <option value="2">第3轮（第101—150字）</option>
+            <option value="3">第4轮（第151—200字）</option>
+            <option value="4">第5轮（第201—250字）</option>
+          </select>
+        </div>
+        <button class="primary start-big" id="startBtn">开始练习</button>
+      </div>
+
+      <details class="parent-zone compact-parent" id="parentZone">
+        <summary>家长中心：错字榜 · 错字专项卷 · 云端档案</summary>
+        <div class="parent-zone-body">
+          <div class="parent-actions">
+            <button class="primary" id="showGrowthBtn">查看本学期错字榜</button>
+            <button class="secondary" id="makeSpecialBtn">生成错字专项卷</button>
+            <button class="ghost" id="exportCsvBtn">导出本学期记录 CSV</button>
+            <button class="ghost" id="backToNormalBtn">返回普通轮次</button>
+          </div>
+          <section id="growthDashboard" class="growth-card"></section>
+          <div class="cloud-box">
+            <strong>家庭档案解锁</strong>
+            <div class="growth-note">云端已自动连接。输入正确暗号后，当前浏览器才有权限同步和查看家庭错字档案。</div>
+            <div class="cloud-grid">
+              <div>
+                <label for="familyPassphrase">家庭暗号</label>
+                <input id="familyPassphrase" type="password" autocomplete="current-password" placeholder="输入暗号后点击解锁">
+              </div>
+              <div style="display:flex;align-items:end">
+                <button class="primary" id="unlockFamilyBtn" style="width:100%">解锁家庭档案</button>
+              </div>
+            </div>
+            <div id="cloudMsg" class="cloud-message"></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="quizArea" class="hidden">
+    <div class="statusbar">
+      <div>
+        <div class="round-title" id="roundTitle">第1轮</div>
+        <div style="font-size:13px;color:#66758a">先独立完成，再点击“提交并解锁批改报告”。</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><i id="progressBar"></i></div>
+        <span class="progress-text" id="progressText">已答 0 / 60</span>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>第一关：生字补全</h2><span>写准字形</span></div>
+    <p class="section-note">看拼音提示，把词语补完整。每题只填一个字。拼音带声调，帮助孩子把读音和字形一起记牢。</p>
+    <div class="question-grid" id="fillGrid"></div>
+
+    <div class="section-title"><h2>第二关：词语侦探</h2><span>辨清字形</span></div>
+    <p class="section-note">选项都是“长得像、读音近、容易写错”的字，不再放无关选项。</p>
+    <div class="question-grid" id="choiceGrid"></div>
+
+    <div class="section-title"><h2>第三关：生活情境应用</h2><span>用得准确</span></div>
+    <p class="section-note">不只是会写，还要能在真实句子里选对字、用对词。</p>
+    <div class="question-grid" id="scenarioGrid"></div>
+
+    <div class="submitbar">
+      <button class="primary" id="gradeBtn">提交并解锁批改报告</button>
+      <button class="ghost" id="restartBtn">重做本轮</button>
+    </div>
+
+    <section class="report" id="report"></section>
+
+    <section class="vault" id="vault">
+      <div class="vault-head">
+        <div>
+          <h2>250字生字宝库</h2>
+          <div style="font-size:13px;color:#66758a">点击汉字，查看本次复习用的常用词。</div>
+        </div>
+        <button class="secondary" id="nextBtn">下一轮50字</button>
+      </div>
+      <div class="vault-body">
+        <div class="word-popup" id="wordPopup"></div>
+        <div id="vaultGroups"></div>
+      </div>
+    </section>
+
+    <div class="footer-note">建议：错字不要只“看一眼”，请在纸上临写3遍，再用完整词语造1个句子。</div>
+  </section>
+
+
+
+</main>
+
+<script>
+const WORDS = [{"lesson": 1, "char": "融", "word": "融化", "pinyin": "róng huà"}, {"lesson": 1, "char": "燕", "word": "燕子", "pinyin": "yàn zi"}, {"lesson": 1, "char": "鸳", "word": "鸳鸯", "pinyin": "yuān yāng"}, {"lesson": 1, "char": "鸯", "word": "鸳鸯", "pinyin": "yuān yāng"}, {"lesson": 1, "char": "惠", "word": "优惠", "pinyin": "yōu huì"}, {"lesson": 1, "char": "崇", "word": "崇高", "pinyin": "chóng gāo"}, {"lesson": 1, "char": "芦", "word": "芦苇", "pinyin": "lú wěi"}, {"lesson": 1, "char": "芽", "word": "发芽", "pinyin": "fā yá"}, {"lesson": 1, "char": "梅", "word": "梅花", "pinyin": "méi huā"}, {"lesson": 1, "char": "溪", "word": "小溪", "pinyin": "xiǎo xī"}, {"lesson": 1, "char": "泛", "word": "泛舟", "pinyin": "fàn zhōu"}, {"lesson": 1, "char": "减", "word": "减少", "pinyin": "jiǎn shǎo"}, {"lesson": 2, "char": "凑", "word": "凑近", "pinyin": "còu jìn"}, {"lesson": 2, "char": "拂", "word": "吹拂", "pinyin": "chuī fú"}, {"lesson": 2, "char": "集", "word": "集合", "pinyin": "jí hé"}, {"lesson": 2, "char": "聚", "word": "聚拢", "pinyin": "jù lǒng"}, {"lesson": 2, "char": "形", "word": "形状", "pinyin": "xíng zhuàng"}, {"lesson": 2, "char": "掠", "word": "掠过", "pinyin": "lüè guò"}, {"lesson": 2, "char": "偶", "word": "偶尔", "pinyin": "ǒu ěr"}, {"lesson": 2, "char": "尔", "word": "偶尔", "pinyin": "ǒu ěr"}, {"lesson": 2, "char": "沾", "word": "沾水", "pinyin": "zhān shuǐ"}, {"lesson": 2, "char": "倦", "word": "疲倦", "pinyin": "pí juàn"}, {"lesson": 2, "char": "闲", "word": "清闲", "pinyin": "qīng xián"}, {"lesson": 2, "char": "纤", "word": "纤细", "pinyin": "xiān xì"}, {"lesson": 2, "char": "痕", "word": "痕迹", "pinyin": "hén jì"}, {"lesson": 3, "char": "瓣", "word": "花瓣", "pinyin": "huā bàn"}, {"lesson": 3, "char": "蓬", "word": "莲蓬", "pinyin": "lián péng"}, {"lesson": 3, "char": "胀", "word": "饱胀", "pinyin": "bǎo zhàng"}, {"lesson": 3, "char": "裂", "word": "破裂", "pinyin": "pò liè"}, {"lesson": 3, "char": "姿", "word": "姿势", "pinyin": "zī shì"}, {"lesson": 3, "char": "势", "word": "姿势", "pinyin": "zī shì"}, {"lesson": 3, "char": "仿", "word": "仿佛", "pinyin": "fǎng fú"}, {"lesson": 3, "char": "佛", "word": "仿佛", "pinyin": "fǎng fú"}, {"lesson": 3, "char": "随", "word": "随风", "pinyin": "suí fēng"}, {"lesson": 3, "char": "蹈", "word": "舞蹈", "pinyin": "wǔ dǎo"}, {"lesson": 3, "char": "止", "word": "停止", "pinyin": "tíng zhǐ"}, {"lesson": 5, "char": "守", "word": "守护", "pinyin": "shǒu hù"}, {"lesson": 5, "char": "株", "word": "一株", "pinyin": "yì zhū"}, {"lesson": 5, "char": "待", "word": "等待", "pinyin": "děng dài"}, {"lesson": 5, "char": "宋", "word": "宋朝", "pinyin": "sòng cháo"}, {"lesson": 5, "char": "耕", "word": "耕田", "pinyin": "gēng tián"}, {"lesson": 5, "char": "触", "word": "接触", "pinyin": "jiē chù"}, {"lesson": 5, "char": "颈", "word": "颈部", "pinyin": "jǐng bù"}, {"lesson": 5, "char": "释", "word": "解释", "pinyin": "jiě shì"}, {"lesson": 5, "char": "其", "word": "其中", "pinyin": "qí zhōng"}, {"lesson": 6, "char": "骄", "word": "骄傲", "pinyin": "jiāo ào"}, {"lesson": 6, "char": "傲", "word": "骄傲", "pinyin": "jiāo ào"}, {"lesson": 6, "char": "谦", "word": "谦虚", "pinyin": "qiān xū"}, {"lesson": 6, "char": "虚", "word": "虚心", "pinyin": "xū xīn"}, {"lesson": 6, "char": "懦", "word": "懦弱", "pinyin": "nuò ruò"}, {"lesson": 6, "char": "弱", "word": "强弱", "pinyin": "qiáng ruò"}, {"lesson": 6, "char": "提", "word": "提醒", "pinyin": "tí xǐng"}, {"lesson": 6, "char": "尘", "word": "尘土", "pinyin": "chén tǔ"}, {"lesson": 6, "char": "讶", "word": "惊讶", "pinyin": "jīng yà"}, {"lesson": 6, "char": "捧", "word": "捧起", "pinyin": "pěng qǐ"}, {"lesson": 6, "char": "代", "word": "古代", "pinyin": "gǔ dài"}, {"lesson": 6, "char": "价", "word": "价格", "pinyin": "jià gé"}, {"lesson": 7, "char": "鹿", "word": "鹿角", "pinyin": "lù jiǎo"}, {"lesson": 7, "char": "塘", "word": "池塘", "pinyin": "chí táng"}, {"lesson": 7, "char": "映", "word": "倒映", "pinyin": "dào yìng"}, {"lesson": 7, "char": "欣", "word": "欣赏", "pinyin": "xīn shǎng"}, {"lesson": 7, "char": "赏", "word": "欣赏", "pinyin": "xīn shǎng"}, {"lesson": 7, "char": "匀", "word": "匀称", "pinyin": "yún chèn"}, {"lesson": 7, "char": "致", "word": "别致", "pinyin": "bié zhì"}, {"lesson": 7, "char": "配", "word": "匹配", "pinyin": "pǐ pèi"}, {"lesson": 7, "char": "传", "word": "传说", "pinyin": "chuán shuō"}, {"lesson": 7, "char": "哎", "word": "哎呀", "pinyin": "āi yā"}, {"lesson": 7, "char": "狮", "word": "狮子", "pinyin": "shī zi"}, {"lesson": 7, "char": "追", "word": "追赶", "pinyin": "zhuī gǎn"}, {"lesson": 7, "char": "叹", "word": "感叹", "pinyin": "gǎn tàn"}, {"lesson": 9, "char": "符", "word": "符号", "pinyin": "fú hào"}, {"lesson": 9, "char": "欲", "word": "欲望", "pinyin": "yù wàng"}, {"lesson": 9, "char": "魂", "word": "灵魂", "pinyin": "líng hún"}, {"lesson": 9, "char": "借", "word": "借用", "pinyin": "jiè yòng"}, {"lesson": 9, "char": "酒", "word": "酒杯", "pinyin": "jiǔ bēi"}, {"lesson": 9, "char": "何", "word": "如何", "pinyin": "rú hé"}, {"lesson": 9, "char": "牧", "word": "牧童", "pinyin": "mù tóng"}, {"lesson": 9, "char": "兄", "word": "兄弟", "pinyin": "xiōng dì"}, {"lesson": 9, "char": "独", "word": "独自", "pinyin": "dú zì"}, {"lesson": 9, "char": "异", "word": "异乡", "pinyin": "yì xiāng"}, {"lesson": 9, "char": "佳", "word": "佳节", "pinyin": "jiā jié"}, {"lesson": 10, "char": "伟", "word": "伟大", "pinyin": "wěi dà"}, {"lesson": 10, "char": "录", "word": "记录", "pinyin": "jì lù"}, {"lesson": 10, "char": "保", "word": "保护", "pinyin": "bǎo hù"}, {"lesson": 10, "char": "存", "word": "保存", "pinyin": "bǎo cún"}, {"lesson": 10, "char": "约", "word": "大约", "pinyin": "dà yuē"}, {"lesson": 10, "char": "验", "word": "实验", "pinyin": "shí yàn"}, {"lesson": 10, "char": "捞", "word": "打捞", "pinyin": "dǎ lāo"}, {"lesson": 10, "char": "阿", "word": "阿拉伯", "pinyin": "ā lā bó"}, {"lesson": 10, "char": "欧", "word": "欧洲", "pinyin": "ōu zhōu"}, {"lesson": 10, "char": "洲", "word": "亚洲", "pinyin": "yà zhōu"}, {"lesson": 10, "char": "社", "word": "社会", "pinyin": "shè huì"}, {"lesson": 11, "char": "赵", "word": "赵州桥", "pinyin": "zhào zhōu qiáo"}, {"lesson": 11, "char": "省", "word": "省份", "pinyin": "shěng fèn"}, {"lesson": 11, "char": "县", "word": "县城", "pinyin": "xiàn chéng"}, {"lesson": 11, "char": "匠", "word": "石匠", "pinyin": "shí jiàng"}, {"lesson": 11, "char": "设", "word": "设计", "pinyin": "shè jì"}, {"lesson": 11, "char": "计", "word": "计算", "pinyin": "jì suàn"}, {"lesson": 11, "char": "史", "word": "历史", "pinyin": "lì shǐ"}, {"lesson": 11, "char": "创", "word": "创造", "pinyin": "chuàng zào"}, {"lesson": 11, "char": "举", "word": "举例", "pinyin": "jǔ lì"}, {"lesson": 11, "char": "且", "word": "而且", "pinyin": "ér qiě"}, {"lesson": 11, "char": "智", "word": "智慧", "pinyin": "zhì huì"}, {"lesson": 11, "char": "慧", "word": "智慧", "pinyin": "zhì huì"}, {"lesson": 11, "char": "历", "word": "历史", "pinyin": "lì shǐ"}, {"lesson": 13, "char": "芬", "word": "芬芳", "pinyin": "fēn fāng"}, {"lesson": 13, "char": "芳", "word": "芳香", "pinyin": "fāng xiāng"}, {"lesson": 13, "char": "内", "word": "内容", "pinyin": "nèi róng"}, {"lesson": 13, "char": "醒", "word": "醒来", "pinyin": "xǐng lái"}, {"lesson": 13, "char": "寿", "word": "长寿", "pinyin": "cháng shòu"}, {"lesson": 13, "char": "苏", "word": "苏醒", "pinyin": "sū xǐng"}, {"lesson": 13, "char": "强", "word": "强大", "pinyin": "qiáng dà"}, {"lesson": 13, "char": "示", "word": "表示", "pinyin": "biǎo shì"}, {"lesson": 13, "char": "昆", "word": "昆虫", "pinyin": "kūn chóng"}, {"lesson": 13, "char": "修", "word": "修改", "pinyin": "xiū gǎi"}, {"lesson": 13, "char": "建", "word": "建设", "pinyin": "jiàn shè"}, {"lesson": 13, "char": "组", "word": "小组", "pinyin": "xiǎo zǔ"}, {"lesson": 14, "char": "蜜", "word": "蜜蜂", "pinyin": "mì fēng"}, {"lesson": 14, "char": "蜂", "word": "蜂蜜", "pinyin": "fēng mì"}, {"lesson": 14, "char": "辨", "word": "分辨", "pinyin": "fēn biàn"}, {"lesson": 14, "char": "阻", "word": "阻止", "pinyin": "zǔ zhǐ"}, {"lesson": 14, "char": "跨", "word": "跨过", "pinyin": "kuà guò"}, {"lesson": 14, "char": "括", "word": "包括", "pinyin": "bāo kuò"}, {"lesson": 14, "char": "检", "word": "检查", "pinyin": "jiǎn chá"}, {"lesson": 14, "char": "查", "word": "查找", "pinyin": "chá zhǎo"}, {"lesson": 14, "char": "确", "word": "确认", "pinyin": "què rèn"}, {"lesson": 14, "char": "误", "word": "错误", "pinyin": "cuò wù"}, {"lesson": 14, "char": "途", "word": "途中", "pinyin": "tú zhōng"}, {"lesson": 14, "char": "陌", "word": "陌生", "pinyin": "mò shēng"}, {"lesson": 16, "char": "宇", "word": "宇宙", "pinyin": "yǔ zhòu"}, {"lesson": 16, "char": "宙", "word": "宇宙", "pinyin": "yǔ zhòu"}, {"lesson": 16, "char": "淌", "word": "流淌", "pinyin": "liú tǎng"}, {"lesson": 16, "char": "秘", "word": "秘密", "pinyin": "mì mì"}, {"lesson": 16, "char": "密", "word": "秘密", "pinyin": "mì mì"}, {"lesson": 16, "char": "栋", "word": "一栋", "pinyin": "yí dòng"}, {"lesson": 16, "char": "梯", "word": "楼梯", "pinyin": "lóu tī"}, {"lesson": 16, "char": "铃", "word": "铃声", "pinyin": "líng shēng"}, {"lesson": 16, "char": "乘", "word": "乘车", "pinyin": "chéng chē"}, {"lesson": 16, "char": "绪", "word": "情绪", "pinyin": "qíng xù"}, {"lesson": 16, "char": "篇", "word": "一篇", "pinyin": "yì piān"}, {"lesson": 16, "char": "越", "word": "超越", "pinyin": "chāo yuè"}, {"lesson": 17, "char": "状", "word": "形状", "pinyin": "xíng zhuàng"}, {"lesson": 17, "char": "狐", "word": "狐狸", "pinyin": "hú lí"}, {"lesson": 17, "char": "狸", "word": "狐狸", "pinyin": "hú lí"}, {"lesson": 17, "char": "腰", "word": "腰部", "pinyin": "yāo bù"}, {"lesson": 17, "char": "零", "word": "零花钱", "pinyin": "líng huā qián"}, {"lesson": 17, "char": "巧", "word": "巧妙", "pinyin": "qiǎo miào"}, {"lesson": 17, "char": "克", "word": "克服", "pinyin": "kè fú"}, {"lesson": 17, "char": "肠", "word": "肠胃", "pinyin": "cháng wèi"}, {"lesson": 17, "char": "继", "word": "继续", "pinyin": "jì xù"}, {"lesson": 17, "char": "续", "word": "继续", "pinyin": "jì xù"}, {"lesson": 17, "char": "抬", "word": "抬头", "pinyin": "tái tóu"}, {"lesson": 17, "char": "烦", "word": "烦恼", "pinyin": "fán nǎo"}, {"lesson": 18, "char": "墨", "word": "墨水", "pinyin": "mò shuǐ"}, {"lesson": 18, "char": "染", "word": "染色", "pinyin": "rǎn sè"}, {"lesson": 18, "char": "竿", "word": "竹竿", "pinyin": "zhú gān"}, {"lesson": 18, "char": "腾", "word": "奔腾", "pinyin": "bēn téng"}, {"lesson": 18, "char": "碎", "word": "碎片", "pinyin": "suì piàn"}, {"lesson": 18, "char": "拨", "word": "拨动", "pinyin": "bō dòng"}, {"lesson": 18, "char": "浪", "word": "海浪", "pinyin": "hǎi làng"}, {"lesson": 18, "char": "葫", "word": "葫芦", "pinyin": "hú lú"}, {"lesson": 18, "char": "爽", "word": "凉爽", "pinyin": "liáng shuǎng"}, {"lesson": 18, "char": "蘑", "word": "蘑菇", "pinyin": "mó gū"}, {"lesson": 18, "char": "菇", "word": "蘑菇", "pinyin": "mó gū"}, {"lesson": 19, "char": "表", "word": "表示", "pinyin": "biǎo shì"}, {"lesson": 19, "char": "胆", "word": "胆小", "pinyin": "dǎn xiǎo"}, {"lesson": 19, "char": "鬼", "word": "鬼脸", "pinyin": "guǐ liǎn"}, {"lesson": 19, "char": "理", "word": "道理", "pinyin": "dào lǐ"}, {"lesson": 19, "char": "夺", "word": "争夺", "pinyin": "zhēng duó"}, {"lesson": 19, "char": "骂", "word": "责骂", "pinyin": "zé mà"}, {"lesson": 19, "char": "仇", "word": "仇人", "pinyin": "chóu rén"}, {"lesson": 19, "char": "差", "word": "差别", "pinyin": "chā bié"}, {"lesson": 19, "char": "付", "word": "付钱", "pinyin": "fù qián"}, {"lesson": 19, "char": "倍", "word": "加倍", "pinyin": "jiā bèi"}, {"lesson": 19, "char": "虽", "word": "虽然", "pinyin": "suī rán"}, {"lesson": 19, "char": "泡", "word": "泡泡", "pinyin": "pào pào"}, {"lesson": 19, "char": "件", "word": "文件", "pinyin": "wén jiàn"}, {"lesson": 20, "char": "皂", "word": "肥皂", "pinyin": "féi zào"}, {"lesson": 20, "char": "廊", "word": "走廊", "pinyin": "zǒu láng"}, {"lesson": 20, "char": "剩", "word": "剩下", "pinyin": "shèng xià"}, {"lesson": 20, "char": "碗", "word": "饭碗", "pinyin": "fàn wǎn"}, {"lesson": 20, "char": "悠", "word": "悠闲", "pinyin": "yōu xián"}, {"lesson": 20, "char": "若", "word": "假若", "pinyin": "jiǎ ruò"}, {"lesson": 20, "char": "透", "word": "透明", "pinyin": "tòu míng"}, {"lesson": 20, "char": "娇", "word": "娇气", "pinyin": "jiāo qì"}, {"lesson": 20, "char": "扯", "word": "拉扯", "pinyin": "lā chě"}, {"lesson": 20, "char": "仰", "word": "仰望", "pinyin": "yǎng wàng"}, {"lesson": 20, "char": "串", "word": "一串", "pinyin": "yí chuàn"}, {"lesson": 20, "char": "婴", "word": "婴儿", "pinyin": "yīng ér"}, {"lesson": 20, "char": "希", "word": "希望", "pinyin": "xī wàng"}, {"lesson": 22, "char": "呈", "word": "呈现", "pinyin": "chéng xiàn"}, {"lesson": 22, "char": "幻", "word": "幻想", "pinyin": "huàn xiǎng"}, {"lesson": 22, "char": "诱", "word": "诱人", "pinyin": "yòu rén"}, {"lesson": 22, "char": "润", "word": "湿润", "pinyin": "shī rùn"}, {"lesson": 22, "char": "芒", "word": "光芒", "pinyin": "guāng máng"}, {"lesson": 22, "char": "冰", "word": "冰块", "pinyin": "bīng kuài"}, {"lesson": 22, "char": "剑", "word": "宝剑", "pinyin": "bǎo jiàn"}, {"lesson": 22, "char": "普", "word": "普通", "pinyin": "pǔ tōng"}, {"lesson": 22, "char": "通", "word": "通知", "pinyin": "tōng zhī"}, {"lesson": 22, "char": "模", "word": "模型", "pinyin": "mó xíng"}, {"lesson": 22, "char": "型", "word": "模型", "pinyin": "mó xíng"}, {"lesson": 23, "char": "宁", "word": "安宁", "pinyin": "ān níng"}, {"lesson": 23, "char": "官", "word": "官员", "pinyin": "guān yuán"}, {"lesson": 23, "char": "汪", "word": "汪洋", "pinyin": "wāng yáng"}, {"lesson": 23, "char": "参", "word": "参加", "pinyin": "cān jiā"}, {"lesson": 23, "char": "攻", "word": "进攻", "pinyin": "jìn gōng"}, {"lesson": 23, "char": "推", "word": "推开", "pinyin": "tuī kāi"}, {"lesson": 23, "char": "迅", "word": "迅速", "pinyin": "xùn sù"}, {"lesson": 23, "char": "速", "word": "速度", "pinyin": "sù dù"}, {"lesson": 23, "char": "退", "word": "后退", "pinyin": "hòu tuì"}, {"lesson": 23, "char": "轮", "word": "车轮", "pinyin": "chē lún"}, {"lesson": 23, "char": "煤", "word": "煤炭", "pinyin": "méi tàn"}, {"lesson": 23, "char": "铁", "word": "铁罐", "pinyin": "tiě guàn"}, {"lesson": 24, "char": "必", "word": "必须", "pinyin": "bì xū"}, {"lesson": 24, "char": "胡", "word": "胡同", "pinyin": "hú tòng"}, {"lesson": 24, "char": "灿", "word": "灿烂", "pinyin": "càn làn"}, {"lesson": 24, "char": "骑", "word": "骑车", "pinyin": "qí chē"}, {"lesson": 24, "char": "秒", "word": "秒针", "pinyin": "miǎo zhēn"}, {"lesson": 24, "char": "腿", "word": "双腿", "pinyin": "shuāng tuǐ"}, {"lesson": 24, "char": "凶", "word": "凶猛", "pinyin": "xiōng měng"}, {"lesson": 24, "char": "猛", "word": "凶猛", "pinyin": "xiōng měng"}, {"lesson": 24, "char": "接", "word": "接住", "pinyin": "jiē zhù"}, {"lesson": 24, "char": "庙", "word": "寺庙", "pinyin": "sì miào"}, {"lesson": 24, "char": "威", "word": "威风", "pinyin": "wēi fēng"}, {"lesson": 24, "char": "武", "word": "武术", "pinyin": "wǔ shù"}, {"lesson": 24, "char": "镇", "word": "小镇", "pinyin": "xiǎo zhèn"}, {"lesson": 25, "char": "性", "word": "性格", "pinyin": "xìng gé"}, {"lesson": 25, "char": "卷", "word": "试卷", "pinyin": "shì juàn"}, {"lesson": 25, "char": "货", "word": "货物", "pinyin": "huò wù"}, {"lesson": 25, "char": "夹", "word": "夹子", "pinyin": "jiā zi"}, {"lesson": 25, "char": "夸", "word": "夸奖", "pinyin": "kuā jiǎng"}, {"lesson": 25, "char": "务", "word": "任务", "pinyin": "rèn wù"}, {"lesson": 25, "char": "衬", "word": "衬衫", "pinyin": "chèn shān"}, {"lesson": 25, "char": "衫", "word": "衬衫", "pinyin": "chèn shān"}, {"lesson": 25, "char": "负", "word": "负责", "pinyin": "fù zé"}, {"lesson": 25, "char": "责", "word": "责任", "pinyin": "zé rèn"}, {"lesson": 25, "char": "艺", "word": "手艺", "pinyin": "shǒu yì"}, {"lesson": 27, "char": "漏", "word": "漏水", "pinyin": "lòu shuǐ"}, {"lesson": 27, "char": "喂", "word": "喂养", "pinyin": "wèi yǎng"}, {"lesson": 27, "char": "胖", "word": "肥胖", "pinyin": "féi pàng"}, {"lesson": 27, "char": "驴", "word": "毛驴", "pinyin": "máo lǘ"}, {"lesson": 27, "char": "贼", "word": "小偷", "pinyin": "xiǎo tōu"}, {"lesson": 27, "char": "狼", "word": "狼群", "pinyin": "láng qún"}, {"lesson": 27, "char": "莫", "word": "莫名", "pinyin": "mò míng"}, {"lesson": 27, "char": "厉", "word": "严厉", "pinyin": "yán lì"}, {"lesson": 27, "char": "抱", "word": "拥抱", "pinyin": "yōng bào"}, {"lesson": 27, "char": "架", "word": "书架", "pinyin": "shū jià"}, {"lesson": 27, "char": "胶", "word": "胶水", "pinyin": "jiāo shuǐ"}, {"lesson": 27, "char": "粘", "word": "粘住", "pinyin": "zhān zhù"}, {"lesson": 27, "char": "偏", "word": "偏旁", "pinyin": "piān páng"}];
+const CONFUSABLES = {"融": ["融", "熔", "溶", "隔"], "燕": ["燕", "雁", "宴", "焉"], "鸳": ["鸳", "怨", "宛", "苑"], "鸯": ["鸯", "秧", "殃", "央"], "惠": ["惠", "慧", "蕙", "穗"], "崇": ["崇", "宗", "踪", "综"], "芦": ["芦", "卢", "炉", "庐"], "芽": ["芽", "牙", "雅", "讶"], "梅": ["梅", "悔", "海", "侮"], "溪": ["溪", "蹊", "稀", "惜"], "泛": ["泛", "眨", "贬", "乏"], "减": ["减", "咸", "喊", "感"], "凑": ["凑", "揍", "奏", "腠"], "拂": ["拂", "佛", "弗", "沸"], "集": ["集", "急", "级", "辑"], "聚": ["聚", "取", "最", "娶"], "形": ["形", "型", "刑", "行"], "掠": ["掠", "凉", "惊", "晾"], "偶": ["偶", "遇", "隅", "愚"], "尔": ["尔", "你", "称", "迩"], "弱": ["弱", "若", "惹", "溺"], "提": ["提", "题", "堤", "踢"], "讶": ["讶", "呀", "芽", "鸦"], "捧": ["捧", "棒", "奉", "俸"], "代": ["代", "带", "戴", "待"], "价": ["价", "介", "阶", "界"], "鹿": ["鹿", "麓", "禄", "漉"], "塘": ["塘", "糖", "唐", "搪"], "映": ["映", "应", "影", "印"], "欣": ["欣", "忻", "掀", "近"], "赏": ["赏", "裳", "常", "堂"], "匀": ["匀", "勺", "句", "勾"], "致": ["致", "至", "制", "志"], "配": ["配", "陪", "培", "赔"], "传": ["传", "转", "砖", "专"], "狮": ["狮", "师", "施", "诗"], "追": ["追", "堆", "推", "锥"], "叹": ["叹", "汉", "仅", "仅"], "符": ["符", "付", "附", "府"], "欲": ["欲", "浴", "裕", "谷"], "举": ["举", "兴", "誉", "与"], "且": ["且", "旦", "目", "县"], "智": ["智", "知", "置", "织"], "慧": ["慧", "惠", "彗", "穗"], "历": ["历", "厉", "励", "沥"], "芬": ["芬", "纷", "粉", "份"], "芳": ["芳", "仿", "防", "坊"], "内": ["内", "肉", "网", "丙"], "醒": ["醒", "星", "腥", "惺"], "寿": ["寿", "涛", "筹", "铸"], "苏": ["苏", "诉", "素", "酥"], "强": ["强", "墙", "抢", "蔷"], "示": ["示", "视", "寺", "标"], "昆": ["昆", "混", "昏", "屁"], "修": ["修", "休", "羞", "条"], "建": ["建", "健", "键", "毽"], "组": ["组", "祖", "阻", "租"], "蜜": ["蜜", "密", "秘", "谜"], "蜂": ["蜂", "峰", "锋", "逢"], "辨": ["辨", "辩", "瓣", "辫"], "续": ["续", "读", "卖", "赎"], "抬": ["抬", "治", "台", "始"], "烦": ["烦", "繁", "凡", "帆"], "墨": ["墨", "默", "黑", "累"], "染": ["染", "梁", "粱", "梁"], "竿": ["竿", "杆", "秆", "汗"], "腾": ["腾", "藤", "誊", "疼"], "碎": ["碎", "粹", "卒", "翠"], "拨": ["拨", "拔", "泼", "玻"], "浪": ["浪", "狼", "朗", "娘"], "葫": ["葫", "湖", "胡", "糊"], "爽": ["爽", "夹", "爽", "关"], "蘑": ["蘑", "磨", "魔", "模"], "菇": ["菇", "姑", "孤", "估"], "表": ["表", "麦", "衣", "衷"], "胆": ["胆", "担", "但", "旦"], "鬼": ["鬼", "魂", "魁", "愧"], "理": ["理", "里", "礼", "李"], "夺": ["夺", "奇", "夹", "套"], "骂": ["骂", "驾", "妈", "吗"], "型": ["型", "形", "刑", "邢"], "宁": ["宁", "守", "安", "宇"], "官": ["官", "宫", "管", "宦"], "汪": ["汪", "旺", "王", "泪"], "参": ["参", "惨", "掺", "渗"], "攻": ["攻", "功", "工", "共"], "推": ["推", "堆", "谁", "准"], "迅": ["迅", "讯", "汛", "巩"], "速": ["速", "束", "棘", "辣"], "退": ["退", "腿", "很", "眼"], "轮": ["轮", "论", "伦", "抡"], "煤": ["煤", "媒", "谋", "眉"], "铁": ["铁", "跌", "秩", "失"], "必": ["必", "秘", "密", "泌"], "胡": ["胡", "湖", "糊", "葫"], "灿": ["灿", "仙", "汕", "汗"], "骑": ["骑", "椅", "崎", "绮"], "秒": ["秒", "妙", "抄", "炒"], "腿": ["腿", "退", "很", "跟"], "凶": ["凶", "胸", "匈", "汹"]};
+const SCENARIOS = [{"q": "春游时，风轻轻（　）过柳枝，柳条像在跳舞。", "options": ["拂", "佛", "伏", "扶"], "answer": "拂", "focus": "拂", "word": "吹拂", "explain": "“吹拂”常用来写轻风轻轻地吹过。"}, {"q": "操场上，同学们像赶集似的（　）到一起，准备拍毕业照。", "options": ["聚", "惧", "拒", "俱"], "answer": "聚", "focus": "聚", "word": "聚拢", "explain": "人或物靠到一起，可以用“聚拢”。"}, {"q": "这根线又细又长，像头发丝一样（　）细。", "options": ["纤", "迁", "千", "欠"], "answer": "纤", "focus": "纤", "word": "纤细", "explain": "“纤细”形容非常细。"}, {"q": "气球越吹越圆，看起来（　）得快要爆开了。", "options": ["胀", "涨", "账", "帐"], "answer": "胀", "focus": "胀", "word": "饱胀", "explain": "“饱胀”指鼓得很满；“涨”多用于水位、价格等上升。"}, {"q": "小明听得太入神，（　）佛看见故事里的小马跑到了眼前。", "options": ["仿", "访", "防", "放"], "answer": "仿", "focus": "仿", "word": "仿佛", "explain": "“仿佛”表示好像、似乎。"}, {"q": "遇到不懂的问题，先看题目，再请老师（　）。", "options": ["解释", "解放", "姐姐", "街道"], "answer": "解释", "focus": "释", "word": "解释", "explain": "“解释”是把不明白的事情说清楚。"}, {"q": "小华得了一等奖，却还是很（　）虚，没有骄傲。", "options": ["谦", "歉", "嫌", "赚"], "answer": "谦", "focus": "谦", "word": "谦虚", "explain": "“谦虚”指不自满，态度平和。"}, {"q": "捧起易碎的花瓶时，要轻一点，不能用力（　）它。", "options": ["抱", "捧", "扯", "拨"], "answer": "捧", "focus": "捧", "word": "捧起", "explain": "两手托着或拿着，常用“捧”。"}, {"q": "红色书包和蓝色水杯放在一起很（　）。", "options": ["配", "陪", "培", "赔"], "answer": "配", "focus": "配", "word": "匹配", "explain": "颜色、样式合适，可以说“匹配”。"}, {"q": "这项发明经过反复试验，终于（　）明了真正的原因。", "options": ["确", "却", "雀", "缺"], "answer": "确", "focus": "确", "word": "确认", "explain": "“确认”是确定、证实。"}, {"q": "小区门口正在修路，请大家绕行，不要（　）碍施工。", "options": ["阻", "组", "祖", "租"], "answer": "阻", "focus": "阻", "word": "阻止", "explain": "“阻碍”有妨碍、拦住的意思。"}, {"q": "这是我们班的小（　）密，暂时不要告诉别人。", "options": ["秘", "密", "蜜", "谜"], "answer": "秘", "focus": "秘", "word": "秘密", "explain": "“秘密”里“秘”表示不公开、不让人知道。"}, {"q": "这次练习错了不要紧，改好以后（　）续努力。", "options": ["继", "级", "即", "既"], "answer": "继", "focus": "继", "word": "继续", "explain": "“继续”表示不中断地接着做。"}, {"q": "玻璃杯掉到地上，变成了好多（　）片。", "options": ["碎", "翠", "卒", "最"], "answer": "碎", "focus": "碎", "word": "碎片", "explain": "“碎片”是破碎后的小片。"}, {"q": "答应别人的事情要做到，这是最基本的（　）任。", "options": ["责", "则", "测", "侧"], "answer": "责", "focus": "责", "word": "责任", "explain": "“责任”是自己应当承担的事情。"}, {"q": "胶水把两张纸（　）在一起了。", "options": ["粘", "沾", "站", "占"], "answer": "粘", "focus": "粘", "word": "粘住", "explain": "“粘住”表示贴在一起，不容易分开。"}, {"q": "赵州桥的设计很有（　）意，既结实又节省石料。", "options": ["创", "闯", "窗", "床"], "answer": "创", "focus": "创", "word": "创造", "explain": "新的、从没有过的设计，可以说有“创意”。"}, {"q": "那位老石匠手艺高超，能把石头雕出漂亮的图案。", "options": ["匠", "将", "奖", "浆"], "answer": "匠", "focus": "匠", "word": "石匠", "explain": "“匠”指有专门手艺的人，如木匠、石匠。"}, {"q": "这件事虽然很小，却让我明白了一个大（　）理。", "options": ["理", "里", "礼", "李"], "answer": "理", "focus": "理", "word": "道理", "explain": "“道理”指事情中正确的原因或规律。"}, {"q": "窗户擦得很干净，阳光（　）过玻璃照进教室。", "options": ["透", "秀", "诱", "袖"], "answer": "透", "focus": "透", "word": "透明", "explain": "“透过”表示穿过；“透明”表示能透光。"}, {"q": "机器人比赛前，大家先搭好了一个纸板（　）型。", "options": ["模", "摸", "墨", "末"], "answer": "模", "focus": "模", "word": "模型", "explain": "“模型”是按一定比例做成的样子。"}, {"q": "听到铃声后，请大家（　）速回到教室。", "options": ["迅", "讯", "寻", "旬"], "answer": "迅", "focus": "迅", "word": "迅速", "explain": "“迅速”表示速度非常快。"}, {"q": "端午节赛龙舟时，队员们动作整齐，船像箭一样向前（　）进。", "options": ["猛", "蒙", "盟", "梦"], "answer": "猛", "focus": "猛", "word": "凶猛", "explain": "“猛进”表示勇猛地前进。"}, {"q": "这个故事像梦一样，充满（　）色彩。", "options": ["幻想", "幻觉", "想法", "变化"], "answer": "幻想", "focus": "幻", "word": "幻想", "explain": "“幻想”是由想象产生的、不一定真实的画面或想法。"}, {"q": "科学学习中，要亲自做（　）来验证想法。", "options": ["实验", "验算", "检查", "调查"], "answer": "实验", "focus": "验", "word": "实验", "explain": "“实验”是为了验证想法而亲自动手做的活动。"}, {"q": "下面哪一组词语书写完全正确？", "options": ["纤细　疲倦　痕迹", "迁细　疲卷　很迹", "纤细　疲卷　横迹", "千细　疲倦　痕记"], "answer": "纤细　疲倦　痕迹", "focus": "纤", "word": "纤细", "explain": "“纤细、疲倦、痕迹”三个词都要写对。"}, {"q": "下面哪一组词语书写完全正确？", "options": ["谦虚　惊讶　价格", "歉虚　惊呀　价各", "谦虚　惊呀　价各", "谦虑　惊讶　价格"], "answer": "谦虚　惊讶　价格", "focus": "讶", "word": "惊讶", "explain": "注意“谦、讶、价”的字形。"}, {"q": "下面哪一组词语书写完全正确？", "options": ["蜜蜂　分辨　检查", "密蜂　分辩　检察", "蜜蜂　分辩　捡查", "密峰　分辨　检查"], "answer": "蜜蜂　分辨　检查", "focus": "辨", "word": "分辨", "explain": "“蜜蜂、分辨、检查”都是教材写字表中的正确词语。"}, {"q": "下面哪一组词语书写完全正确？", "options": ["继续　烦恼　墨水", "继绪　烦脑　墨水", "继续　凡恼　默水", "既续　烦恼　墨水"], "answer": "继续　烦恼　墨水", "focus": "续", "word": "继续", "explain": "注意“继、续、烦、墨”的偏旁和结构。"}, {"q": "下面哪一组词语书写完全正确？", "options": ["负责　任务　衬衫", "负则　任务　村衫", "负责　务任　衬杉", "负债　任务　衫衣"], "answer": "负责　任务　衬衫", "focus": "责", "word": "负责", "explain": "“负责、任务、衬衫”是常见易错词。"}];
+const TOTAL_ROUNDS = 5;
+let queue = [];
+let roundIndex = 0;
+let currentEntries = [];
+let currentScenarios = [];
+let currentQuestions = [];
+
+function shuffle(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function blankWord(entry){
+  const p = entry.word.indexOf(entry.char);
+  if(p === -1) return "□";
+  return entry.word.slice(0,p)+"□"+entry.word.slice(p+1);
+}
+function pickDistractors(answer){
+  const chars = WORDS.filter(x=>x.char!==answer).map(x=>x.char);
+  return shuffle(chars).slice(0,3).concat(answer).sort(()=>Math.random()-.5);
+}
+function prepareRound(resetQueue=false){
+  // 按教材原顺序分5轮，每轮固定覆盖50个字，方便查漏补缺
+  if(resetQueue || queue.length !== WORDS.length){
+    queue = [...WORDS];
+    roundIndex = 0;
+  }
+  if(roundIndex >= TOTAL_ROUNDS){
+    queue = [...WORDS];
+    roundIndex = 0;
+  }
+  currentEntries = queue.slice(roundIndex*50, roundIndex*50+50);
+  currentScenarios = shuffle(SCENARIOS).slice(0,10);
+  const confusingEntries = currentEntries.filter(entry => CONFUSABLES[entry.char]).slice(0,20);
+
+  currentQuestions = [];
+  // 第一部分：50个字全部带拼音提示，真正做“听音/看拼音写字”
+  currentEntries.forEach((entry, i)=>{
+    currentQuestions.push({
+      id:"fill"+i, type:"fill", answer:entry.char, entry,
+      prompt:"看拼音提示，把词语补完整：", display:blankWord(entry)
+    });
+  });
+  // 第二部分：只选择已经人工筛过的易混字，避免“衬型”这种没有辨析价值的选项
+  confusingEntries.forEach((entry, i)=>{
+    currentQuestions.push({
+      id:"choice"+i, type:"choice", answer:entry.char, entry,
+      prompt:"易混字辨析：选出正确的字。", display:blankWord(entry),
+      options:shuffle(CONFUSABLES[entry.char])
+    });
+  });
+  currentScenarios.forEach((s, i)=>{
+    currentQuestions.push({id:"scene"+i,type:"scene",...s});
+  });
+}
+function renderRound(){
+  document.getElementById("quizArea").classList.remove("hidden");
+  document.getElementById("report").style.display="none";
+  document.getElementById("vault").style.display="none";
+  document.getElementById("roundTitle").textContent = `第${roundIndex+1}轮 / ${TOTAL_ROUNDS} · 50个拼音默写 + 20个易混字 + 10道应用题`;
+  const fillGrid = document.getElementById("fillGrid");
+  const choiceGrid = document.getElementById("choiceGrid");
+  const scenarioGrid = document.getElementById("scenarioGrid");
+  fillGrid.innerHTML = ""; choiceGrid.innerHTML = ""; scenarioGrid.innerHTML = "";
+
+  currentQuestions.forEach((q, idx)=>{
+    const card = document.createElement("article");
+    card.className = "question";
+    card.id = "card-"+q.id;
+    let content = `<div><span class="q-number">${idx+1}</span><span class="q-kind">${q.type==="fill"?"拼音默写":q.type==="choice"?"易混字辨析":"应用辨析"}</span></div>`;
+    if(q.type==="fill"){
+      content += `<div class="prompt">${q.prompt}</div>
+        <div class="pinyin">拼音提示：${esc(q.entry.pinyin)}</div>
+        <div class="blank-word">${esc(q.display)}
+          <input class="onechar answer-input" data-q="${q.id}" maxlength="1" inputmode="text" autocomplete="off" aria-label="填一个字">
+        </div>
+        <div class="feedback"></div>`;
+      fillGrid.appendChild(card);
+    } else if(q.type==="choice"){
+      content += `<div class="prompt">${q.prompt}</div><div class="blank-word">${esc(q.display)}</div>
+        <div class="options">${q.options.map((o,n)=>`<label class="option"><input type="radio" name="${q.id}" value="${esc(o)}" data-q="${q.id}"><span>${String.fromCharCode(65+n)}. ${esc(o)}</span></label>`).join("")}</div>
+        <div class="feedback"></div>`;
+      choiceGrid.appendChild(card);
+    } else {
+      card.classList.add("wide");
+      content += `<div class="prompt">${esc(q.q)}</div>
+        <div class="options">${q.options.map((o,n)=>`<label class="option"><input type="radio" name="${q.id}" value="${esc(o)}" data-q="${q.id}"><span>${String.fromCharCode(65+n)}. ${esc(o)}</span></label>`).join("")}</div>
+        <div class="feedback"></div>`;
+      scenarioGrid.appendChild(card);
+    }
+    card.innerHTML = content;
+  });
+  document.querySelectorAll(".answer-input").forEach(el=>el.addEventListener("input", updateProgress));
+  document.querySelectorAll("input[type=radio]").forEach(el=>el.addEventListener("change", updateProgress));
+  updateProgress();
+  window.scrollTo({top:document.getElementById("quizArea").offsetTop-10,behavior:"smooth"});
+}
+function isAnswered(q){
+  if(q.type==="fill"){
+    const el = document.querySelector(`input[data-q="${q.id}"]`);
+    return !!(el && el.value.trim());
+  }
+  return !!document.querySelector(`input[name="${q.id}"]:checked`);
+}
+function updateProgress(){
+  const n = currentQuestions.filter(isAnswered).length;
+  const total = currentQuestions.length;
+  document.getElementById("progressBar").style.width = `${n/total*100}%`;
+  document.getElementById("progressText").textContent = `已答 ${n} / ${total}`;
+}
+function answerOf(q){
+  if(q.type==="fill"){
+    const el = document.querySelector(`input[data-q="${q.id}"]`);
+    return el ? el.value.trim() : "";
+  }
+  const el = document.querySelector(`input[name="${q.id}"]:checked`);
+  return el ? el.value : "";
+}
+function grade(){
+  let correct=0;
+  const wrongMap = new Map();
+  currentQuestions.forEach(q=>{
+    const card = document.getElementById("card-"+q.id);
+    const fb = card.querySelector(".feedback");
+    const ans = answerOf(q);
+    const ok = ans === q.answer;
+    card.classList.remove("correct","wrong");
+    card.classList.add(ok?"correct":"wrong");
+    if(ok) correct++;
+    if(q.type==="fill" || q.type==="choice"){
+      const line = `正确答案：<strong>${esc(q.answer)}</strong>；完整词语：<strong>${esc(q.entry.word)}</strong>。`;
+      fb.innerHTML = ok ? `答对了！${line}` : `这题要注意。${line}`;
+      if(!ok) wrongMap.set(q.entry.char, q.entry.word);
+    }else{
+      const line = `正确答案：<strong>${esc(q.answer)}</strong>。${esc(q.explain)}`;
+      fb.innerHTML = ok ? `答对了！${line}` : `这题要注意。${line}`;
+      if(!ok) wrongMap.set(q.focus, q.word);
+    }
+  });
+  const score = Math.round(correct/currentQuestions.length*100);
+  let level = "";
+  if(score>=95) level="汉字小达人：字形、词义和应用都很稳！";
+  else if(score>=85) level="闯关高手：大部分很扎实，重点攻克错字本。";
+  else if(score>=70) level="基础不错：把错字再练一轮，会进步很快。";
+  else level="正在升级：先把错字本练熟，下一轮一定更强。";
+  const name = document.getElementById("studentName").value.trim();
+  const wrongItems = [...wrongMap.entries()];
+  const mistakeHTML = wrongItems.length
+    ? `<div class="mistakes"><h3>本轮错字本（${wrongItems.length}个）</h3>
+         <div class="chips">${wrongItems.map(([c,w])=>`<span class="chip">${esc(c)} · ${esc(w)}</span>`).join("")}</div>
+       </div>`
+    : `<div class="mistakes" style="background:#effaf4;border-color:#bfe4ce"><h3>太棒了！本轮没有错字。</h3><div>可以直接进入下一轮，继续挑战新的50个字。</div></div>`;
+  const report = document.getElementById("report");
+  report.innerHTML = `<div class="report-head">
+      <h2>${name ? esc(name)+"，" : ""}批改报告已解锁</h2>
+      <div class="score">${score} <span style="font-size:17px;font-weight:700">分</span></div>
+      <span class="level">答对 ${correct} / ${currentQuestions.length} 题 · ${level}</span>
+    </div>
+    <div class="report-body">
+      <div class="study-box"><strong>本轮写字任务：</strong>${wrongItems.length ? `请把错字本中的每个字<strong>临写3遍</strong>，再把对应完整词语写一遍；最后任选其中2个词造句。` : `任选本轮5个生字，每个字临写2遍，并用其中2个词造句。`}</div>
+      ${mistakeHTML}
+      <div style="margin-top:15px;color:#61758b;font-size:14px">所有题目的正确答案和提示已经显示在题目下方。请先看错题，再打开下面的“250字生字宝库”做复盘。</div>
+    </div>`;
+  report.style.display="block";
+  renderVault();
+  document.getElementById("vault").style.display="block";
+  document.querySelectorAll("#quizArea input").forEach(el=>el.disabled=true);
+  document.getElementById("gradeBtn").disabled=true;
+  document.getElementById("gradeBtn").textContent="已批改";
+  report.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderVault(){
+  const groups = {};
+  WORDS.forEach(x=>{(groups[x.lesson] ||= []).push(x)});
+  const holder = document.getElementById("vaultGroups");
+  holder.innerHTML = Object.entries(groups).map(([lesson,items])=>`
+    <div class="lesson-group">
+      <div class="lesson-name">第${lesson}课 · ${items.length}个字</div>
+      <div>${items.map(x=>`<button class="char-btn" data-char="${esc(x.char)}" data-word="${esc(x.word)}" title="点击看常用词">${esc(x.char)}</button>`).join("")}</div>
+    </div>`).join("");
+  document.querySelectorAll(".char-btn").forEach(btn=>btn.addEventListener("click",()=>{
+    const pop = document.getElementById("wordPopup");
+    pop.style.display="block";
+    pop.innerHTML = `汉字：<strong style="font-size:22px;color:#b66a08">${esc(btn.dataset.char)}</strong>　常用词：<strong>${esc(btn.dataset.word)}</strong>。<span style="color:#66758a">把这个词放进自己的句子里，才算真正学会。</span>`;
+    pop.scrollIntoView({behavior:"smooth",block:"nearest"});
+  }));
+}
+function restartRound(){
+  prepareRound(false);
+  renderRound();
+  document.getElementById("gradeBtn").disabled=false;
+  document.getElementById("gradeBtn").textContent="提交并解锁批改报告";
+}
+function nextRound(){
+  roundIndex += 1;
+  prepareRound(false);
+  renderRound();
+  document.getElementById("gradeBtn").disabled=false;
+  document.getElementById("gradeBtn").textContent="提交并解锁批改报告";
+}
+document.getElementById("startBtn").addEventListener("click",()=>{
+  const selected = Number(document.getElementById("roundSelect")?.value || 0);
+  roundIndex = Number.isFinite(selected) ? selected : 0;
+  prepareRound(false);
+  renderRound();
+});
+document.getElementById("gradeBtn").addEventListener("click",grade);
+document.getElementById("restartBtn").addEventListener("click",restartRound);
+document.getElementById("nextBtn").addEventListener("click",nextRound);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script>
+<script id="growth-script">
+(function () {
+  const ATTEMPT_KEY = "yuwen3xia_250_growth_attempts_secure_v2";
+  const SYNC_KEY = "yuwen3xia_250_growth_synced_secure_ids_v2";
+  const DEFAULT_SB_URL = "https://iqlnwzxmtjjgzisufljd.supabase.co";
+  const DEFAULT_SB_KEY = "sb_publishable_jnY3xbWPgPFBd6naW35bXQ_tzZcNOTE";
+
+  let sb = null;
+  let sbUser = null;
+  let unlocked = false;
+  let specialMode = false;
+  let normalRound = 0;
+
+  const oldGrade = grade;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (m) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[m]));
+  const uid = () => (crypto?.randomUUID ? crypto.randomUUID() :
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = Math.random() * 16 | 0;
+      const v = c === "x" ? r : (r & 3 | 8);
+      return v.toString(16);
+    }));
+  const defaultSemester = () => {
+    const d = new Date();
+    return `${d.getFullYear()}${d.getMonth() + 1 <= 8 ? "春" : "秋"}`;
+  };
+  const child = () => "高语牧";
+  const semester = () => $("semester").value.trim() || defaultSemester();
+  const currentPhase = () => specialMode ? "错字专项" : $("phase").value;
+
+  function loadAttempts() {
+    try { return JSON.parse(localStorage.getItem(ATTEMPT_KEY) || "[]"); }
+    catch { return []; }
+  }
+  function saveAttempts(items) {
+    localStorage.setItem(ATTEMPT_KEY, JSON.stringify(items));
+    updateLocalPill();
+  }
+  function syncedIds() {
+    try { return new Set(JSON.parse(localStorage.getItem(SYNC_KEY) || "[]")); }
+    catch { return new Set(); }
+  }
+  function markSynced(id) {
+    const ids = syncedIds();
+    ids.add(id);
+    localStorage.setItem(SYNC_KEY, JSON.stringify([...ids]));
+  }
+  function cloudMessage(message, type = "") {
+    const box = $("cloudMsg");
+    if (!box) return;
+    box.textContent = message;
+    box.className = "cloud-message " + type;
+  }
+  function updateLocalPill() {
+    const count = loadAttempts().filter((a) => a.child_name === child()).length;
+    const el = $("memoryLocal");
+    if (el) el.textContent = `本机记忆：${count} 次记录`;
+  }
+  function updateCloudPill() {
+    const el = $("memoryCloud");
+    if (!el) return;
+    if (!sb) {
+      el.textContent = "云端：连接失败";
+      el.className = "memory-pill warn";
+    } else if (unlocked) {
+      el.textContent = "云端：已解锁，可同步";
+      el.className = "memory-pill ok";
+    } else {
+      el.textContent = "云端：已连接，档案未解锁";
+      el.className = "memory-pill warn";
+    }
+  }
+
+  function installStudyControls() {
+    $("semester").value = localStorage.getItem("yuwen3xia_secure_semester") || defaultSemester();
+    $("phase").value = localStorage.getItem("yuwen3xia_secure_phase") || "预习";
+    $("roundSelect").value = localStorage.getItem("yuwen3xia_secure_round") || "0";
+    $("studentName").value = "高语牧";
+
+    $("semester").addEventListener("input", () => {
+      localStorage.setItem("yuwen3xia_secure_semester", $("semester").value);
+      updateLocalPill();
+    });
+    $("phase").addEventListener("change", () => {
+      localStorage.setItem("yuwen3xia_secure_phase", $("phase").value);
+    });
+    $("roundSelect").addEventListener("change", () => {
+      localStorage.setItem("yuwen3xia_secure_round", $("roundSelect").value);
+    });
+    $("studentName").addEventListener("input", () => {
+      localStorage.setItem("yuwen3xia_secure_child", $("studentName").value);
+      updateLocalPill();
+    });
+  }
+
+  async function checkUnlockStatus() {
+    if (!sb || !sbUser) {
+      unlocked = false;
+      return false;
+    }
+    const result = await sb.from("family_access")
+      .select("user_id")
+      .eq("user_id", sbUser.id)
+      .maybeSingle();
+    unlocked = !!result.data && !result.error;
+    return unlocked;
+  }
+
+  async function connectCloud() {
+    if (!window.supabase) {
+      cloudMessage("Supabase 组件没有加载。请检查网络后刷新页面。", "err");
+      updateCloudPill();
+      return;
+    }
+    try {
+      sb = window.supabase.createClient(DEFAULT_SB_URL, DEFAULT_SB_KEY);
+      const existing = await sb.auth.getSession();
+      let session = existing.data.session;
+      if (!session) {
+        const created = await sb.auth.signInAnonymously();
+        if (created.error) throw created.error;
+        session = created.data.session;
+      }
+      sbUser = session?.user ?? null;
+      if (!sbUser) throw new Error("匿名身份创建失败");
+      await checkUnlockStatus();
+      updateCloudPill();
+      cloudMessage(
+        unlocked
+          ? "云端已连接，当前浏览器已获家庭档案权限。"
+          : "云端已连接，但家庭档案尚未解锁。请在家长中心输入暗号。",
+        unlocked ? "ok" : ""
+      );
+    } catch (error) {
+      sb = null;
+      sbUser = null;
+      unlocked = false;
+      updateCloudPill();
+      cloudMessage("自动连接失败：" + (error?.message || error) + "。请确认 Supabase 已开启 Anonymous Sign-Ins。", "err");
+    }
+  }
+
+  async function unlockFamily() {
+    if (!sb || !sbUser) {
+      cloudMessage("云端还没有连接成功，请刷新页面后再试。", "err");
+      return;
+    }
+    const passphrase = $("familyPassphrase").value;
+    if (!passphrase) {
+      cloudMessage("请输入家庭暗号。", "err");
+      return;
+    }
+    const btn = $("unlockFamilyBtn");
+    btn.disabled = true;
+    btn.textContent = "验证中…";
+    try {
+      const response = await sb.functions.invoke("unlock-family", {
+        body: { passphrase }
+      });
+      if (response.error) throw response.error;
+      if (!response.data?.ok) throw new Error(response.data?.error || "解锁失败");
+      $("familyPassphrase").value = "";
+      await checkUnlockStatus();
+      updateCloudPill();
+      cloudMessage("家庭档案已解锁。当前浏览器可以同步并读取云端错字榜。", "ok");
+      await syncLocalAttempts();
+    } catch (error) {
+      cloudMessage("解锁失败：" + (error?.message || error), "err");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "解锁家庭档案";
+    }
+  }
+
+  function buildAttempt() {
+    let correct = 0;
+    const items = currentQuestions.map((q) => {
+      const given = answerOf(q);
+      const isCorrect = given === q.answer;
+      if (isCorrect) correct++;
+      return {
+        correct_char: q.type === "scene" ? q.focus : q.entry.char,
+        expected_word: q.type === "scene" ? q.word : q.entry.word,
+        question_type: q.type === "fill" ? "拼音默写" : q.type === "choice" ? "易混字辨析" : "生活情境应用",
+        given_answer: given,
+        is_correct: isCorrect,
+        answered_at: new Date().toISOString()
+      };
+    });
+    return {
+      id: uid(),
+      child_name: child(),
+      semester: semester(),
+      phase: currentPhase(),
+      round_no: specialMode ? null : roundIndex + 1,
+      quiz_id: "yuwen3xia-250-xiezi",
+      total_questions: currentQuestions.length,
+      correct_questions: correct,
+      score: Math.round(correct / currentQuestions.length * 100),
+      completed_at: new Date().toISOString(),
+      items
+    };
+  }
+
+  async function enhancedGrade() {
+    const attempt = buildAttempt();
+    oldGrade();
+    const attempts = loadAttempts();
+    attempts.push(attempt);
+    saveAttempts(attempts);
+
+    const note = document.createElement("div");
+    note.className = "growth-banner";
+    note.textContent = `成长档案已保存到本机：${attempt.semester} · ${attempt.phase} · 本次 ${attempt.correct_questions}/${attempt.total_questions}。`;
+    $("report")?.querySelector(".report-body")?.appendChild(note);
+
+    if (unlocked) {
+      cloudMessage("正在同步本次记录到云端…");
+      await uploadAttempt(attempt);
+    } else {
+      cloudMessage("本机记录已保存。解锁家庭档案后会自动同步本机记录。");
+    }
+    updateDashboard(false);
+  }
+
+  function rebindGradeButton() {
+    const original = $("gradeBtn");
+    if (!original) return;
+    const fresh = original.cloneNode(true);
+    original.replaceWith(fresh);
+    fresh.addEventListener("click", enhancedGrade);
+  }
+
+  function makeStats(items) {
+    const map = new Map();
+    items.sort((a, b) => new Date(a.answered_at) - new Date(b.answered_at)).forEach((item) => {
+      if (!map.has(item.correct_char)) {
+        map.set(item.correct_char, {
+          char: item.correct_char, word: item.expected_word, total: 0,
+          wrong: 0, history: [], confusions: {}
+        });
+      }
+      const stat = map.get(item.correct_char);
+      stat.total++;
+      if (!item.is_correct) {
+        stat.wrong++;
+        if (item.given_answer) {
+          stat.confusions[item.given_answer] = (stat.confusions[item.given_answer] || 0) + 1;
+        }
+      }
+      stat.history.push(item);
+    });
+    return [...map.values()].map((stat) => {
+      const last = stat.history.at(-1);
+      const recent = stat.history.slice(-3);
+      const recentWrong = recent.filter((x) => !x.is_correct).length;
+      let streak = 0;
+      for (let i = stat.history.length - 1; i >= 0 && stat.history[i].is_correct; i--) streak++;
+      stat.lastWrong = !last.is_correct;
+      stat.streak = streak;
+      stat.top = Object.entries(stat.confusions).sort((a, b) => b[1] - a[1]).slice(0, 3).map((x) => x[0]);
+      stat.status = (stat.wrong >= 3 || stat.lastWrong || recentWrong >= 2)
+        ? "focus" : (stat.wrong > 0 && streak < 3 ? "reinforce" : "mastered");
+      return stat;
+    });
+  }
+
+  function localItems() {
+    return loadAttempts()
+      .filter((a) => a.child_name === child() && a.semester === semester())
+      .flatMap((a) => a.items.map((x, i) => ({ ...x, attempt_id: a.id, index: i })));
+  }
+
+  async function cloudItems() {
+    if (!sb || !unlocked) return [];
+    const attempts = await sb.from("quiz_attempts_secure")
+      .select("id")
+      .eq("quiz_id", "yuwen3xia-250-xiezi")
+      .eq("child_name", child())
+      .eq("semester", semester());
+    if (attempts.error) throw attempts.error;
+    if (!attempts.data?.length) return [];
+    const ids = attempts.data.map((x) => x.id);
+    const results = await sb.from("quiz_item_results_secure")
+      .select("attempt_id,correct_char,expected_word,question_type,given_answer,is_correct,answered_at")
+      .in("attempt_id", ids)
+      .order("answered_at", { ascending: true });
+    if (results.error) throw results.error;
+    return results.data || [];
+  }
+
+  function rankItem(stat) {
+    const note = stat.lastWrong ? "最近一次仍错" : stat.streak >= 3 ? `连续答对 ${stat.streak} 次` : "最近在变稳";
+    return `<div class="rank-item"><span class="rank-char">${esc(stat.char)}</span><strong>${esc(stat.word || "")}</strong><span class="rank-meta">错 ${stat.wrong} / 答 ${stat.total} 次 · ${note}${stat.top.length ? " · 常混：" + esc(stat.top.join("、")) : ""}</span></div>`;
+  }
+
+  async function updateDashboard(scroll = true) {
+    let items = localItems();
+    if (unlocked) {
+      try {
+        const remote = await cloudItems();
+        const localIds = new Set(items.map((x) => x.attempt_id));
+        items = items.concat(remote.filter((x) => !localIds.has(x.attempt_id)));
+      } catch (error) {
+        cloudMessage("读取云端错字榜失败：" + (error?.message || error), "err");
+      }
+    }
+    const stats = makeStats(items);
+    const focus = stats.filter((x) => x.status === "focus").sort((a, b) => b.wrong - a.wrong || Number(b.lastWrong) - Number(a.lastWrong));
+    const reinforce = stats.filter((x) => x.status === "reinforce").sort((a, b) => b.wrong - a.wrong);
+    const mastered = stats.filter((x) => x.status === "mastered").sort((a, b) => b.wrong - a.wrong);
+    const box = $("growthDashboard");
+
+    const column = (title, cls, data) => `<div class="rank-col ${cls}"><h3>${title}</h3>${data.length ? data.map(rankItem).join("") : "<span class='growth-note'>暂时没有。</span>"}</div>`;
+    box.innerHTML = `<div class="growth-head"><div><h2>${esc(child())}的本学期错字榜</h2><div style="font-size:13px;color:#66788c">${esc(semester())} · ${unlocked ? "已合并云端记录" : "当前显示本机记录（解锁后可合并云端）"}</div></div><span class="memory-pill ok">自动统计</span></div>
+    <div class="growth-body">${items.length ? `<div class="metric-grid">
+      <div class="metric"><b>${loadAttempts().filter((a) => a.child_name === child() && a.semester === semester()).length}</b><span>本机完成次数</span></div>
+      <div class="metric"><b>${stats.length}</b><span>曾被考到的生字</span></div>
+      <div class="metric"><b>${focus.length}</b><span>重点复习字</span></div></div>
+      <div class="rank-grid">${column("🔥 重点复习", "focus", focus)}${column("🟡 正在巩固", "reinforce", reinforce)}${column("🟢 已掌握", "mastered", mastered)}</div>
+      <div class="growth-note">判定规则：错过3次以上、最近一次仍错、或最近3次错2次以上 → 重点复习；曾错但还没连续答对3次 → 正在巩固；连续答对3次以上 → 已掌握。</div>`
+      : "<div class='growth-banner'>还没有学习记录。先让孩子完成一次练习并提交批改。</div>"}</div>`;
+    box.style.display = "block";
+    if (scroll) box.scrollIntoView({ behavior: "smooth", block: "start" });
+    return { focus, reinforce };
+  }
+
+  async function createSpecial() {
+    const data = await updateDashboard(false);
+    const lookup = new Map(WORDS.map((x) => [x.char, x]));
+    const entries = [...data.focus, ...data.reinforce]
+      .sort((a, b) => b.wrong - a.wrong || Number(b.lastWrong) - Number(a.lastWrong))
+      .slice(0, 25).map((x) => lookup.get(x.char)).filter(Boolean);
+    if (!entries.length) {
+      alert("目前没有可生成专项卷的错字。请先完成至少一次练习。");
+      return;
+    }
+    specialMode = true;
+    normalRound = roundIndex;
+    currentEntries = entries;
+    currentScenarios = [];
+    currentQuestions = [];
+    entries.forEach((entry, i) => currentQuestions.push({
+      id: "specialfill" + i, type: "fill", answer: entry.char, entry,
+      prompt: "专项拼音默写：把词语补完整：", display: blankWord(entry)
+    }));
+    entries.filter((entry) => CONFUSABLES[entry.char]).forEach((entry, i) => currentQuestions.push({
+      id: "specialchoice" + i, type: "choice", answer: entry.char, entry,
+      prompt: "专项易混字辨析：选出正确的字。", display: blankWord(entry),
+      options: shuffle(CONFUSABLES[entry.char])
+    }));
+    $("phase").value = "错字专项";
+    renderRound();
+    $("roundTitle").textContent = `期末错字专项 · ${entries.length}个高频错字`;
+    rebindGradeButton();
+  }
+
+  function returnNormal() {
+    specialMode = false;
+    roundIndex = normalRound;
+    prepareRound(false);
+    renderRound();
+    rebindGradeButton();
+  }
+
+  async function uploadAttempt(attempt) {
+    if (!sb || !unlocked) return false;
+    if (syncedIds().has(attempt.id)) return true;
+    try {
+      // 重试时先检查父记录，防止第一次只保存了一半造成主键冲突。
+      const exists = await sb.from("quiz_attempts_secure")
+        .select("id").eq("id", attempt.id).maybeSingle();
+      if (exists.error) throw exists.error;
+      if (!exists.data) {
+        const inserted = await sb.from("quiz_attempts_secure").insert({
+          id: attempt.id, created_by: sbUser.id, child_name: attempt.child_name,
+          quiz_id: attempt.quiz_id, semester: attempt.semester, phase: attempt.phase,
+          round_no: attempt.round_no, total_questions: attempt.total_questions,
+          correct_questions: attempt.correct_questions, score: attempt.score,
+          completed_at: attempt.completed_at
+        });
+        if (inserted.error) throw inserted.error;
+      }
+      const currentItems = await sb.from("quiz_item_results_secure")
+        .select("id").eq("attempt_id", attempt.id).limit(attempt.items.length + 1);
+      if (currentItems.error) throw currentItems.error;
+      if (!currentItems.data.length) {
+        const insertedItems = await sb.from("quiz_item_results_secure").insert(attempt.items.map((x) => ({
+          attempt_id: attempt.id, created_by: sbUser.id, child_name: attempt.child_name,
+          semester: attempt.semester, correct_char: x.correct_char, expected_word: x.expected_word,
+          question_type: x.question_type, given_answer: x.given_answer,
+          is_correct: x.is_correct, answered_at: x.answered_at
+        })));
+        if (insertedItems.error) throw insertedItems.error;
+      } else if (currentItems.data.length !== attempt.items.length) {
+        throw new Error("云端逐题数量异常，为避免重复已停止同步");
+      }
+      markSynced(attempt.id);
+      cloudMessage("云端同步完成：" + attempt.phase + " · " +
+        attempt.correct_questions + "/" + attempt.total_questions + "。", "ok");
+      return true;
+    } catch (error) {
+      cloudMessage("本机已保存；云端同步失败：" + (error?.message || error), "err");
+      return false;
+    }
+  }
+
+  async function syncLocalAttempts() {
+    if (!unlocked) return;
+    const attempts = loadAttempts().filter((a) => a.child_name === child() && a.semester === semester());
+    let succeeded = 0;
+    for (const attempt of attempts) {
+      if (await uploadAttempt(attempt)) succeeded++;
+    }
+    cloudMessage(`家庭档案已解锁；已同步 ${succeeded} 次本机记录。`, "ok");
+  }
+
+  function exportCsv() {
+    const attempts = loadAttempts().filter((a) => a.child_name === child() && a.semester === semester());
+    if (!attempts.length) {
+      alert("没有可导出的本机记录。");
+      return;
+    }
+    const rows = [["孩子", "学期", "阶段", "轮次", "完成时间", "正确字", "完整词语", "题型", "孩子答案", "是否正确"]];
+    attempts.forEach((a) => a.items.forEach((x) => rows.push([
+      a.child_name, a.semester, a.phase, a.round_no ?? "", a.completed_at,
+      x.correct_char, x.expected_word, x.question_type, x.given_answer, x.is_correct ? "对" : "错"
+    ])));
+    const csv = "\ufeff" + rows.map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("\n");
+    const href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = href;
+    link.download = `${child()}_${semester()}_250生字学习记录.csv`;
+    link.click();
+    URL.revokeObjectURL(href);
+  }
+
+  function init() {
+    installStudyControls();
+    rebindGradeButton();
+    $("showGrowthBtn").addEventListener("click", () => updateDashboard(true));
+    $("makeSpecialBtn").addEventListener("click", createSpecial);
+    $("backToNormalBtn").addEventListener("click", returnNormal);
+    $("exportCsvBtn").addEventListener("click", exportCsv);
+    $("unlockFamilyBtn").addEventListener("click", unlockFamily);
+    $("familyPassphrase").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") unlockFamily();
+    });
+    updateLocalPill();
+    updateCloudPill();
+    connectCloud();
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
