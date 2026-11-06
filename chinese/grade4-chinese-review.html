@@ -52,7 +52,7 @@ mark{background:#ffecb8}
 <div class="cloud-buttons"><button id="unlockBtn" class="primary">解锁家庭档案</button><button id="syncBtn">同步已批改记录</button><button id="restoreBtn">从云端恢复</button></div><p id="cloudStatus" class="help">等待连接……</p></section>
 <section class="panel">
 <h2>选择练习</h2><div class="tabs" id="tabs"><button type="button" class="tab active" data-mode="writing">✍ 写字表 · 258字</button><button type="button" class="tab" data-mode="vocab">📖 词语表 · 259词</button><button type="button" class="tab" data-mode="reading">🗣 识字表 · 263字</button><button type="button" class="tab" data-mode="notes">🔍 原书易混字 · 8题</button></div>
-<div class="toolbar"><label>答题方式<select id="answerMode"><option value="typing">网页输入 · 自动批改</option><option value="paper">纸上手写 · 自己核对</option></select></label><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
+<div class="toolbar"><label>答题方式<select id="answerMode"><option value="paper" selected>纸上手写 · 自己核对</option><option value="typing">网页输入 · 自动批改</option></select></label><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
 <div class="progress"><div id="progressFill"></div></div>
 <div class="stats"><strong id="currentTitle">写字表 · 第1组 · 第1轮</strong><span id="answerProgress">已答 0 题</span></div>
 <div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="paperFinishBtn" hidden>逐题核对完成 · 保存本轮勾选</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">网页模式全部作答后自动批改；纸笔模式先在纸上写完，再确认显示答案、逐题勾选本轮写对的题，未勾选计入错题。</p>
@@ -75,7 +75,7 @@ const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch(_){return f}};
 const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
 const attempts=get(K+"-attempts",[]),drafts=get(K+"-drafts",{}),synced=new Set(get(K+"-synced",[]));
-let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="typing";
+let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper";
 const paperSessions=get(PAPER_KEY,{});
 const paperSession=()=>{const k=slug();return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
 const savePaper=()=>put(PAPER_KEY,paperSessions);
@@ -380,7 +380,7 @@ async function restore(){
       const entries=(rows.data||[]).filter(x=>x.attempt_id===a.id);
       attempts.push({id:a.id,quiz_id:QUIZ_ID,child_name:"高语牧",semester:a.semester,base_phase:parts[0],mode:modeKey,group:groupNum-1,round_no:a.round_no,study_mode:parts[3]==="纸笔"?"paper":"typing",
        total_questions:a.total_questions,correct_questions:a.correct_questions,score:a.score,completed_at:a.completed_at,
-       items:entries.map(x=>({id:x.question_type.split("|")[1],type:x.question_type.split("|")[0],focus:x.correct_char,word:x.expected_word,
+       items:entries.map(x=>({id:x.question_type.split("|")[1],type:x.question_type.split("|")[0].replace(/^paper-/,""),focus:x.correct_char,word:x.expected_word,
          expected:x.expected_word,answer:x.given_answer,correct:x.is_correct}))});
       synced.add(a.id);count++;
    }
