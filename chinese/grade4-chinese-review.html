@@ -164,9 +164,11 @@ function card(q,i){
   article.innerHTML=html;
   if(studyMode==="paper"){
     article.querySelectorAll("[data-input]").forEach(input=>{
-      if(input.type==="radio"){input.disabled=true;input.style.display="none";}
+      if(input.type==="radio"){const option=input.closest("label");if(option)option.remove();}
       else{const box=document.createElement("span");box.className="paper-placeholder";box.textContent=input.maxLength===1?"□":"（写在纸上）";input.replaceWith(box);}
     });
+    const options=article.querySelector(".options");
+    if(options){const note=document.createElement("p");note.className="help";note.textContent="请独立在纸上写出正确答案，核对前不显示选项。";options.replaceWith(note);}
   }
   return article;
 }
