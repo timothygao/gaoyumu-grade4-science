@@ -89,7 +89,7 @@ details summary{cursor:pointer;font-weight:800;color:#275c7a}
 </style>
 <script defer src="air-unit-data.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script>
-<script defer src="air-unit-app.js?v=2"></script>
+<script defer src="air-unit-app.js?v=3"></script>
 </head><body><main class="container">
 <header><div class="eyebrow">高语牧 · 四年级上册 · 科学</div>
 <h1>《空气》单元三轮巩固卷</h1>
@@ -112,7 +112,7 @@ details summary{cursor:pointer;font-weight:800;color:#275c7a}
 <div id="question-groups" aria-live="polite"><div class="empty">正在加载知识点题库……</div></div>
 <div class="actions"><button class="primary" id="grade" type="button" disabled>批改并显示参考答案</button><button class="secondary" id="finish" type="button" disabled>本轮全部核对完毕</button><button class="secondary" id="next" type="button" disabled>进入下一轮 · 只练不会的</button></div>
 <div id="result" class="result" hidden></div>
-<p class="notice">不会的题无需猜：点击“暂时不会”即可计入本轮完成。<strong>如果误点“本轮全部核对完毕”</strong>，仍可点击“补批改 · 查看全部参考答案”重新核对；不会清空已填写的答案、勾选和云端历史成绩。已掌握的题不会重复要求填写。</p>
+<p class="notice">每道题下方的<strong>第1轮、第2轮、第3轮</strong>勾选框现在可以补勾或修改。需要先在对应轮次独立作答，空白轮次不能直接标记掌握。即使已经误点“本轮全部核对完毕”，也能修改已有作答的掌握勾选；补勾会保留原答案和历史成绩，并更新云端记录。不会的题可以点“暂时不会”。</p>
 <details class="cloud"><summary>☁ 家庭云端保存与恢复</summary><div class="cloud-content">
 <p class="intro">每次点击“本轮全部核对完毕”后，会保存在本机；解锁家庭档案后同步到原有 Supabase。独立试卷编号，不覆盖旧版科学记录。</p>
 <div class="cloud-fields"><label>学生<input value="高语牧" readonly></label><label>学期<input id="semester" value="2026秋" aria-label="学期"></label><label>家庭暗号<input id="passphrase" type="password" autocomplete="off" placeholder="仅用于家庭解锁"></label></div>
