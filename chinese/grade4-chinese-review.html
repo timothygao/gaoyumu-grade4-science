@@ -39,7 +39,7 @@ button{font:inherit;font-weight:700;border:1px solid #aac7db;background:#eaf5fc;
 mark{background:#ffecb8}
 @media(max-width:740px){main{padding:10px 10px 50px}#cards{grid-template-columns:1fr}.card{padding:16px}.toolbar label{min-width:135px}}
 @media print{header,.cloud,.actions,.tabs,.toolbar,.feedback,.notice{display:none!important}.card{page-break-inside:avoid}#cards{display:block}.card{margin-bottom:12px}}
-</style></head><body><main><header>
+.paper-mark{margin-top:10px;padding:10px;background:#f3f8fc;border:1px dashed #b5cfdf;border-radius:10px;color:#235c78}.paper-mark input{min-height:auto;width:18px;height:18px}.paper-mark label{display:flex;gap:8px;align-items:center}.paper-placeholder{display:inline-block;min-width:48px;padding:5px 10px;border-bottom:2px solid #558eb5;color:#728ba0;text-align:center}.paper-choice-note{font-size:12px;color:#56768a}.paper-bar{background:#eff8f1;padding:11px;border-radius:10px;margin:12px 0;color:#25674e}#paperFinishBtn{background:#177458;color:white;border-color:#177458}</style></head><body><main><header>
 <div class="top">高语牧 · 四年级上册 · 语文</div><h1>字词闯关与错字成长档案</h1>
 <p class="muted">完全按上传的117—124页识字表、写字表、词语表整理。与旧三年级250字卷分开保存。</p>
 <div class="summary"><span class="tag">写字表 258字</span><span class="tag">识字表 263字</span><span class="tag">词语表 259词</span><span class="tag">原书已确认易混字 4组</span><span class="tag">每组3轮独立作答</span></div>
@@ -52,10 +52,10 @@ mark{background:#ffecb8}
 <div class="cloud-buttons"><button id="unlockBtn" class="primary">解锁家庭档案</button><button id="syncBtn">同步已批改记录</button><button id="restoreBtn">从云端恢复</button></div><p id="cloudStatus" class="help">等待连接……</p></section>
 <section class="panel">
 <h2>选择练习</h2><div class="tabs" id="tabs"><button type="button" class="tab active" data-mode="writing">✍ 写字表 · 258字</button><button type="button" class="tab" data-mode="vocab">📖 词语表 · 259词</button><button type="button" class="tab" data-mode="reading">🗣 识字表 · 263字</button><button type="button" class="tab" data-mode="notes">🔍 原书易混字 · 8题</button></div>
-<div class="toolbar"><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
+<div class="toolbar"><label>答题方式<select id="answerMode"><option value="typing">网页输入 · 自动批改</option><option value="paper">纸上手写 · 自己核对</option></select></label><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
 <div class="progress"><div id="progressFill"></div></div>
 <div class="stats"><strong id="currentTitle">写字表 · 第1组 · 第1轮</strong><span id="answerProgress">已答 0 题</span></div>
-<div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">所有题目做完后才能批改，批改前绝不显示正确答案。</p>
+<div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="paperFinishBtn" hidden>逐题核对完成 · 保存本轮勾选</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">网页模式全部作答后自动批改；纸笔模式先在纸上写完，再确认显示答案、逐题勾选本轮写对的题，未勾选计入错题。</p>
 <div id="cards"></div><div id="result" hidden></div>
 </section>
 <section class="panel"><h2>错字成长档案</h2><p class="help">统计当前浏览器中已完成的各轮练习；如需跨设备合并，点击顶部“从云端恢复”。</p><div class="actions"><button id="boardBtn">刷新错字榜</button></div><div id="wrongBoard"></div></section>
@@ -68,15 +68,19 @@ const BANK={"writing":[{"lesson":"1","char":"据","word":"据说","pinyin":"jùs
 const QUIZ_ID="gaoyumu-grade4-chinese-2026-v1";
 const SB_URL="https://iqlnwzxmtjjgzisufljd.supabase.co",SB_PUBLIC_KEY="sb_publishable_jnY3xbWPgPFBd6naW35bXQ_tzZcNOTE";
 const K="gaoyumu-chinese-grade4-2026-v1";
+const PAPER_KEY=K+"-paper-sessions";
 const LABEL={writing:"写字表",reading:"识字表",vocab:"词语表",notes:"易混字"};
 const $=id=>document.getElementById(id);
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch(_){return f}};
 const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
 const attempts=get(K+"-attempts",[]),drafts=get(K+"-drafts",{}),synced=new Set(get(K+"-synced",[]));
-let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false;
+let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="typing";
+const paperSessions=get(PAPER_KEY,{});
+const paperSession=()=>{const k=slug();return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
+const savePaper=()=>put(PAPER_KEY,paperSessions);
 const normalize=s=>String(s||"").replace(/[\s，,、。！!？?；;]/g,"").trim();
-const slug=()=>[$("semester").value.trim(),$("phase").value,mode,group,round].join("|");
+const slug=()=>[$("semester").value.trim(),$("phase").value,mode,group,round].join("|")+(studyMode==="paper"?"|paper":"");
 const newId=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const x=Math.random()*16|0;return(c==="x"?x:(x&3|8)).toString(16)});
 const entries=()=>BANK[mode]||[];
 const chunk=()=>mode==="notes"?BANK.notes:entries().slice(group*44,(group+1)*44);
@@ -100,7 +104,7 @@ function setupGroups(){
   group=Math.min(group,groupCount()-1);$("group").value=String(group);
 }
 function priorAttempt(){
-  return attempts.filter(a=>a.quiz_id===QUIZ_ID&&a.semester===$("semester").value.trim()&&a.base_phase===$("phase").value&&a.mode===mode&&a.group===group&&a.round_no===round&&!a.replaced).sort((a,b)=>b.completed_at.localeCompare(a.completed_at))[0]||null;
+  return attempts.filter(a=>a.quiz_id===QUIZ_ID&&a.semester===$("semester").value.trim()&&a.base_phase===$("phase").value&&a.mode===mode&&a.group===group&&a.round_no===round&&!a.replaced&&(a.study_mode||"typing")===studyMode).sort((a,b)=>b.completed_at.localeCompare(a.completed_at))[0]||null;
 }
 function filled(q){
   if(q.type==="writing")return $("q-"+q.id)?.value.trim()||"";
@@ -110,6 +114,18 @@ function filled(q){
 function answers(){const a={};questions.forEach(q=>a[q.id]=filled(q));return a;}
 function saveDraft(){if(locked)return;drafts[slug()]=answers();put(K+"-drafts",drafts);}
 function showProgress(){
+  if(studyMode==="paper"){
+    const p=paperSession(),count=questions.filter(q=>!!p.marks[q.id]).length;
+    $("answerProgress").textContent=p.revealed?"本轮勾选掌握 "+count+" / "+questions.length+" 题":"纸笔手写 · 本轮"+questions.length+"题";
+    $("progressFill").style.width=(p.revealed?100*count/Math.max(1,questions.length):0)+"%";
+    $("gradeBtn").disabled=p.revealed||!!locked;
+    $("gradeBtn").textContent=p.revealed?"参考答案已显示":"纸上已写完 · 显示参考答案";
+    $("paperFinishBtn").hidden=!p.revealed;
+    $("paperFinishBtn").textContent=locked?"更新本轮勾选记录":"核对完成 · 保存本轮勾选";
+    $("guide").textContent=p.revealed?"请对照纸上的手写答案，勾选每道写对的题；未勾选的题计入错字榜。勾选自动保存在本机，核对完再点击保存。":"请先独立在纸上完成全部题目；确认写完后才能显示答案，不能提前查看。";
+    return;
+  }
+  $("paperFinishBtn").hidden=true;
   const count=questions.filter(q=>filled(q)!=="").length;
   const all=questions.length;
   $("answerProgress").textContent="已答 "+count+" / "+all+" 题";
@@ -141,7 +157,18 @@ function card(q,i){
       '<div class="inline">'+esc(q.masked)+'</div><div class="options">'+q.options.map(o=>
       '<label><input data-input="1" type="radio" name="q-'+q.id+'" value="'+esc(o)+'">'+esc(o)+'</label>').join("")+'</div>';
   }
-  html+='<div class="feedback"></div>';article.innerHTML=html;return article;
+  html+='<div class="feedback"></div>';
+  if(studyMode==="paper"){
+    html+='<div class="paper-mark" hidden><label><input type="checkbox" data-paper-tick="'+q.id+'"><span>第'+round+'轮：我在纸上独立写对了</span></label></div>';
+  }
+  article.innerHTML=html;
+  if(studyMode==="paper"){
+    article.querySelectorAll("[data-input]").forEach(input=>{
+      if(input.type==="radio"){input.disabled=true;input.style.display="none";}
+      else{const box=document.createElement("span");box.className="paper-placeholder";box.textContent=input.maxLength===1?"□":"（写在纸上）";input.replaceWith(box);}
+    });
+  }
+  return article;
 }
 function fillSaved(ans){
   questions.forEach(q=>{
@@ -150,7 +177,15 @@ function fillSaved(ans){
   });
 }
 function showGraded(a,scroll){
-  locked=a;const byId=new Map((a.items||[]).map(x=>[x.id,x]));
+  locked=a;
+  if((a.study_mode||"typing")==="paper"){
+    const p=paperSession();p.revealed=true;
+    for(const x of a.items||[])p.marks[x.id]=!!x.correct;
+    savePaper();renderPaperReview();showProgress();
+    if(scroll)$("result").scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  const byId=new Map((a.items||[]).map(x=>[x.id,x]));
   let correct=0;
   questions.forEach(q=>{
     const item=byId.get(q.id);const ans=item?.answer||"";
@@ -164,16 +199,67 @@ function showGraded(a,scroll){
   document.querySelectorAll("#cards input").forEach(x=>x.disabled=true);
   showProgress();if(scroll)$("result").scrollIntoView({behavior:"smooth",block:"center"});
 }
+function renderPaperReview(){
+  const p=paperSession();if(!p.revealed)return;
+  let correct=0;
+  questions.forEach(q=>{
+    const c=$("card-"+q.id);
+    if(!c)return;
+    c.classList.add("graded");
+    const tick=c.querySelector("[data-paper-tick]");
+    if(tick)tick.checked=!!p.marks[q.id];
+    const panel=c.querySelector(".paper-mark");if(panel)panel.hidden=false;
+    c.querySelector(".feedback").innerHTML='参考答案：<strong>'+esc(q.answer)+'</strong>'+
+      (q.type==="writing"?'　参考词语：'+esc(q.word):'');
+    if(p.marks[q.id])correct++;
+  });
+  $("result").hidden=false;
+  $("result").innerHTML='<strong>纸笔自核：</strong>已勾选写对 '+correct+' / '+questions.length+
+    ' 题。未勾选的题将作为未掌握内容。确认后点击“保存本轮勾选”。';
+}
+function revealPaper(){
+  if(studyMode!=="paper"||paperSession().revealed)return;
+  if(!confirm("确认已经在纸上独立完成本组全部题目？确定后才显示参考答案；未写完请先取消。"))return;
+  const p=paperSession();p.revealed=true;savePaper();renderPaperReview();showProgress();
+  $("result").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function savePaperMarks(){
+  if(studyMode!=="paper")return;
+  const p=paperSession();if(!p.revealed)return;
+  if(!confirm("确定已经逐题对照手写答案核对完毕？未勾选的题会记录为未掌握。"))return;
+  const old=priorAttempt();
+  const meta={quiz_id:QUIZ_ID,id:newId(),child_name:"高语牧",semester:$("semester").value.trim(),
+    base_phase:$("phase").value,mode,group,round_no:round,completed_at:new Date().toISOString(),study_mode:"paper"};
+  meta.items=questions.map(q=>({id:q.id,type:q.type,focus:q.focus,word:q.word,expected:q.answer,
+    answer:"[纸笔自核]",correct:!!p.marks[q.id]}));
+  meta.total_questions=meta.items.length;
+  meta.correct_questions=meta.items.filter(x=>x.correct).length;
+  meta.score=Math.round(100*meta.correct_questions/Math.max(1,meta.total_questions));
+  if(old)old.replaced=true;
+  attempts.push(meta);
+  if(!put(K+"-attempts",attempts)){
+    attempts.pop();if(old)delete old.replaced;alert("本机保存失败，未提交本轮记录。");return;
+  }
+  locked=meta;renderPaperReview();showProgress();board();
+  if(unlocked)syncAll();
+  else cloudMessage("本轮纸笔自核结果已保存在本机；解锁家庭档案后可同步云端。");
+}
 function showPaper(){
   questions=questionsForCurrent();locked=null;$("result").hidden=true;$("result").innerHTML="";$("gradeBtn").textContent="批改并显示答案";
   $("cards").innerHTML="";questions.forEach((q,i)=>$("cards").appendChild(card(q,i)));
   $("currentTitle").textContent=LABEL[mode]+" · 第"+(group+1)+"组 · 第"+round+"轮";
   const saved=priorAttempt();
-  if(saved){fillSaved(Object.fromEntries(saved.items.map(x=>[x.id,x.answer])));showGraded(saved,false);}
-  else fillSaved(drafts[slug()]||{});
+  if(studyMode==="paper"){
+    if(saved)showGraded(saved,false);
+    else if(paperSession().revealed)renderPaperReview();
+  }else{
+    if(saved){fillSaved(Object.fromEntries(saved.items.map(x=>[x.id,x.answer])));showGraded(saved,false);}
+    else fillSaved(drafts[slug()]||{});
+  }
   showProgress();
 }
 function grade(){
+  if(studyMode==="paper"){revealPaper();return;}
   if(locked)return;
   if(questions.some(q=>filled(q)==="")){showProgress();return;}
   const meta={quiz_id:QUIZ_ID,id:newId(),child_name:"高语牧",semester:$("semester").value.trim(),
@@ -188,6 +274,12 @@ function grade(){
   if(unlocked)syncAll();else $("cloudStatus").textContent="✓ 成绩已保存本机；解锁家庭档案后可同步到云端。";
 }
 function reset(){
+  if(studyMode==="paper"){
+    if(!confirm("重新开始当前纸笔轮次？历史成绩保留，当前轮会重新隐藏答案，原勾选草稿将清空。"))return;
+    const old=priorAttempt();if(old)old.replaced=true;
+    paperSessions[slug()]={revealed:false,marks:{}};
+    savePaper();put(K+"-attempts",attempts);locked=null;showPaper();return;
+  }
   if(!confirm("重新作答本轮？历史成绩不会删除，新完成的记录会覆盖当前轮的显示。"))return;
   locked=null;const a=priorAttempt();
   if(a){a.replaced=true;put(K+"-attempts",attempts);}
@@ -245,7 +337,7 @@ async function syncOne(a){
   if(exists.error)throw exists.error;
   if(!exists.data){
     const payload={id:a.id,created_by:user.id,child_name:a.child_name,quiz_id:QUIZ_ID,semester:a.semester,
-      phase:a.base_phase+"·"+LABEL[a.mode]+"·第"+(a.group+1)+"组",round_no:a.round_no,
+      phase:a.base_phase+"·"+LABEL[a.mode]+"·第"+(a.group+1)+"组"+(a.study_mode==="paper"?"·纸笔":""),round_no:a.round_no,
       total_questions:a.total_questions,correct_questions:a.correct_questions,score:a.score,completed_at:a.completed_at};
     const res=await cloud.from("quiz_attempts_secure").insert(payload);
     if(res.error)throw res.error;
@@ -253,9 +345,9 @@ async function syncOne(a){
   const q=await cloud.from("quiz_item_results_secure").select("question_type").eq("attempt_id",a.id).limit(200);
   if(q.error)throw q.error;
   const existing=new Set((q.data||[]).map(x=>x.question_type));
-  const add=a.items.filter(x=>!existing.has(x.type+"|"+x.id)).map(x=>({
+  const add=a.items.filter(x=>!existing.has((a.study_mode==="paper"?"paper-":"")+x.type+"|"+x.id)).map(x=>({
     attempt_id:a.id,created_by:user.id,child_name:a.child_name,semester:a.semester,
-    correct_char:x.focus,expected_word:x.expected,question_type:x.type+"|"+x.id,
+    correct_char:x.focus,expected_word:x.expected,question_type:(a.study_mode==="paper"?"paper-":"")+x.type+"|"+x.id,
     given_answer:x.answer,is_correct:x.correct,answered_at:a.completed_at
   }));
   if(add.length){const result=await cloud.from("quiz_item_results_secure").insert(add);if(result.error)throw result.error;}
@@ -282,11 +374,11 @@ async function restore(){
    if(rows.error)throw rows.error;
    let count=0;
    for(const a of roots){
-      const parts=a.phase.split("·");if(parts.length!==3)continue;
+      const parts=a.phase.split("·");if(parts.length!==3&&parts.length!==4)continue;
       const modeKey=Object.keys(LABEL).find(k=>LABEL[k]===parts[1]);const groupNum=Number(parts[2].replace(/[^0-9]/g,""));
       if(!modeKey||!groupNum)continue;
       const entries=(rows.data||[]).filter(x=>x.attempt_id===a.id);
-      attempts.push({id:a.id,quiz_id:QUIZ_ID,child_name:"高语牧",semester:a.semester,base_phase:parts[0],mode:modeKey,group:groupNum-1,round_no:a.round_no,
+      attempts.push({id:a.id,quiz_id:QUIZ_ID,child_name:"高语牧",semester:a.semester,base_phase:parts[0],mode:modeKey,group:groupNum-1,round_no:a.round_no,study_mode:parts[3]==="纸笔"?"paper":"typing",
        total_questions:a.total_questions,correct_questions:a.correct_questions,score:a.score,completed_at:a.completed_at,
        items:entries.map(x=>({id:x.question_type.split("|")[1],type:x.question_type.split("|")[0],focus:x.correct_char,word:x.expected_word,
          expected:x.expected_word,answer:x.given_answer,correct:x.is_correct}))});
@@ -303,12 +395,22 @@ function init(){
     document.querySelectorAll("[data-mode]").forEach(x=>x.classList.toggle("active",x===b));
     setupGroups();showPaper();
   }));
+  $("answerMode").addEventListener("change",()=>{studyMode=$("answerMode").value;showPaper();});
   $("group").addEventListener("change",()=>{group=Number($("group").value);showPaper();});
   $("round").addEventListener("change",()=>{round=Number($("round").value);showPaper();});
   $("startBtn").addEventListener("click",()=>{group=Number($("group").value);round=Number($("round").value);showPaper();});
   $("semester").addEventListener("change",showPaper);$("phase").addEventListener("change",showPaper);
-  $("cards").addEventListener("input",showProgress);$("cards").addEventListener("change",showProgress);
-  $("gradeBtn").addEventListener("click",grade);$("resetBtn").addEventListener("click",reset);
+  $("cards").addEventListener("input",showProgress);
+  $("cards").addEventListener("change",e=>{
+    if(e.target.matches("[data-paper-tick]")){
+      if(studyMode!=="paper"||!paperSession().revealed)return;
+      paperSession().marks[e.target.dataset.paperTick]=e.target.checked;
+      savePaper();renderPaperReview();showProgress();
+      return;
+    }
+    showProgress();
+  });
+  $("gradeBtn").addEventListener("click",grade);$("paperFinishBtn").addEventListener("click",savePaperMarks);$("resetBtn").addEventListener("click",reset);
   $("nextBtn").addEventListener("click",()=>{if(round<3){round++;$("round").value=String(round);}else{round=1;$("round").value="1";group=Math.min(group+1,groupCount()-1);$("group").value=String(group);}showPaper();});
   $("boardBtn").addEventListener("click",board);
   $("unlockBtn").addEventListener("click",unlock);$("syncBtn").addEventListener("click",syncAll);
