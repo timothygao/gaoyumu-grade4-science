@@ -39,7 +39,7 @@ button{font:inherit;font-weight:700;border:1px solid #aac7db;background:#eaf5fc;
 mark{background:#ffecb8}
 @media(max-width:740px){main{padding:10px 10px 50px}#cards{grid-template-columns:1fr}.card{padding:16px}.toolbar label{min-width:135px}}
 @media print{header,.cloud,.actions,.tabs,.toolbar,.feedback,.notice{display:none!important}.card{page-break-inside:avoid}#cards{display:block}.card{margin-bottom:12px}}
-.paper-mark{margin-top:10px;padding:10px;background:#f3f8fc;border:1px dashed #b5cfdf;border-radius:10px;color:#235c78}.paper-mark input{min-height:auto;width:18px;height:18px}.paper-mark label{display:flex;gap:8px;align-items:center}.paper-placeholder{display:inline-block;min-width:48px;padding:5px 10px;border-bottom:2px solid #558eb5;color:#728ba0;text-align:center}.paper-choice-note{font-size:12px;color:#56768a}.paper-bar{background:#eff8f1;padding:11px;border-radius:10px;margin:12px 0;color:#25674e}#paperFinishBtn{background:#177458;color:white;border-color:#177458}</style></head><body><main><header>
+.paper-mark{margin-top:10px;padding:10px;background:#f3f8fc;border:1px dashed #b5cfdf;border-radius:10px;color:#235c78}.paper-mark input{min-height:auto;width:18px;height:18px}.paper-mark-title{font-weight:800;color:#245778;margin-bottom:8px}.paper-mark-grid{display:flex;flex-wrap:wrap;gap:8px}.paper-mark-grid label{display:flex;align-items:center;gap:7px;border:1px solid #d3e5f0;background:#fff;padding:7px 10px;border-radius:9px;font-size:13px;font-weight:700}.paper-mark-grid label:has(input:disabled){opacity:.5}.paper-mark label{cursor:pointer}.paper-placeholder{display:inline-block;min-width:48px;padding:5px 10px;border-bottom:2px solid #558eb5;color:#728ba0;text-align:center}.paper-choice-note{font-size:12px;color:#56768a}.paper-bar{background:#eff8f1;padding:11px;border-radius:10px;margin:12px 0;color:#25674e}#paperFinishBtn{background:#177458;color:white;border-color:#177458}</style></head><body><main><header>
 <div class="top">高语牧 · 四年级上册 · 语文</div><h1>字词闯关与错字成长档案</h1>
 <p class="muted">完全按上传的117—124页识字表、写字表、词语表整理。与旧三年级250字卷分开保存。</p>
 <div class="summary"><span class="tag">写字表 258字</span><span class="tag">识字表 263字</span><span class="tag">词语表 259词</span><span class="tag">原书已确认易混字 4组</span><span class="tag">每组3轮独立作答</span></div>
@@ -55,7 +55,7 @@ mark{background:#ffecb8}
 <div class="toolbar"><label>答题方式<select id="answerMode"><option value="paper" selected>纸上手写 · 自己核对</option><option value="typing">网页输入 · 自动批改</option></select></label><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
 <div class="progress"><div id="progressFill"></div></div>
 <div class="stats"><strong id="currentTitle">写字表 · 第1组 · 第1轮</strong><span id="answerProgress">已答 0 题</span></div>
-<div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="paperFinishBtn" hidden>逐题核对完成 · 保存本轮勾选</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">网页模式全部作答后自动批改；纸笔模式先在纸上写完，再确认显示答案、逐题勾选本轮写对的题，未勾选计入错题。</p>
+<div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="paperFinishBtn" hidden>逐题核对完成 · 保存本轮勾选</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">网页模式全部作答后自动批改；纸笔模式每个字下方有第1次／第2次／第3次勾选框。先纸上独立写完、确认显示答案，再勾选对应轮次写对的题；未勾选计入错题。</p>
 <div id="cards"></div><div id="result" hidden></div>
 </section>
 <section class="panel"><h2>错字成长档案</h2><p class="help">统计当前浏览器中已完成的各轮练习；如需跨设备合并，点击顶部“从云端恢复”。</p><div class="actions"><button id="boardBtn">刷新错字榜</button></div><div id="wrongBoard"></div></section>
@@ -77,7 +77,8 @@ const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catc
 const attempts=get(K+"-attempts",[]),drafts=get(K+"-drafts",{}),synced=new Set(get(K+"-synced",[]));
 let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper";
 const paperSessions=get(PAPER_KEY,{});
-const paperSession=()=>{const k=slug();return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
+const paperSessionFor=r=>{const k=[$("semester").value.trim(),$("phase").value,mode,group,r].join("|")+"|paper";return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
+const paperSession=()=>paperSessionFor(round);
 const savePaper=()=>put(PAPER_KEY,paperSessions);
 const normalize=s=>String(s||"").replace(/[\s，,、。！!？?；;]/g,"").trim();
 const slug=()=>[$("semester").value.trim(),$("phase").value,mode,group,round].join("|")+(studyMode==="paper"?"|paper":"");
@@ -159,7 +160,13 @@ function card(q,i){
   }
   html+='<div class="feedback"></div>';
   if(studyMode==="paper"){
-    html+='<div class="paper-mark" hidden><label><input type="checkbox" data-paper-tick="'+q.id+'"><span>第'+round+'轮：我在纸上独立写对了</span></label></div>';
+    html+='<div class="paper-mark"><div class="paper-mark-title">手写核对 · 三次记录</div><div class="paper-mark-grid">'+
+      [1,2,3].map(r=>{
+        const p=paperSessionFor(r);
+        return '<label title="'+(p.revealed?'根据第'+r+'次纸笔核对的结果勾选':'第'+r+'次尚未批改，先独立作答并核对')+'"><input type="checkbox" data-paper-tick="'+q.id+'" data-paper-round="'+r+'" '+
+          (p.marks[q.id]?'checked ':'')+(p.revealed?'':'disabled ')+
+          '><span>第'+r+'次 · 写对</span></label>';
+      }).join("")+'</div><div class="help">勾选表示这一轮手写正确；未勾选表示未掌握。未核对的轮次暂不可勾选。</div></div>';
   }
   article.innerHTML=html;
   if(studyMode==="paper"){
@@ -208,9 +215,12 @@ function renderPaperReview(){
     const c=$("card-"+q.id);
     if(!c)return;
     c.classList.add("graded");
-    const tick=c.querySelector("[data-paper-tick]");
-    if(tick)tick.checked=!!p.marks[q.id];
-    const panel=c.querySelector(".paper-mark");if(panel)panel.hidden=false;
+    c.querySelectorAll("[data-paper-tick]").forEach(tick=>{
+      const rr=Number(tick.dataset.paperRound);
+      const session=paperSessionFor(rr);
+      tick.checked=!!session.marks[q.id];
+      tick.disabled=!session.revealed;
+    });
     c.querySelector(".feedback").innerHTML='参考答案：<strong>'+esc(q.answer)+'</strong>'+
       (q.type==="writing"?'　参考词语：'+esc(q.word):'');
     if(p.marks[q.id])correct++;
@@ -405,9 +415,14 @@ function init(){
   $("cards").addEventListener("input",showProgress);
   $("cards").addEventListener("change",e=>{
     if(e.target.matches("[data-paper-tick]")){
-      if(studyMode!=="paper"||!paperSession().revealed)return;
-      paperSession().marks[e.target.dataset.paperTick]=e.target.checked;
-      savePaper();renderPaperReview();showProgress();
+      if(studyMode!=="paper")return;
+      const markRound=Number(e.target.dataset.paperRound);
+      const target=paperSessionFor(markRound);
+      if(!target.revealed){e.target.checked=false;return;}
+      target.marks[e.target.dataset.paperTick]=e.target.checked;
+      savePaper();
+      if(markRound===round){renderPaperReview();showProgress();}
+      else e.target.checked=!!target.marks[e.target.dataset.paperTick];
       return;
     }
     showProgress();
