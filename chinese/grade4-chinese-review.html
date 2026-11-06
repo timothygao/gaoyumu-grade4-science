@@ -75,7 +75,7 @@ const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch(_){return f}};
 const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
 const attempts=get(K+"-attempts",[]),drafts=get(K+"-drafts",{}),synced=new Set(get(K+"-synced",[]));
-let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper";
+let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper",answersVisible=false;
 const paperSessions=get(PAPER_KEY,{});
 const paperSessionFor=r=>{const k=[$("semester").value.trim(),$("phase").value,mode,group,r].join("|")+"|paper";return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
 const paperSession=()=>paperSessionFor(round);
@@ -117,13 +117,13 @@ function saveDraft(){if(locked)return;drafts[slug()]=answers();put(K+"-drafts",d
 function showProgress(){
   if(studyMode==="paper"){
     const p=paperSession(),count=questions.filter(q=>!!p.marks[q.id]).length;
-    $("answerProgress").textContent=p.revealed?"本轮勾选掌握 "+count+" / "+questions.length+" 题":"纸笔手写 · 本轮"+questions.length+"题";
-    $("progressFill").style.width=(p.revealed?100*count/Math.max(1,questions.length):0)+"%";
-    $("gradeBtn").disabled=p.revealed||!!locked;
-    $("gradeBtn").textContent=p.revealed?"参考答案已显示":"纸上已写完 · 显示参考答案";
-    $("paperFinishBtn").hidden=!p.revealed;
+    $("answerProgress").textContent=answersVisible?"本轮勾选掌握 "+count+" / "+questions.length+" 题":"纸笔手写 · 本轮"+questions.length+"题（答案隐藏）";
+    $("progressFill").style.width=(answersVisible?100*count/Math.max(1,questions.length):0)+"%";
+    $("gradeBtn").disabled=answersVisible;
+    $("gradeBtn").textContent=answersVisible?"参考答案已显示":"确认写完 · 核对并显示参考答案";
+    $("paperFinishBtn").hidden=!answersVisible;
     $("paperFinishBtn").textContent=locked?"更新本轮勾选记录":"核对完成 · 保存本轮勾选";
-    $("guide").textContent=p.revealed?"请对照纸上的手写答案，勾选每道写对的题；未勾选的题计入错字榜。勾选自动保存在本机，核对完再点击保存。":"请先独立在纸上完成全部题目；确认写完后才能显示答案，不能提前查看。";
+    $("guide").textContent=answersVisible?"请对照纸上的手写答案，勾选每道写对的题；未勾选的题计入错字榜。勾选自动保存在本机，核对完再点击保存。":"本次进入试卷答案默认隐藏，原来勾选和成绩仍在；写完并核对时再显示参考答案。";
     return;
   }
   $("paperFinishBtn").hidden=true;
@@ -164,7 +164,7 @@ function card(q,i){
       [1,2,3].map(r=>{
         const p=paperSessionFor(r);
         return '<label title="'+(p.revealed?'根据第'+r+'次纸笔核对的结果勾选':'第'+r+'次尚未批改，先独立作答并核对')+'"><input type="checkbox" data-paper-tick="'+q.id+'" data-paper-round="'+r+'" '+
-          (p.marks[q.id]?'checked ':'')+(p.revealed?'':'disabled ')+
+          (p.marks[q.id]?'checked ':'')+((answersVisible&&p.revealed&&r===round)?'':'disabled ')+
           '><span>第'+r+'次 · 写对</span></label>';
       }).join("")+'</div><div class="help">勾选表示这一轮手写正确；未勾选表示未掌握。未核对的轮次暂不可勾选。</div></div>';
   }
@@ -209,7 +209,7 @@ function showGraded(a,scroll){
   showProgress();if(scroll)$("result").scrollIntoView({behavior:"smooth",block:"center"});
 }
 function renderPaperReview(){
-  const p=paperSession();if(!p.revealed)return;
+  const p=paperSession();if(!answersVisible||!p.revealed)return;
   let correct=0;
   questions.forEach(q=>{
     const c=$("card-"+q.id);
@@ -219,7 +219,7 @@ function renderPaperReview(){
       const rr=Number(tick.dataset.paperRound);
       const session=paperSessionFor(rr);
       tick.checked=!!session.marks[q.id];
-      tick.disabled=!session.revealed;
+      tick.disabled=!(answersVisible&&session.revealed&&rr===round);
     });
     c.querySelector(".feedback").innerHTML='参考答案：<strong>'+esc(q.answer)+'</strong>'+
       (q.type==="writing"?'　参考词语：'+esc(q.word):'');
@@ -230,14 +230,14 @@ function renderPaperReview(){
     ' 题。未勾选的题将作为未掌握内容。确认后点击“保存本轮勾选”。';
 }
 function revealPaper(){
-  if(studyMode!=="paper"||paperSession().revealed)return;
+  if(studyMode!=="paper"||answersVisible)return;
   if(!confirm("确认已经在纸上独立完成本组全部题目？确定后才显示参考答案；未写完请先取消。"))return;
-  const p=paperSession();p.revealed=true;savePaper();renderPaperReview();showProgress();
+  const p=paperSession();p.revealed=true;answersVisible=true;savePaper();renderPaperReview();showProgress();
   $("result").scrollIntoView({behavior:"smooth",block:"center"});
 }
 function savePaperMarks(){
   if(studyMode!=="paper")return;
-  const p=paperSession();if(!p.revealed)return;
+  const p=paperSession();if(!answersVisible||!p.revealed)return;
   if(!confirm("确定已经逐题对照手写答案核对完毕？未勾选的题会记录为未掌握。"))return;
   const old=priorAttempt();
   const meta={quiz_id:QUIZ_ID,id:newId(),child_name:"高语牧",semester:$("semester").value.trim(),
@@ -257,6 +257,7 @@ function savePaperMarks(){
   else cloudMessage("本轮纸笔自核结果已保存在本机；解锁家庭档案后可同步云端。");
 }
 function showPaper(){
+  answersVisible=false;
   questions=questionsForCurrent();locked=null;$("result").hidden=true;$("result").innerHTML="";$("gradeBtn").textContent="批改并显示答案";
   $("cards").innerHTML="";questions.forEach((q,i)=>$("cards").appendChild(card(q,i)));
   $("currentTitle").textContent=LABEL[mode]+" · 第"+(group+1)+"组 · 第"+round+"轮";
