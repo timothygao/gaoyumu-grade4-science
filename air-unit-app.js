@@ -40,7 +40,7 @@ function totals(m=mode,r=md(m).current){const list=course(m),want=required(m,r),
  return {all:list.length,want:want.length,ready,mastered,done:d.done,graded:d.graded};}
 function friendlyNext(){const x=totals();
  if(x.want===0)return "此前的题目已全部掌握。这一轮无需重做，可直接核对完成。";
- if(x.done)return md().current<3?"这轮已完成。下一步进入下一轮，只做仍需巩固的题。":"三轮已完成，可以查看剩余待巩固题目。";
+ if(x.done)return "本轮已保存。如需再次核对，点击下方“补批改·查看全部参考答案”；原答案和云端记录不会被清空。";
  if(x.graded)return "参考答案已显示；检查完后点击“本轮核对完毕”，记录这一次学习。";
  return "本轮只需完成 "+x.want+" 道题；不会的可以点“暂时不会”，不必猜答案。";}
 function render(){
@@ -85,14 +85,14 @@ function render(){
      '<div class="mark-controls"><label class="tick-label"><input type="checkbox" data-tick="'+q.id+'" '+(d.ticks[q.id]?"checked ":"")+(blocked||skipped||!short(text)?"disabled":"")+'><b>这题我独立答对了</b></label>'+
      '<button type="button" class="skip" data-skip="'+q.id+'" '+(blocked?"disabled":"")+'>'+ (skipped?"撤销“暂时不会”":"暂时不会")+'</button></div>'+
      '<div class="round-marks"><span>三轮记录</span>'+[1,2,3].map(r=>'<label><input type="checkbox" disabled '+(rd(mode,r).ticks[q.id]?"checked":"")+'><span>第'+r+'轮</span></label>').join("")+'</div>'+
-     (!previous&&d.graded&&!d.ticks[q.id]?'<div class="answer-reveal"><b>参考答案：</b>'+escape(q.a)+'<p>'+escape(q.why)+'</p></div>':'')+
+     (!previous&&d.graded&&(d.reviewAllAnswers||!d.ticks[q.id])?'<div class="answer-reveal"><b>参考答案：</b>'+escape(q.a)+'<p>'+escape(q.why)+'</p></div>':'')+
      (previous?'<div class="exempt-note">已在第'+previous+'轮独立掌握，不属于本轮必须作答内容。</div>':'');
    host.appendChild(c);visible++;
   }
  }
  if(!visible)panel.innerHTML='<div class="empty">全部题目已在前面轮次掌握，本轮不用重复做。完成本轮核对即可。</div>';
- $("grade").textContent=d.graded?"参考答案已按本轮保存":ts.want===0?"确认本轮无需重做":"批改并显示参考答案";
- $("grade").disabled=d.graded||d.done||ts.ready<ts.want;
+ $("grade").textContent=d.reviewAllAnswers?"✓ 已显示全部参考答案（可再次查看）":d.done?"补批改 · 查看全部参考答案":d.graded?"查看全部参考答案":ts.want===0?"确认本轮无需重做":"批改并显示参考答案";
+ $("grade").disabled=ts.ready<ts.want;
  $("finish").disabled=d.done||(!d.graded&&ts.want>0);
  $("finish").textContent=d.done?"✓ 本轮已核对并保存":"本轮全部核对完毕";
  $("next").disabled=!d.done||selected>=3;
@@ -102,7 +102,7 @@ function render(){
  if(d.graded){
   const a=required(mode,selected);
   const n=a.filter(q=>d.ticks[q.id]).length;
-  result.innerHTML='<b>第'+selected+'轮已批改：'+n+'/'+a.length+'题标记为独立掌握</b><p>本轮还有 '+(a.length-n)+' 道待巩固。未掌握题已在下方显示参考答案。核对后请点“本轮全部核对完毕”。</p>';
+  result.innerHTML='<b>第'+selected+'轮已批改：'+n+'/'+a.length+'题标记为独立掌握</b><p>'+(d.reviewAllAnswers?'已开启本轮全部参考答案，原作答、掌握勾选、完成状态和历史云端成绩均未改变。可在每题下方再次核对。':'本轮还有 '+(a.length-n)+' 道待巩固。未掌握题已显示参考答案。核对后可点击“本轮全部核对完毕”。')+'</p>';
  }
  save();updateCloudNote();
 }
@@ -124,8 +124,13 @@ function switchRound(r){
  render();window.scrollTo({top:0,behavior:"smooth"});
 }
 function grade(){
- const t=totals(),d=rd();if(t.ready<t.want){alert("本轮还有 "+(t.want-t.ready)+" 道题未作答。不会的请点击“暂时不会”。");return;}
- d.graded=true;save();render();
+ const t=totals(),d=rd();
+ if(t.ready<t.want){alert("本轮还有 "+(t.want-t.ready)+" 道题未作答。不会的请点击“暂时不会”。");return;}
+ // Reopening a graded/completed round only reveals the reference answers.
+ // Never reset answers, ticks, skipped flags, done status, or existing cloud queue.
+ if(d.done||d.graded)d.reviewAllAnswers=true;
+ d.graded=true;
+ save();render();
  $("result").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function newUUID(){return crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const x=Math.floor(Math.random()*16);return (c==="x"?x:(x&3|8)).toString(16)})}
@@ -158,7 +163,7 @@ function finishRound(){
  if(unlocked)syncPending();
 }
 function changeAnswer(id,v){const d=rd();if(d.graded||d.done)return;d.answers[id]=v;if(short(v))d.skipped[id]=false;if(!short(v))d.ticks[id]=false;save();const checkbox=document.querySelector('[data-tick="'+id+'"]');if(checkbox){checkbox.disabled=!short(v);checkbox.checked=!!d.ticks[id];}updateActionButtons();}
-function updateActionButtons(){const t=totals();$("grade").disabled=rd().graded||rd().done||t.ready<t.want;$("headline-count").textContent=t.want;$("now-action").textContent=friendlyNext();}
+function updateActionButtons(){const t=totals();$("grade").disabled=t.ready<t.want;$("headline-count").textContent=t.want;$("now-action").textContent=friendlyNext();}
 function changeTick(id,on){const d=rd();if(d.graded||d.done)return;if(on&&!short(d.answers[id])){alert("请先独立作答，再勾选掌握。");return;}d.ticks[id]=on;save();render();}
 function toggleSkip(id){const d=rd();if(d.graded||d.done)return;d.skipped[id]=!d.skipped[id];if(d.skipped[id]){d.answers[id]="";d.ticks[id]=false;}save();render();}
 async function ensureIdentity(){
