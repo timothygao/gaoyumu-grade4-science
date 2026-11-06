@@ -82,9 +82,16 @@ function render(){
      '<label class="answer-label" for="ans-'+q.id+'">我的回答</label>'+
      (mode==="scene"?'<textarea class="qanswer" id="ans-'+q.id+'" data-answer="'+q.id+'" rows="3" placeholder="先判断，再写出理由和证据" '+(blocked||skipped?"disabled":"")+'>'+escape(text)+'</textarea>':
        '<input class="qanswer" id="ans-'+q.id+'" data-answer="'+q.id+'" autocomplete="off" placeholder="不确定可以选择“暂时不会”" value="'+escape(text)+'" '+(blocked||skipped?"disabled":"")+'>')+
-     '<div class="mark-controls"><label class="tick-label"><input type="checkbox" data-tick="'+q.id+'" '+(d.ticks[q.id]?"checked ":"")+(blocked||skipped||!short(text)?"disabled":"")+'><b>这题我独立答对了</b></label>'+
+     '<div class="mark-controls"><label class="tick-label"><input type="checkbox" data-tick="'+q.id+'" '+(d.ticks[q.id]?"checked ":"")+(!!previous||skipped||!short(text)?"disabled":"")+'><b>这题我独立答对了</b></label>'+
      '<button type="button" class="skip" data-skip="'+q.id+'" '+(blocked?"disabled":"")+'>'+ (skipped?"撤销“暂时不会”":"暂时不会")+'</button></div>'+
-     '<div class="round-marks"><span>三轮记录</span>'+[1,2,3].map(r=>'<label><input type="checkbox" disabled '+(rd(mode,r).ticks[q.id]?"checked":"")+'><span>第'+r+'轮</span></label>').join("")+'</div>'+
+     '<div class="round-marks"><span>三轮记录（有作答才可勾选）</span>'+[1,2,3].map(r=>{
+       const v=rd(mode,r),oldMastered=!!prior(q,mode,r);
+       const checked=!!v.ticks[q.id];
+       const allowed=checked||(!oldMastered&&!v.skipped[q.id]&&!!short(v.answers[q.id]));
+       const hint=allowed?'修改第'+r+'轮掌握记录':'请先到第'+r+'轮独立作答，再勾选掌握';
+       return '<label title="'+hint+'"><input type="checkbox" data-round-tick="'+q.id+'" data-round-no="'+r+'" '+(checked?"checked ":"")+(allowed?"":"disabled ")+
+         '><span>第'+r+'轮</span></label>';
+     }).join("")+'</div>'+
      (!previous&&d.graded&&(d.reviewAllAnswers||!d.ticks[q.id])?'<div class="answer-reveal"><b>参考答案：</b>'+escape(q.a)+'<p>'+escape(q.why)+'</p></div>':'')+
      (previous?'<div class="exempt-note">已在第'+previous+'轮独立掌握，不属于本轮必须作答内容。</div>':'');
    host.appendChild(c);visible++;
@@ -164,7 +171,52 @@ function finishRound(){
 }
 function changeAnswer(id,v){const d=rd();if(d.graded||d.done)return;d.answers[id]=v;if(short(v))d.skipped[id]=false;if(!short(v))d.ticks[id]=false;save();const checkbox=document.querySelector('[data-tick="'+id+'"]');if(checkbox){checkbox.disabled=!short(v);checkbox.checked=!!d.ticks[id];}updateActionButtons();}
 function updateActionButtons(){const t=totals();$("grade").disabled=t.ready<t.want;$("headline-count").textContent=t.want;$("now-action").textContent=friendlyNext();}
-function changeTick(id,on){const d=rd();if(d.graded||d.done)return;if(on&&!short(d.answers[id])){alert("请先独立作答，再勾选掌握。");return;}d.ticks[id]=on;save();render();}
+// A completed round is never deleted when a parent corrects a mastery checkbox.
+// For a previously synced round, save a newer revision as a new attempt; the
+// cloud restore routine already prefers the newest attempt per mode and round.
+function updateCompletedRoundRecord(m,r){
+ const d=rd(m,r);if(!d.done)return;
+ const list=required(m,r);
+ const right=list.filter(q=>!!d.ticks[q.id]).length;
+ const existing=state.queue.find(e=>e.attempt&&e.attempt.id===d.attemptId&&!e.synced);
+ const recordedAt=new Date().toISOString();
+ const attemptId=existing?d.attemptId:newUUID();
+ const payload={
+   id:attemptId,created_by:null,child_name:STUDENT,quiz_id:QUIZ_ID,semester,
+   phase:"空气单元·"+modeLabel[m],round_no:r,total_questions:list.length,
+   correct_questions:right,score:list.length?Math.round(right/list.length*10000)/100:100,
+   completed_at:recordedAt
+ };
+ const items=list.map(q=>({
+   correct_char:q.id,expected_word:q.a,question_type:modeLabel[m],
+   given_answer:JSON.stringify({question:q.q,answer:d.answers[q.id]||"",lesson:q.lesson,skipped:!!d.skipped[q.id]}),
+   is_correct:!!d.ticks[q.id],answered_at:recordedAt
+ }));
+ if(existing){
+   existing.attempt=payload;existing.items=items;
+ }else{
+   state.queue.push({synced:false,attempt:payload,items});
+ }
+ d.attemptId=attemptId;d.finishedAt=recordedAt;
+}
+function changeRoundTick(id,r,on){
+ const q=course(mode).find(x=>x.id===id);
+ if(!q)return;
+ const d=rd(mode,r);
+ // A previous mastered round exempts this question from later rounds.
+ if(on&&prior(q,mode,r)){
+   alert("这题已在前面的轮次掌握，本轮无需重复勾选。");render();return;
+ }
+ if(on&&(d.skipped[id]||!short(d.answers[id]))){
+   alert("请先在第"+r+"轮独立填写这道题，再勾选掌握。");render();return;
+ }
+ if(!!d.ticks[id]===!!on)return;
+ d.ticks[id]=!!on;
+ if(d.done)updateCompletedRoundRecord(mode,r);
+ save();render();
+ if(unlocked&&d.done)syncPending();
+}
+function changeTick(id,on){changeRoundTick(id,md().current,on);}
 function toggleSkip(id){const d=rd();if(d.graded||d.done)return;d.skipped[id]=!d.skipped[id];if(d.skipped[id]){d.answers[id]="";d.ticks[id]=false;}save();render();}
 async function ensureIdentity(){
  if(!client)throw Error("网络连接不可用");
@@ -267,7 +319,10 @@ function initEvents(){
  document.querySelectorAll("[data-round-switch]").forEach(b=>b.addEventListener("click",()=>switchRound(Number(b.dataset.roundSwitch))));
  $("review-only").addEventListener("change",e=>{if(!state.reviewOnly)state.reviewOnly={memory:false,scene:false};state.reviewOnly[mode]=e.target.checked;render()});
  $("question-groups").addEventListener("input",e=>{if(e.target.matches("[data-answer]"))changeAnswer(e.target.dataset.answer,e.target.value)});
- $("question-groups").addEventListener("change",e=>{if(e.target.matches("[data-tick]"))changeTick(e.target.dataset.tick,e.target.checked)});
+ $("question-groups").addEventListener("change",e=>{
+   if(e.target.matches("[data-round-tick]"))changeRoundTick(e.target.dataset.roundTick,Number(e.target.dataset.roundNo),e.target.checked);
+   else if(e.target.matches("[data-tick]"))changeTick(e.target.dataset.tick,e.target.checked);
+ });
  $("question-groups").addEventListener("click",e=>{const b=e.target.closest("[data-skip]");if(b)toggleSkip(b.dataset.skip)});
  $("grade").addEventListener("click",grade);
  $("finish").addEventListener("click",finishRound);
