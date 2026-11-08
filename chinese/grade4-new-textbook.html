@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高语牧·四年级上册语文｜新版教材｜独立练习</title><style>:root{--blue:#276b9a;--deep:#1c405e;--ink:#223a4e;--muted:#60788c;--bg:#f4f8fb;--border:#d7e5ee;--green:#137d5e}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#e9f4fc,#f8fbfd 330px);font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}
+main{max-width:1120px;margin:auto;padding:20px 16px 65px}
+header,.panel,.card,.cloud{background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 4px 22px #246e9a0a}
+h1{font-size:clamp(23px,3.5vw,32px);margin:0;color:var(--deep)}h2{font-size:19px;color:#245778;margin:0 0 10px}p{margin:7px 0}.muted,.help{color:var(--muted);font-size:13px}
+.top{font-size:13px;font-weight:800;color:var(--blue)}
+.summary{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.tag{padding:5px 10px;background:#edf6fc;color:#326485;border-radius:7px;font-size:13px;font-weight:700}
+.notice{background:#fff7e7;border:1px solid #efd8a3;padding:13px;border-radius:11px;color:#795b2d;font-size:13px}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.toolbar label{display:flex;flex-direction:column;gap:5px;flex:1;min-width:140px;font-size:13px;font-weight:700;color:#36576d}
+select,input,textarea{font:inherit;border:1px solid #b9cfdf;border-radius:10px;background:#fff;padding:10px 12px;color:var(--ink);min-height:43px}
+button{font:inherit;font-weight:700;border:1px solid #aac7db;background:#eaf5fc;color:#26648d;border-radius:10px;padding:10px 15px;cursor:pointer}button.primary{background:var(--blue);color:white;border-color:var(--blue)}button:disabled{opacity:.48;cursor:not-allowed}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}.tab{background:#fff}.tab.active{background:#266f9d;color:#fff}
+.stats{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:18px 0}
+.card{margin:0;border-radius:15px;padding:18px;background:#fffdf9}
+.card .n{display:inline-flex;background:#ebf4fb;color:#2f6793;border-radius:99px;min-width:36px;height:36px;align-items:center;justify-content:center;font-weight:900;margin-right:9px}
+.kind{font-size:13px;color:#638098;font-weight:750}.prompt{font-size:17px;font-weight:750;margin:17px 0 11px}
+.pinyin{display:inline-block;background:#f0f7fd;color:#587790;padding:7px 12px;border-radius:18px;font-weight:650;letter-spacing:.03em}
+.inline{font-size:28px;color:#214e75;font-weight:800;display:flex;align-items:center;flex-wrap:wrap;gap:3px;margin:16px 0}
+.inline input{width:65px;font-size:24px;text-align:center;padding:5px;min-height:50px}
+.answertext{display:block;width:100%;margin:13px 0;min-height:45px}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:13px 0}
+.options label{display:flex;align-items:center;gap:7px;border:1px solid #d4e3ec;padding:10px;border-radius:9px;cursor:pointer;background:#fcfdff}
+.options input{min-height:unset;width:18px;height:18px}
+.feedback{display:none;margin-top:12px;background:#f0f8f2;border-left:4px solid #3d9e71;padding:10px;color:#205f4a;font-size:14px}
+.card.wrong .feedback{background:#fff5e9;border-color:#c98b47;color:#7d4d22}
+.card.graded .feedback{display:block}
+.actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:13px}
+.progress{height:8px;background:#dbeaf3;border-radius:10px;overflow:hidden;margin:12px 0}.progress div{background:#2aa07a;height:100%;transition:width .15s}
+#result{margin:15px 0;background:#f1faf5;padding:15px;border:1px solid #d0e9d8;border-radius:12px}
+#result[hidden]{display:none}
+.cloud{margin-top:14px}.cloud h2{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.cloud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;align-items:end}
+.cloud-grid label{font-size:13px;display:flex;flex-direction:column;font-weight:700;gap:5px}.cloud-buttons{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0}
+.small{font-size:12px;color:var(--muted)}
+#answerProgress{font-weight:750;color:#146c6a}
+#wrongBoard{margin:12px 0;max-height:260px;overflow:auto}
+mark{background:#ffecb8}
+@media(max-width:740px){main{padding:10px 10px 50px}#cards{grid-template-columns:1fr}.card{padding:16px}.toolbar label{min-width:135px}}
+.pending-tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0;border:1px solid #d6e7f1;border-radius:11px;padding:10px 14px;background:#f7fcff}.pending-tools label{font-weight:750;color:#225b7b;display:flex;align-items:center;gap:8px;cursor:pointer}.pending-tools input{width:18px;height:18px;min-height:unset}.pending-hidden{display:none!important}@media print{header,.cloud,.actions,.tabs,.toolbar,.feedback,.notice{display:none!important}.card{page-break-inside:avoid}#cards{display:block}.card{margin-bottom:12px}}
+.paper-mark{margin-top:10px;padding:10px;background:#f3f8fc;border:1px dashed #b5cfdf;border-radius:10px;color:#235c78}.paper-mark input{min-height:auto;width:18px;height:18px}.paper-mark-title{font-weight:800;color:#245778;margin-bottom:8px}.paper-mark-grid{display:flex;flex-wrap:wrap;gap:8px}.paper-mark-grid label{display:flex;align-items:center;gap:7px;border:1px solid #d3e5f0;background:#fff;padding:7px 10px;border-radius:9px;font-size:13px;font-weight:700}.paper-mark-grid label:has(input:disabled){opacity:.5}.paper-mark label{cursor:pointer}.paper-placeholder{display:inline-block;min-width:48px;padding:5px 10px;border-bottom:2px solid #558eb5;color:#728ba0;text-align:center}.paper-choice-note{font-size:12px;color:#56768a}.paper-bar{background:#eff8f1;padding:11px;border-radius:10px;margin:12px 0;color:#25674e}#paperFinishBtn{background:#177458;color:white;border-color:#177458}.proof-options{grid-template-columns:1fr}.proof-options label{align-items:flex-start;background:#fafdff;padding:12px 13px}.proof-option-text{line-height:1.8;overflow-wrap:anywhere}.poly-reading{display:grid;gap:10px}.poly-context{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #dce7ee;padding:10px;border-radius:10px}.poly-context input{max-width:165px}.card[style*="order"]{margin-bottom:8px}#cards{column-gap:28px;row-gap:25px}</style></head><body><main><header>
+<div class="top">高语牧 · 四年级上册 · 语文</div><h1>四年级上册语文 · 新版教材</h1>
+<p class="muted">根据新上传的课本照片第122—129页重编。新版教材拥有独立网址、题库编号和云端成绩，原四年级语文老版卷不受影响。</p>
+<div class="summary"><span class="tag">写字表250字</span><span class="tag">词语表220词</span><span class="tag">识字表250字＋蓝色15字</span><span class="tag">高阶易混字18题</span><span class="tag">多音字24字</span><span class="tag">语境应用20题</span><span class="tag">每题3次核对</span></div>
+<div class="notice">这是一份<strong>全新的教材版本</strong>。识字表、写字表、词语表依照此次照片整理，黑线、圈选及蓝字不代表排除。易混字只保留高阶形近音近辨析，拓展词不计入教材必写字。带声调的拼音与少数补充例词建议继续对照教材复核。原版答题记录独立保留。</div>
+</header>
+<section class="cloud"><h2>☁ 家庭云端学习档案 <span id="cloudBadge" class="small">连接中</span></h2>
+<p class="help">题目草稿自动保存到本机；整轮批改后保存成绩，解锁后自动同步 Supabase。家庭暗号不会写入学习记录。</p>
+<div class="cloud-grid"><label>学生姓名<input value="高语牧" readonly></label><label>学期<input id="semester" value="2026秋"></label>
+<label>本次阶段<select id="phase"><option>预习</option><option selected>复习</option><option>期末复习</option></select></label><label>家庭暗号<input id="passphrase" type="password" autocomplete="off" placeholder="首次在此设备解锁"></label></div>
+<div class="cloud-buttons"><button id="unlockBtn" class="primary">解锁家庭档案</button><button id="syncBtn">同步已批改记录</button><button id="restoreBtn">从云端恢复</button></div><p id="cloudStatus" class="help">等待连接……</p></section>
+<section class="panel">
+<h2>选择练习</h2><div class="tabs" id="tabs"><button type="button" class="tab active" data-mode="writing">✍ 写字默写 · 250字</button><button type="button" class="tab" data-mode="vocab">📖 词语默写 · 220词</button><button type="button" class="tab" data-mode="proofPlus">🔍 高阶形音近辨析 · 18题</button><button type="button" class="tab" data-mode="poly">🗣 多音字 · 写全读音</button><button type="button" class="tab" data-mode="application">🧠 语境应用 · 20题</button><button type="button" class="tab" data-mode="reading">📚 识字表 · 250+15</button></div>
+<div class="toolbar"><label>答题方式<select id="answerMode"><option value="paper" selected>纸上手写 · 自己核对</option><option value="typing">网页输入 · 自动批改</option></select></label><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
+<div class="progress"><div id="progressFill"></div></div>
+<div class="stats"><strong id="currentTitle">写字表 · 第1组 · 第1轮</strong><span id="answerProgress">已答 0 题</span></div><div class="pending-tools"><label><input type="checkbox" id="pendingOnly"> 只显示待巩固题目</label><span class="help" id="pendingCount">默认显示全部题目</span></div>
+<div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="paperFinishBtn" hidden>逐题核对完成 · 保存本轮勾选</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">网页模式全部作答后自动批改；纸笔模式每个字下方有第1次／第2次／第3次勾选框。先纸上独立写完、确认显示答案，再勾选对应轮次写对的题；未勾选计入错题。</p>
+<div id="cards"></div><div id="result" hidden></div>
+</section>
+<section class="panel"><h2>错字成长档案</h2><p class="help">统计当前浏览器中已完成的各轮练习；如需跨设备合并，点击顶部“从云端恢复”。</p><div class="actions"><button id="boardBtn">刷新错字榜</button></div><div id="wrongBoard"></div></section>
+<footer class="small">来源：本次新教材图片第122—129页。课内字词与高阶拓展练习清晰分开。本卷与老版分开保存；批改前不显示正确答案。</footer></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script>
+<script>
+(()=>{
+"use strict";
+const BANK={"writing":[{"lesson":"1","char":"据","word":"据说","pinyin":"jùshuō","origin":"新版教材词语表语境","idx":0},{"lesson":"1","char":"随","word":"随便","pinyin":"suí biàn","origin":"新版教材词语表语境","idx":1},{"lesson":"1","char":"堤","word":"大堤","pinyin":"dà dī","origin":"补充语境（非课本词语）","idx":2},{"lesson":"1","char":"顿","word":"顿时","pinyin":"dùn shí","origin":"新版教材词语表语境","idx":3},{"lesson":"1","char":"逐","word":"逐渐","pinyin":"zhú jiàn","origin":"新版教材词语表语境","idx":4},{"lesson":"1","char":"渐","word":"逐渐","pinyin":"zhú jiàn","origin":"新版教材词语表语境","idx":5},{"lesson":"1","char":"堵","word":"堵车","pinyin":"dǔ chē","origin":"补充语境（非课本词语）","idx":6},{"lesson":"1","char":"墙","word":"墙角","pinyin":"qiáng jiǎo","origin":"补充语境（非课本词语）","idx":7},{"lesson":"1","char":"浩","word":"浩浩荡荡","pinyin":"hàohàodàng dàng","origin":"新版教材词语表语境","idx":8},{"lesson":"1","char":"崩","word":"山崩地裂","pinyin":"shān bēng dì liè","origin":"新版教材词语表语境","idx":9},{"lesson":"1","char":"霎","word":"霎时","pinyin":"shà shí","origin":"新版教材词语表语境","idx":10},{"lesson":"1","char":"余","word":"余波","pinyin":"yú bō","origin":"新版教材词语表语境","idx":11},{"lesson":"2","char":"繁","word":"繁星","pinyin":"fán xīng","origin":"新版教材词语表语境","idx":12},{"lesson":"2","char":"怀","word":"怀抱","pinyin":"huái bào","origin":"新版教材词语表语境","idx":13},{"lesson":"2","char":"寂","word":"静寂","pinyin":"jìng jì","origin":"补充语境（非课本词语）","idx":14},{"lesson":"2","char":"谈","word":"谈话","pinyin":"tán huà","origin":"新版教材词语表语境","idx":15},{"lesson":"2","char":"熟","word":"熟悉","pinyin":"shú xī","origin":"高阶复习补充例词（不冒充教材）","idx":16},{"lesson":"2","char":"躺","word":"躺下","pinyin":"tǎng xià","origin":"补充语境（非课本词语）","idx":17},{"lesson":"2","char":"模","word":"模糊","pinyin":"mó hú","origin":"新版教材词语表语境","idx":18},{"lesson":"2","char":"糊","word":"模糊","pinyin":"mó hú","origin":"新版教材词语表语境","idx":19},{"lesson":"2","char":"围","word":"周围","pinyin":"zhōu wéi","origin":"新版教材词语表语境","idx":20},{"lesson":"2","char":"舞","word":"飞舞","pinyin":"fēi wǔ","origin":"新版教材词语表语境","idx":21},{"lesson":"4","char":"舒","word":"舒适","pinyin":"shū shì","origin":"新版教材词语表语境","idx":22},{"lesson":"4","char":"适","word":"舒适","pinyin":"shū shì","origin":"新版教材词语表语境","idx":23},{"lesson":"4","char":"揭","word":"揭晓","pinyin":"jiēxiǎo","origin":"新版教材词语表语境","idx":24},{"lesson":"4","char":"晓","word":"揭晓","pinyin":"jiēxiǎo","origin":"新版教材词语表语境","idx":25},{"lesson":"4","char":"滚","word":"打滚","pinyin":"dǎ gǔn","origin":"新版教材词语表语境","idx":26},{"lesson":"4","char":"滑","word":"光滑","pinyin":"guāng huá","origin":"新版教材词语表语境","idx":27},{"lesson":"4","char":"擦","word":"擦拭","pinyin":"cā shì","origin":"补充语境（非课本词语）","idx":28},{"lesson":"4","char":"探","word":"探索","pinyin":"tàn suǒ","origin":"补充语境（非课本词语）","idx":29},{"lesson":"4","char":"曾","word":"曾经","pinyin":"céngjīng","origin":"新版教材词语表语境","idx":30},{"lesson":"4","char":"沟","word":"水沟","pinyin":"shuǐ gōu","origin":"新版教材词语表语境","idx":31},{"lesson":"4","char":"涨","word":"涨水","pinyin":"zhǎng shuǐ","origin":"补充语境（非课本词语）","idx":32},{"lesson":"5","char":"蚊","word":"蚊子","pinyin":"wén zǐ","origin":"新版教材词语表语境","idx":33},{"lesson":"5","char":"即","word":"即使","pinyin":"jí shǐ","origin":"新版教材词语表语境","idx":34},{"lesson":"5","char":"题","word":"问题","pinyin":"wèn tí","origin":"新版教材词语表语境","idx":35},{"lesson":"5","char":"绳","word":"绳子","pinyin":"shéng zǐ","origin":"新版教材词语表语境","idx":36},{"lesson":"5","char":"嘴","word":"嘴巴","pinyin":"zuǐ ba","origin":"补充语境（非课本词语）","idx":37},{"lesson":"5","char":"蝇","word":"苍蝇","pinyin":"cāng yíng","origin":"新版教材词语表语境","idx":38},{"lesson":"5","char":"研","word":"研究","pinyin":"yán jiū","origin":"新版教材词语表语境","idx":39},{"lesson":"5","char":"究","word":"研究","pinyin":"yán jiū","origin":"新版教材词语表语境","idx":40},{"lesson":"5","char":"驾","word":"驾车","pinyin":"jià chē","origin":"补充语境（非课本词语）","idx":41},{"lesson":"5","char":"驶","word":"行驶","pinyin":"xíng shǐ","origin":"补充语境（非课本词语）","idx":42},{"lesson":"6","char":"帽","word":"帽子","pinyin":"mào zǐ","origin":"新版教材词语表语境","idx":43},{"lesson":"6","char":"脑","word":"脑袋","pinyin":"nǎo dai","origin":"新版教材词语表语境","idx":44},{"lesson":"6","char":"袋","word":"脑袋","pinyin":"nǎo dai","origin":"新版教材词语表语境","idx":45},{"lesson":"6","char":"假","word":"假如","pinyin":"jiǎ rú","origin":"新版教材词语表语境","idx":46},{"lesson":"6","char":"扣","word":"扣子","pinyin":"kòu zi","origin":"补充语境（非课本词语）","idx":47},{"lesson":"6","char":"懂","word":"懂事","pinyin":"dǒng shì","origin":"新版教材词语表语境","idx":48},{"lesson":"6","char":"溜","word":"一溜烟","pinyin":"yī liù yān","origin":"新版教材词语表语境","idx":49},{"lesson":"6","char":"简","word":"简单","pinyin":"jiǎn dān","origin":"补充语境（非课本词语）","idx":50},{"lesson":"6","char":"摆","word":"摆放","pinyin":"bǎi fàng","origin":"新版教材词语表语境","idx":51},{"lesson":"6","char":"玻","word":"玻璃","pinyin":"bō li","origin":"新版教材词语表语境","idx":52},{"lesson":"6","char":"璃","word":"玻璃","pinyin":"bō li","origin":"新版教材词语表语境","idx":53},{"lesson":"园地1","char":"纲","word":"提纲","pinyin":"tí gāng","origin":"新版教材词语表语境","idx":54},{"lesson":"园地1","char":"揍","word":"挨揍","pinyin":"ái zòu","origin":"高阶复习补充例词（不冒充教材）","idx":55},{"lesson":"园地1","char":"锈","word":"生锈","pinyin":"shēng xiù","origin":"新版教材词语表语境","idx":56},{"lesson":"园地1","char":"沫","word":"泡沫","pinyin":"pào mò","origin":"新版教材词语表语境","idx":57},{"lesson":"园地1","char":"综","word":"综合","pinyin":"zōnghé","origin":"新版教材词语表语境","idx":58},{"lesson":"园地1","char":"氧","word":"氧气","pinyin":"yǎng qì","origin":"新版教材词语表语境","idx":59},{"lesson":"园地1","char":"账","word":"结账","pinyin":"jié zhàng","origin":"新版教材词语表语境","idx":60},{"lesson":"园地1","char":"矿","word":"矿物","pinyin":"kuàngwù","origin":"新版教材词语表语境","idx":61},{"lesson":"园地1","char":"俱","word":"俱乐部","pinyin":"jù lè bù","origin":"新版教材词语表语境","idx":62},{"lesson":"8","char":"残","word":"残阳","pinyin":"cán yáng","origin":"补充语境（非课本词语）","idx":63},{"lesson":"8","char":"铺","word":"铺路","pinyin":"pū lù","origin":"补充语境（非课本词语）","idx":64},{"lesson":"8","char":"壁","word":"壁画","pinyin":"bì huà","origin":"补充语境（非课本词语）","idx":65},{"lesson":"8","char":"横","word":"横线","pinyin":"héng xiàn","origin":"补充语境（非课本词语）","idx":66},{"lesson":"8","char":"侧","word":"侧面","pinyin":"cè miàn","origin":"补充语境（非课本词语）","idx":67},{"lesson":"8","char":"峰","word":"山峰","pinyin":"shān fēng","origin":"补充语境（非课本词语）","idx":68},{"lesson":"8","char":"庐","word":"庐山","pinyin":"lú shān","origin":"补充语境（非课本词语）","idx":69},{"lesson":"8","char":"缘","word":"无缘无故","pinyin":"wú yuán wú gù","origin":"新版教材词语表语境","idx":70},{"lesson":"8","char":"降","word":"下降","pinyin":"xià jiàng","origin":"新版教材词语表语境","idx":71},{"lesson":"8","char":"评","word":"评价","pinyin":"píng jià","origin":"高阶复习补充例词（不冒充教材）","idx":72},{"lesson":"8","char":"章","word":"文章","pinyin":"wén zhāng","origin":"补充语境（非课本词语）","idx":73},{"lesson":"8","char":"输","word":"输赢","pinyin":"shū yíng","origin":"补充语境（非课本词语）","idx":74},{"lesson":"9","char":"虎","word":"爬山虎","pinyin":"páshān hǔ","origin":"新版教材词语表语境","idx":75},{"lesson":"9","char":"脚","word":"脚下","pinyin":"jiǎo xià","origin":"补充语境（非课本词语）","idx":76},{"lesson":"9","char":"操","word":"操场","pinyin":"cāo chǎng","origin":"新版教材词语表语境","idx":77},{"lesson":"9","char":"嫩","word":"嫩绿","pinyin":"nèn lǜ","origin":"新版教材词语表语境","idx":78},{"lesson":"9","char":"隙","word":"空隙","pinyin":"kōngxì","origin":"新版教材词语表语境","idx":79},{"lesson":"9","char":"柄","word":"叶柄","pinyin":"yè bǐng","origin":"新版教材词语表语境","idx":80},{"lesson":"9","char":"触","word":"触角","pinyin":"chù jiǎo","origin":"新版教材词语表语境","idx":81},{"lesson":"9","char":"痕","word":"痕迹","pinyin":"hén jì","origin":"新版教材词语表语境","idx":82},{"lesson":"9","char":"迹","word":"痕迹","pinyin":"hén jì","origin":"新版教材词语表语境","idx":83},{"lesson":"9","char":"瞧","word":"瞧不起","pinyin":"qiáo bù qǐ","origin":"新版教材词语表语境","idx":84},{"lesson":"10","char":"宅","word":"住宅","pinyin":"zhù zhái","origin":"新版教材词语表语境","idx":85},{"lesson":"10","char":"毫","word":"毫不","pinyin":"háobù","origin":"补充语境（非课本词语）","idx":86},{"lesson":"10","char":"重","word":"重要","pinyin":"zhòng yào","origin":"新版教材词语表语境","idx":87},{"lesson":"10","char":"选","word":"选择","pinyin":"xuǎn zé","origin":"新版教材词语表语境","idx":88},{"lesson":"10","char":"择","word":"选择","pinyin":"xuǎn zé","origin":"新版教材词语表语境","idx":89},{"lesson":"10","char":"址","word":"住址","pinyin":"zhù zhǐ","origin":"新版教材词语表语境","idx":90},{"lesson":"10","char":"厅","word":"大厅","pinyin":"dà tīng","origin":"新版教材词语表语境","idx":91},{"lesson":"10","char":"专","word":"专家","pinyin":"zhuān jiā","origin":"补充语境（非课本词语）","idx":92},{"lesson":"10","char":"修","word":"修理","pinyin":"xiū lǐ","origin":"新版教材词语表语境","idx":93},{"lesson":"10","char":"较","word":"较大","pinyin":"jiào dà","origin":"补充语境（非课本词语）","idx":94},{"lesson":"10","char":"腿","word":"大腿","pinyin":"dà tuǐ","origin":"补充语境（非课本词语）","idx":95},{"lesson":"10","char":"增","word":"增长","pinyin":"zēng zhǎng","origin":"新版教材词语表语境","idx":96},{"lesson":"11","char":"醒","word":"醒来","pinyin":"xǐng lái","origin":"补充语境（非课本词语）","idx":97},{"lesson":"11","char":"翻","word":"翻身","pinyin":"fānshēn","origin":"新版教材词语表语境","idx":98},{"lesson":"11","char":"缓","word":"缓缓","pinyin":"huǎn huǎn","origin":"补充语境（非课本词语）","idx":99},{"lesson":"11","char":"踏","word":"踏步","pinyin":"tà bù","origin":"补充语境（非课本词语）","idx":100},{"lesson":"11","char":"丈","word":"丈夫","pinyin":"zhàng fu","origin":"补充语境（非课本词语）","idx":101},{"lesson":"11","char":"撑","word":"支撑","pinyin":"zhī chēng","origin":"补充语境（非课本词语）","idx":102},{"lesson":"11","char":"疲","word":"精疲力竭","pinyin":"jīngpí lì jié","origin":"新版教材词语表语境","idx":103},{"lesson":"11","char":"竭","word":"精疲力竭","pinyin":"jīngpí lì jié","origin":"新版教材词语表语境","idx":104},{"lesson":"11","char":"耀","word":"照耀","pinyin":"zhào yào","origin":"新版教材词语表语境","idx":105},{"lesson":"11","char":"肢","word":"四肢","pinyin":"sì zhī","origin":"新版教材词语表语境","idx":106},{"lesson":"11","char":"整","word":"整个","pinyin":"zhěng gè","origin":"新版教材词语表语境","idx":107},{"lesson":"12","char":"填","word":"填空","pinyin":"tián kòng","origin":"补充语境（非课本词语）","idx":108},{"lesson":"12","char":"帝","word":"皇帝","pinyin":"huáng dì","origin":"高阶复习补充例词（不冒充教材）","idx":109},{"lesson":"12","char":"曰","word":"子曰","pinyin":"zǐ yuē","origin":"补充语境（非课本词语）","idx":110},{"lesson":"12","char":"娃","word":"娃娃","pinyin":"wá wa","origin":"高阶复习补充例词（不冒充教材）","idx":111},{"lesson":"12","char":"衔","word":"衔接","pinyin":"xián jiē","origin":"补充语境（非课本词语）","idx":112},{"lesson":"13","char":"喷","word":"喷射","pinyin":"pēn shè","origin":"新版教材词语表语境","idx":113},{"lesson":"13","char":"颗","word":"一颗","pinyin":"yì kē","origin":"补充语境（非课本词语）","idx":114},{"lesson":"13","char":"败","word":"气急败坏","pinyin":"qì jí bài huài","origin":"新版教材词语表语境","idx":115},{"lesson":"13","char":"敬","word":"敬佩","pinyin":"jìngpèi","origin":"新版教材词语表语境","idx":116},{"lesson":"13","char":"佩","word":"敬佩","pinyin":"jìngpèi","origin":"新版教材词语表语境","idx":117},{"lesson":"13","char":"忍","word":"忍受","pinyin":"rěn shòu","origin":"新版教材词语表语境","idx":118},{"lesson":"13","char":"既","word":"既然","pinyin":"jì rán","origin":"补充语境（非课本词语）","idx":119},{"lesson":"13","char":"遭","word":"遭受","pinyin":"zāo shòu","origin":"新版教材词语表语境","idx":120},{"lesson":"13","char":"屈","word":"屈服","pinyin":"qū fú","origin":"新版教材词语表语境","idx":121},{"lesson":"13","char":"肝","word":"肝脏","pinyin":"gān zàng","origin":"新版教材词语表语境","idx":122},{"lesson":"13","char":"脏","word":"肝脏","pinyin":"gān zàng","origin":"新版教材词语表语境","idx":123},{"lesson":"13","char":"获","word":"获得","pinyin":"huò dé","origin":"新版教材词语表语境","idx":124},{"lesson":"园地2","char":"卉","word":"花卉","pinyin":"huā huì","origin":"新版教材词语表语境","idx":125},{"lesson":"园地2","char":"玫","word":"玫瑰","pinyin":"méiguī","origin":"新版教材词语表语境","idx":126},{"lesson":"园地2","char":"瑰","word":"玫瑰","pinyin":"méiguī","origin":"新版教材词语表语境","idx":127},{"lesson":"园地2","char":"牡","word":"牡丹","pinyin":"mǔ dān","origin":"新版教材词语表语境","idx":128},{"lesson":"园地2","char":"丹","word":"牡丹","pinyin":"mǔ dān","origin":"新版教材词语表语境","idx":129},{"lesson":"园地2","char":"蕾","word":"花蕾","pinyin":"huā lěi","origin":"新版教材词语表语境","idx":130},{"lesson":"园地2","char":"茉","word":"茉莉","pinyin":"mò lì","origin":"新版教材词语表语境","idx":131},{"lesson":"园地2","char":"莉","word":"茉莉","pinyin":"mò lì","origin":"新版教材词语表语境","idx":132},{"lesson":"园地2","char":"棠","word":"海棠","pinyin":"hǎi táng","origin":"新版教材词语表语境","idx":133},{"lesson":"15","char":"嗅","word":"嗅觉","pinyin":"xiù jué","origin":"补充语境（非课本词语）","idx":134},{"lesson":"15","char":"猛","word":"猛烈","pinyin":"měng liè","origin":"新版教材词语表语境","idx":135},{"lesson":"15","char":"烈","word":"猛烈","pinyin":"měng liè","origin":"新版教材词语表语境","idx":136},{"lesson":"15","char":"奈","word":"无可奈何","pinyin":"wú kě nài hé","origin":"新版教材词语表语境","idx":137},{"lesson":"15","char":"驱","word":"驱赶","pinyin":"qū gǎn","origin":"补充语境（非课本词语）","idx":138},{"lesson":"15","char":"掩","word":"掩护","pinyin":"yǎnhù","origin":"新版教材词语表语境","idx":139},{"lesson":"15","char":"浑","word":"浑身","pinyin":"hún shēn","origin":"新版教材词语表语境","idx":140},{"lesson":"15","char":"牺","word":"牺牲","pinyin":"xī shēng","origin":"新版教材词语表语境","idx":141},{"lesson":"15","char":"牲","word":"牺牲","pinyin":"xī shēng","origin":"新版教材词语表语境","idx":142},{"lesson":"15","char":"庞","word":"庞大","pinyin":"páng dà","origin":"新版教材词语表语境","idx":143},{"lesson":"15","char":"强","word":"强大","pinyin":"qiáng dà","origin":"新版教材词语表语境","idx":144},{"lesson":"15","char":"量","word":"力量","pinyin":"lì liàng","origin":"新版教材词语表语境","idx":145},{"lesson":"16","char":"哩","word":"好哩","pinyin":"hǎo li","origin":"高阶复习补充例词（不冒充教材）","idx":146},{"lesson":"16","char":"陡","word":"陡峭","pinyin":"dǒu qiào","origin":"补充语境（非课本词语）","idx":147},{"lesson":"16","char":"级","word":"石级","pinyin":"shí jí","origin":"新版教材词语表语境","idx":148},{"lesson":"16","char":"链","word":"锁链","pinyin":"suǒ liàn","origin":"补充语境（非课本词语）","idx":149},{"lesson":"16","char":"颤","word":"发颤","pinyin":"fā chàn","origin":"新版教材词语表语境","idx":150},{"lesson":"16","char":"纪","word":"年纪","pinyin":"nián jì","origin":"新版教材词语表语境","idx":151},{"lesson":"16","char":"攀","word":"攀登","pinyin":"pān dēng","origin":"补充语境（非课本词语）","idx":152},{"lesson":"16","char":"猴","word":"猴子","pinyin":"hóu zǐ","origin":"新版教材词语表语境","idx":153},{"lesson":"16","char":"呵","word":"笑呵呵","pinyin":"xiào hē hē","origin":"新版教材词语表语境","idx":154},{"lesson":"16","char":"啦","word":"好啦","pinyin":"hǎo la","origin":"高阶复习补充例词（不冒充教材）","idx":155},{"lesson":"16","char":"鼓","word":"鼓舞","pinyin":"gǔ wǔ","origin":"新版教材词语表语境","idx":156},{"lesson":"17","char":"峻","word":"崇山峻岭","pinyin":"chóng shān jùn lǐng","origin":"新版教材词语表语境","idx":157},{"lesson":"17","char":"旋","word":"盘旋","pinyin":"pán xuán","origin":"新版教材词语表语境","idx":158},{"lesson":"17","char":"扩","word":"扩建","pinyin":"kuòjiàn","origin":"新版教材词语表语境","idx":159},{"lesson":"17","char":"砖","word":"方砖","pinyin":"fāngzhuān","origin":"补充语境（非课本词语）","idx":160},{"lesson":"17","char":"筑","word":"修筑","pinyin":"xiū zhù","origin":"新版教材词语表语境","idx":161},{"lesson":"17","char":"隔","word":"隔离","pinyin":"gé lí","origin":"补充语境（非课本词语）","idx":162},{"lesson":"17","char":"仗","word":"打仗","pinyin":"dǎ zhàng","origin":"新版教材词语表语境","idx":163},{"lesson":"17","char":"扶","word":"扶起","pinyin":"fú qǐ","origin":"补充语境（非课本词语）","idx":164},{"lesson":"17","char":"耗","word":"耗费","pinyin":"hào fèi","origin":"新版教材词语表语境","idx":165},{"lesson":"17","char":"智","word":"智慧","pinyin":"zhìhuì","origin":"新版教材词语表语境","idx":166},{"lesson":"17","char":"慧","word":"智慧","pinyin":"zhìhuì","origin":"新版教材词语表语境","idx":167},{"lesson":"18","char":"绕","word":"环绕","pinyin":"huán rào","origin":"高阶复习补充例词（不冒充教材）","idx":168},{"lesson":"18","char":"幅","word":"一幅","pinyin":"yì fú","origin":"补充语境（非课本词语）","idx":169},{"lesson":"18","char":"载","word":"装载","pinyin":"zhuāng zài","origin":"补充语境（非课本词语）","idx":170},{"lesson":"18","char":"耸","word":"耸立","pinyin":"sǒng lì","origin":"新版教材词语表语境","idx":171},{"lesson":"18","char":"腰","word":"半山腰","pinyin":"bàn shān yāo","origin":"新版教材词语表语境","idx":172},{"lesson":"18","char":"煌","word":"金碧辉煌","pinyin":"jīn bì huī huáng","origin":"新版教材词语表语境","idx":173},{"lesson":"18","char":"镜","word":"镜子","pinyin":"jìng zǐ","origin":"新版教材词语表语境","idx":174},{"lesson":"18","char":"隐","word":"隐隐约约","pinyin":"yǐn yǐn yuē yuē","origin":"新版教材词语表语境","idx":175},{"lesson":"18","char":"狮","word":"狮子","pinyin":"shīzǐ","origin":"新版教材词语表语境","idx":176},{"lesson":"园地3","char":"萨","word":"拉萨","pinyin":"lā sà","origin":"补充语境（非课本词语）","idx":177},{"lesson":"园地3","char":"昭","word":"昭示","pinyin":"zhāo shì","origin":"高阶复习补充例词（不冒充教材）","idx":178},{"lesson":"园地3","char":"陵","word":"陵寝","pinyin":"líng qǐn","origin":"新版教材词语表语境","idx":179},{"lesson":"园地3","char":"寝","word":"陵寝","pinyin":"líng qǐn","origin":"新版教材词语表语境","idx":180},{"lesson":"园地3","char":"堰","word":"堤堰","pinyin":"dī yàn","origin":"高阶复习补充例词（不冒充教材）","idx":181},{"lesson":"园地3","char":"尼","word":"哈尼","pinyin":"hā ní","origin":"补充语境（非课本词语）","idx":182},{"lesson":"园地3","char":"绸","word":"丝绸","pinyin":"sī chóu","origin":"新版教材词语表语境","idx":183},{"lesson":"园地3","char":"廊","word":"廊道","pinyin":"láng dào","origin":"补充语境（非课本词语）","idx":184},{"lesson":"20","char":"鹅","word":"白鹅","pinyin":"bái é","origin":"补充语境（非课本词语）","idx":185},{"lesson":"20","char":"骑","word":"骑马","pinyin":"qí mǎ","origin":"补充语境（非课本词语）","idx":186},{"lesson":"20","char":"拳","word":"拳头","pinyin":"quán tóu","origin":"新版教材词语表语境","idx":187},{"lesson":"20","char":"坚","word":"坚定","pinyin":"jiān dìng","origin":"新版教材词语表语境","idx":188},{"lesson":"20","char":"竟","word":"竟然","pinyin":"jìng rán","origin":"补充语境（非课本词语）","idx":189},{"lesson":"20","char":"胸","word":"胸怀","pinyin":"xiōng huái","origin":"补充语境（非课本词语）","idx":190},{"lesson":"20","char":"鞋","word":"鞋子","pinyin":"xié zǐ","origin":"新版教材词语表语境","idx":191},{"lesson":"20","char":"拖","word":"拖鞋","pinyin":"tuō xié","origin":"高阶复习补充例词（不冒充教材）","idx":192},{"lesson":"20","char":"胳","word":"胳膊","pinyin":"gē bo","origin":"新版教材词语表语境","idx":193},{"lesson":"20","char":"膊","word":"胳膊","pinyin":"gē bo","origin":"新版教材词语表语境","idx":194},{"lesson":"20","char":"握","word":"握住","pinyin":"wò zhù","origin":"补充语境（非课本词语）","idx":195},{"lesson":"20","char":"摔","word":"摔倒","pinyin":"shuāi dǎo","origin":"补充语境（非课本词语）","idx":196},{"lesson":"21","char":"表","word":"表演","pinyin":"biǎo yǎn","origin":"新版教材词语表语境","idx":197},{"lesson":"21","char":"演","word":"表演","pinyin":"biǎo yǎn","origin":"新版教材词语表语境","idx":198},{"lesson":"21","char":"俩","word":"咱俩","pinyin":"zán liǎ","origin":"高阶复习补充例词（不冒充教材）","idx":199},{"lesson":"21","char":"练","word":"排练","pinyin":"pái liàn","origin":"新版教材词语表语境","idx":200},{"lesson":"21","char":"棒","word":"木棒","pinyin":"mù bàng","origin":"高阶复习补充例词（不冒充教材）","idx":201},{"lesson":"21","char":"示","word":"提示","pinyin":"tí shì","origin":"新版教材词语表语境","idx":202},{"lesson":"21","char":"技","word":"演技","pinyin":"yǎn jì","origin":"新版教材词语表语境","idx":203},{"lesson":"21","char":"撤","word":"撤换","pinyin":"chè huàn","origin":"新版教材词语表语境","idx":204},{"lesson":"21","char":"推","word":"推开","pinyin":"tuī kāi","origin":"高阶复习补充例词（不冒充教材）","idx":205},{"lesson":"21","char":"哄","word":"哄堂大笑","pinyin":"hōng táng dà xiào","origin":"新版教材词语表语境","idx":206},{"lesson":"21","char":"堂","word":"哄堂大笑","pinyin":"hōng táng dà xiào","origin":"新版教材词语表语境","idx":207},{"lesson":"21","char":"摘","word":"摘下","pinyin":"zhāi xià","origin":"补充语境（非课本词语）","idx":208},{"lesson":"23","char":"戎","word":"从戎","pinyin":"cóng róng","origin":"补充语境（非课本词语）","idx":209},{"lesson":"23","char":"诸","word":"诸位","pinyin":"zhū wèi","origin":"补充语境（非课本词语）","idx":210},{"lesson":"23","char":"竞","word":"竞争","pinyin":"jìng zhēng","origin":"补充语境（非课本词语）","idx":211},{"lesson":"23","char":"唯","word":"唯一","pinyin":"wéi yī","origin":"补充语境（非课本词语）","idx":212},{"lesson":"园地4","char":"韭","word":"韭菜","pinyin":"jiǔ cài","origin":"新版教材词语表语境","idx":213},{"lesson":"园地4","char":"芹","word":"芹菜","pinyin":"qín cài","origin":"新版教材词语表语境","idx":214},{"lesson":"园地4","char":"椒","word":"辣椒","pinyin":"là jiāo","origin":"新版教材词语表语境","idx":215},{"lesson":"园地4","char":"蒜","word":"大蒜","pinyin":"dà suàn","origin":"补充语境（非课本词语）","idx":216},{"lesson":"园地4","char":"薯","word":"红薯","pinyin":"hóng shǔ","origin":"新版教材词语表语境","idx":217},{"lesson":"园地4","char":"藕","word":"莲藕","pinyin":"lián ǒu","origin":"新版教材词语表语境","idx":218},{"lesson":"园地4","char":"芋","word":"芋头","pinyin":"yù tóu","origin":"新版教材词语表语境","idx":219},{"lesson":"园地4","char":"姜","word":"生姜","pinyin":"shēng jiāng","origin":"补充语境（非课本词语）","idx":220},{"lesson":"24","char":"席","word":"主席","pinyin":"zhǔ xí","origin":"新版教材词语表语境","idx":221},{"lesson":"24","char":"抛","word":"抛出","pinyin":"pāo chū","origin":"补充语境（非课本词语）","idx":222},{"lesson":"24","char":"激","word":"激动","pinyin":"jī dòng","origin":"新版教材词语表语境","idx":223},{"lesson":"24","char":"奉","word":"奉献","pinyin":"fèng xiàn","origin":"新版教材词语表语境","idx":224},{"lesson":"24","char":"训","word":"训练","pinyin":"xùn liàn","origin":"新版教材词语表语境","idx":225},{"lesson":"24","char":"亿","word":"一亿","pinyin":"yī yì","origin":"高阶复习补充例词（不冒充教材）","idx":226},{"lesson":"24","char":"勤","word":"勤劳","pinyin":"qín láo","origin":"新版教材词语表语境","idx":227},{"lesson":"24","char":"邀","word":"邀请","pinyin":"yāo qǐng","origin":"新版教材词语表语境","idx":228},{"lesson":"25","char":"崛","word":"崛起","pinyin":"jué qǐ","origin":"新版教材词语表语境","idx":229},{"lesson":"25","char":"肃","word":"严肃","pinyin":"yán sù","origin":"新版教材词语表语境","idx":230},{"lesson":"25","char":"脆","word":"干脆","pinyin":"gàn cuì","origin":"新版教材词语表语境","idx":231},{"lesson":"25","char":"默","word":"默默","pinyin":"mò mò","origin":"新版教材词语表语境","idx":232},{"lesson":"25","char":"晰","word":"清晰","pinyin":"qīng xī","origin":"新版教材词语表语境","idx":233},{"lesson":"25","char":"离","word":"离开","pinyin":"líkāi","origin":"新版教材词语表语境","idx":234},{"lesson":"25","char":"凡","word":"非凡","pinyin":"fēi fán","origin":"新版教材词语表语境","idx":235},{"lesson":"25","char":"惩","word":"惩处","pinyin":"chéngchù","origin":"新版教材词语表语境","idx":236},{"lesson":"25","char":"斥","word":"训斥","pinyin":"xùn chì","origin":"新版教材词语表语境","idx":237},{"lesson":"25","char":"燃","word":"燃烧","pinyin":"rán shāo","origin":"新版教材词语表语境","idx":238},{"lesson":"27","char":"词","word":"词语","pinyin":"cí yǔ","origin":"补充语境（非课本词语）","idx":239},{"lesson":"27","char":"葡","word":"葡萄","pinyin":"pú tao","origin":"补充语境（非课本词语）","idx":240},{"lesson":"27","char":"萄","word":"葡萄","pinyin":"pú tao","origin":"补充语境（非课本词语）","idx":241},{"lesson":"27","char":"杯","word":"水杯","pinyin":"shuǐ bēi","origin":"补充语境（非课本词语）","idx":242},{"lesson":"27","char":"塞","word":"塞外","pinyin":"sài wài","origin":"补充语境（非课本词语）","idx":243},{"lesson":"27","char":"秦","word":"秦朝","pinyin":"qín cháo","origin":"补充语境（非课本词语）","idx":244},{"lesson":"27","char":"将","word":"将军","pinyin":"jiāng jūn","origin":"补充语境（非课本词语）","idx":245},{"lesson":"27","char":"杰","word":"杰出","pinyin":"jié chū","origin":"补充语境（非课本词语）","idx":246},{"lesson":"27","char":"鬼","word":"鬼怪","pinyin":"guǐ guài","origin":"补充语境（非课本词语）","idx":247},{"lesson":"27","char":"雄","word":"英雄","pinyin":"yīng xióng","origin":"补充语境（非课本词语）","idx":248},{"lesson":"27","char":"项","word":"项目","pinyin":"xiàng mù","origin":"补充语境（非课本词语）","idx":249}],"vocab":[{"lesson":"1","word":"奇观","pinyin":"qí guān","origin":"新版教材词语表·照片","idx":0},{"lesson":"1","word":"据说","pinyin":"jùshuō","origin":"新版教材词语表·照片","idx":1},{"lesson":"1","word":"人山人海","pinyin":"rén shān rén hǎi","origin":"新版教材词语表·照片","idx":2},{"lesson":"1","word":"顿时","pinyin":"dùn shí","origin":"新版教材词语表·照片","idx":3},{"lesson":"1","word":"风平浪静","pinyin":"fēng píng làngjìng","origin":"新版教材词语表·照片","idx":4},{"lesson":"1","word":"逐渐","pinyin":"zhú jiàn","origin":"新版教材词语表·照片","idx":5},{"lesson":"1","word":"齐头并进","pinyin":"qí tóu bìng jìn","origin":"新版教材词语表·照片","idx":6},{"lesson":"1","word":"浩浩荡荡","pinyin":"hàohàodàng dàng","origin":"新版教材词语表·照片","idx":7},{"lesson":"1","word":"山崩地裂","pinyin":"shān bēng dì liè","origin":"新版教材词语表·照片","idx":8},{"lesson":"1","word":"霎时","pinyin":"shà shí","origin":"新版教材词语表·照片","idx":9},{"lesson":"1","word":"余波","pinyin":"yú bō","origin":"新版教材词语表·照片","idx":10},{"lesson":"2","word":"繁星","pinyin":"fán xīng","origin":"新版教材词语表·照片","idx":11},{"lesson":"2","word":"密密麻麻","pinyin":"mì mì má má","origin":"新版教材词语表·照片","idx":12},{"lesson":"2","word":"忘记","pinyin":"wàng jì","origin":"新版教材词语表·照片","idx":13},{"lesson":"2","word":"谈话","pinyin":"tán huà","origin":"新版教材词语表·照片","idx":14},{"lesson":"2","word":"渐渐","pinyin":"jiàn jiàn","origin":"新版教材词语表·照片","idx":15},{"lesson":"2","word":"模糊","pinyin":"mó hú","origin":"新版教材词语表·照片","idx":16},{"lesson":"2","word":"周围","pinyin":"zhōu wéi","origin":"新版教材词语表·照片","idx":17},{"lesson":"2","word":"飞舞","pinyin":"fēi wǔ","origin":"新版教材词语表·照片","idx":18},{"lesson":"2","word":"柔和","pinyin":"róu hé","origin":"新版教材词语表·照片","idx":19},{"lesson":"2","word":"梦幻","pinyin":"mèng huàn","origin":"新版教材词语表·照片","idx":20},{"lesson":"2","word":"怀抱","pinyin":"huái bào","origin":"新版教材词语表·照片","idx":21},{"lesson":"2","word":"沉睡","pinyin":"chén shuì","origin":"新版教材词语表·照片","idx":22},{"lesson":"4","word":"暖洋洋","pinyin":"nuǎn yáng yáng","origin":"新版教材词语表·照片","idx":23},{"lesson":"4","word":"舒适","pinyin":"shū shì","origin":"新版教材词语表·照片","idx":24},{"lesson":"4","word":"揭晓","pinyin":"jiēxiǎo","origin":"新版教材词语表·照片","idx":25},{"lesson":"4","word":"身份","pinyin":"shēn fèn","origin":"新版教材词语表·照片","idx":26},{"lesson":"4","word":"暖和","pinyin":"nuǎn huo","origin":"新版教材词语表·照片","idx":27},{"lesson":"4","word":"的确","pinyin":"dí què","origin":"新版教材词语表·照片","idx":28},{"lesson":"4","word":"曾经","pinyin":"céngjīng","origin":"新版教材词语表·照片","idx":29},{"lesson":"4","word":"打滚","pinyin":"dǎ gǔn","origin":"新版教材词语表·照片","idx":30},{"lesson":"4","word":"水沟","pinyin":"shuǐ gōu","origin":"新版教材词语表·照片","idx":31},{"lesson":"4","word":"注视","pinyin":"zhùshì","origin":"新版教材词语表·照片","idx":32},{"lesson":"5","word":"蚊子","pinyin":"wén zǐ","origin":"新版教材词语表·照片","idx":33},{"lesson":"5","word":"即使","pinyin":"jí shǐ","origin":"新版教材词语表·照片","idx":34},{"lesson":"5","word":"问题","pinyin":"wèn tí","origin":"新版教材词语表·照片","idx":35},{"lesson":"5","word":"绳子","pinyin":"shéng zǐ","origin":"新版教材词语表·照片","idx":36},{"lesson":"5","word":"苍蝇","pinyin":"cāng yíng","origin":"新版教材词语表·照片","idx":37},{"lesson":"5","word":"证明","pinyin":"zhèng míng","origin":"新版教材词语表·照片","idx":38},{"lesson":"5","word":"相互","pinyin":"xiāng hù","origin":"新版教材词语表·照片","idx":39},{"lesson":"5","word":"配合","pinyin":"pèi hé","origin":"新版教材词语表·照片","idx":40},{"lesson":"5","word":"研究","pinyin":"yán jiū","origin":"新版教材词语表·照片","idx":41},{"lesson":"5","word":"类似","pinyin":"lèisì","origin":"新版教材词语表·照片","idx":42},{"lesson":"5","word":"能够","pinyin":"néng gòu","origin":"新版教材词语表·照片","idx":43},{"lesson":"6","word":"帽子","pinyin":"mào zǐ","origin":"新版教材词语表·照片","idx":44},{"lesson":"6","word":"脑袋","pinyin":"nǎo dai","origin":"新版教材词语表·照片","idx":45},{"lesson":"6","word":"舒服","pinyin":"shū fú","origin":"新版教材词语表·照片","idx":46},{"lesson":"6","word":"假如","pinyin":"jiǎ rú","origin":"新版教材词语表·照片","idx":47},{"lesson":"6","word":"设法","pinyin":"shè fǎ","origin":"新版教材词语表·照片","idx":48},{"lesson":"6","word":"懂事","pinyin":"dǒng shì","origin":"新版教材词语表·照片","idx":49},{"lesson":"6","word":"一溜烟","pinyin":"yī liù yān","origin":"新版教材词语表·照片","idx":50},{"lesson":"6","word":"各式各样","pinyin":"gè shì gè yàng","origin":"新版教材词语表·照片","idx":51},{"lesson":"6","word":"摆放","pinyin":"bǎi fàng","origin":"新版教材词语表·照片","idx":52},{"lesson":"6","word":"玻璃","pinyin":"bō li","origin":"新版教材词语表·照片","idx":53},{"lesson":"园地1","word":"提纲","pinyin":"tí gāng","origin":"新版教材词语表·照片","idx":54},{"lesson":"园地1","word":"生锈","pinyin":"shēng xiù","origin":"新版教材词语表·照片","idx":55},{"lesson":"园地1","word":"泡沫","pinyin":"pào mò","origin":"新版教材词语表·照片","idx":56},{"lesson":"园地1","word":"综合","pinyin":"zōnghé","origin":"新版教材词语表·照片","idx":57},{"lesson":"园地1","word":"氧气","pinyin":"yǎng qì","origin":"新版教材词语表·照片","idx":58},{"lesson":"园地1","word":"结账","pinyin":"jié zhàng","origin":"新版教材词语表·照片","idx":59},{"lesson":"园地1","word":"矿物","pinyin":"kuàngwù","origin":"新版教材词语表·照片","idx":60},{"lesson":"园地1","word":"俱乐部","pinyin":"jù lè bù","origin":"新版教材词语表·照片","idx":61},{"lesson":"9","word":"爬山虎","pinyin":"páshān hǔ","origin":"新版教材词语表·照片","idx":62},{"lesson":"9","word":"操场","pinyin":"cāo chǎng","origin":"新版教材词语表·照片","idx":63},{"lesson":"9","word":"嫩绿","pinyin":"nèn lǜ","origin":"新版教材词语表·照片","idx":64},{"lesson":"9","word":"新鲜","pinyin":"xīn xiān","origin":"新版教材词语表·照片","idx":65},{"lesson":"9","word":"均匀","pinyin":"jūn yún","origin":"新版教材词语表·照片","idx":66},{"lesson":"9","word":"空隙","pinyin":"kōngxì","origin":"新版教材词语表·照片","idx":67},{"lesson":"9","word":"叶柄","pinyin":"yè bǐng","origin":"新版教材词语表·照片","idx":68},{"lesson":"9","word":"触角","pinyin":"chù jiǎo","origin":"新版教材词语表·照片","idx":69},{"lesson":"9","word":"弯曲","pinyin":"wān qū","origin":"新版教材词语表·照片","idx":70},{"lesson":"9","word":"痕迹","pinyin":"hén jì","origin":"新版教材词语表·照片","idx":71},{"lesson":"9","word":"瞧不起","pinyin":"qiáo bù qǐ","origin":"新版教材词语表·照片","idx":72},{"lesson":"9","word":"牢固","pinyin":"láo gù","origin":"新版教材词语表·照片","idx":73},{"lesson":"10","word":"住宅","pinyin":"zhù zhái","origin":"新版教材词语表·照片","idx":74},{"lesson":"10","word":"选择","pinyin":"xuǎn zé","origin":"新版教材词语表·照片","idx":75},{"lesson":"10","word":"住址","pinyin":"zhù zhǐ","origin":"新版教材词语表·照片","idx":76},{"lesson":"10","word":"大厅","pinyin":"dà tīng","origin":"新版教材词语表·照片","idx":77},{"lesson":"10","word":"柔弱","pinyin":"róu ruò","origin":"新版教材词语表·照片","idx":78},{"lesson":"10","word":"平坦","pinyin":"píng tǎn","origin":"新版教材词语表·照片","idx":79},{"lesson":"10","word":"光滑","pinyin":"guāng huá","origin":"新版教材词语表·照片","idx":80},{"lesson":"10","word":"修理","pinyin":"xiū lǐ","origin":"新版教材词语表·照片","idx":81},{"lesson":"10","word":"重要","pinyin":"zhòng yào","origin":"新版教材词语表·照片","idx":82},{"lesson":"10","word":"增长","pinyin":"zēng zhǎng","origin":"新版教材词语表·照片","idx":83},{"lesson":"11","word":"宇宙","pinyin":"yǔ zhòu","origin":"新版教材词语表·照片","idx":84},{"lesson":"11","word":"黑乎乎","pinyin":"hēi hū hū","origin":"新版教材词语表·照片","idx":85},{"lesson":"11","word":"翻身","pinyin":"fānshēn","origin":"新版教材词语表·照片","idx":86},{"lesson":"11","word":"下降","pinyin":"xià jiàng","origin":"新版教材词语表·照片","idx":87},{"lesson":"11","word":"精疲力竭","pinyin":"jīngpí lì jié","origin":"新版教材词语表·照片","idx":88},{"lesson":"11","word":"飘动","pinyin":"piāo dòng","origin":"新版教材词语表·照片","idx":89},{"lesson":"11","word":"照耀","pinyin":"zhào yào","origin":"新版教材词语表·照片","idx":90},{"lesson":"11","word":"四肢","pinyin":"sì zhī","origin":"新版教材词语表·照片","idx":91},{"lesson":"11","word":"奔流不息","pinyin":"bēn liú bù xī","origin":"新版教材词语表·照片","idx":92},{"lesson":"11","word":"茂盛","pinyin":"mào shèng","origin":"新版教材词语表·照片","idx":93},{"lesson":"11","word":"整个","pinyin":"zhěng gè","origin":"新版教材词语表·照片","idx":94},{"lesson":"13","word":"喷射","pinyin":"pēn shè","origin":"新版教材词语表·照片","idx":95},{"lesson":"13","word":"气急败坏","pinyin":"qì jí bài huài","origin":"新版教材词语表·照片","idx":96},{"lesson":"13","word":"严厉","pinyin":"yán lì","origin":"新版教材词语表·照片","idx":97},{"lesson":"13","word":"立即","pinyin":"lì jí","origin":"新版教材词语表·照片","idx":98},{"lesson":"13","word":"执行","pinyin":"zhí xíng","origin":"新版教材词语表·照片","idx":99},{"lesson":"13","word":"敬佩","pinyin":"jìngpèi","origin":"新版教材词语表·照片","idx":100},{"lesson":"13","word":"坚定","pinyin":"jiān dìng","origin":"新版教材词语表·照片","idx":101},{"lesson":"13","word":"忍受","pinyin":"rěn shòu","origin":"新版教材词语表·照片","idx":102},{"lesson":"13","word":"遭受","pinyin":"zāo shòu","origin":"新版教材词语表·照片","idx":103},{"lesson":"13","word":"尽管","pinyin":"jǐn guǎn","origin":"新版教材词语表·照片","idx":104},{"lesson":"13","word":"屈服","pinyin":"qū fú","origin":"新版教材词语表·照片","idx":105},{"lesson":"13","word":"肝脏","pinyin":"gān zàng","origin":"新版教材词语表·照片","idx":106},{"lesson":"13","word":"获得","pinyin":"huò dé","origin":"新版教材词语表·照片","idx":107},{"lesson":"园地2","word":"花卉","pinyin":"huā huì","origin":"新版教材词语表·照片","idx":108},{"lesson":"园地2","word":"玫瑰","pinyin":"méiguī","origin":"新版教材词语表·照片","idx":109},{"lesson":"园地2","word":"牡丹","pinyin":"mǔ dān","origin":"新版教材词语表·照片","idx":110},{"lesson":"园地2","word":"花蕾","pinyin":"huā lěi","origin":"新版教材词语表·照片","idx":111},{"lesson":"园地2","word":"茉莉","pinyin":"mò lì","origin":"新版教材词语表·照片","idx":112},{"lesson":"园地2","word":"海棠","pinyin":"hǎi táng","origin":"新版教材词语表·照片","idx":113},{"lesson":"15","word":"麻雀","pinyin":"má què","origin":"新版教材词语表·照片","idx":114},{"lesson":"15","word":"悄悄","pinyin":"qiāo qiāo","origin":"新版教材词语表·照片","idx":115},{"lesson":"15","word":"猛烈","pinyin":"měng liè","origin":"新版教材词语表·照片","idx":116},{"lesson":"15","word":"无可奈何","pinyin":"wú kě nài hé","origin":"新版教材词语表·照片","idx":117},{"lesson":"15","word":"身躯","pinyin":"shēn qū","origin":"新版教材词语表·照片","idx":118},{"lesson":"15","word":"掩护","pinyin":"yǎnhù","origin":"新版教材词语表·照片","idx":119},{"lesson":"15","word":"紧张","pinyin":"jǐn zhāng","origin":"新版教材词语表·照片","idx":120},{"lesson":"15","word":"浑身","pinyin":"hún shēn","origin":"新版教材词语表·照片","idx":121},{"lesson":"15","word":"牺牲","pinyin":"xī shēng","origin":"新版教材词语表·照片","idx":122},{"lesson":"15","word":"庞大","pinyin":"páng dà","origin":"新版教材词语表·照片","idx":123},{"lesson":"15","word":"强大","pinyin":"qiáng dà","origin":"新版教材词语表·照片","idx":124},{"lesson":"15","word":"力量","pinyin":"lì liàng","origin":"新版教材词语表·照片","idx":125},{"lesson":"15","word":"勇气","pinyin":"yǒng qì","origin":"新版教材词语表·照片","idx":126},{"lesson":"16","word":"石级","pinyin":"shí jí","origin":"新版教材词语表·照片","idx":127},{"lesson":"16","word":"发颤","pinyin":"fā chàn","origin":"新版教材词语表·照片","idx":128},{"lesson":"16","word":"年纪","pinyin":"nián jì","origin":"新版教材词语表·照片","idx":129},{"lesson":"16","word":"奋力","pinyin":"fèn lì","origin":"新版教材词语表·照片","idx":130},{"lesson":"16","word":"猴子","pinyin":"hóu zǐ","origin":"新版教材词语表·照片","idx":131},{"lesson":"16","word":"纪念","pinyin":"jìniàn","origin":"新版教材词语表·照片","idx":132},{"lesson":"16","word":"笑呵呵","pinyin":"xiào hē hē","origin":"新版教材词语表·照片","idx":133},{"lesson":"16","word":"鼓舞","pinyin":"gǔ wǔ","origin":"新版教材词语表·照片","idx":134},{"lesson":"17","word":"崇山峻岭","pinyin":"chóng shān jùn lǐng","origin":"新版教材词语表·照片","idx":135},{"lesson":"17","word":"盘旋","pinyin":"pán xuán","origin":"新版教材词语表·照片","idx":136},{"lesson":"17","word":"扩建","pinyin":"kuòjiàn","origin":"新版教材词语表·照片","idx":137},{"lesson":"17","word":"修筑","pinyin":"xiū zhù","origin":"新版教材词语表·照片","idx":138},{"lesson":"17","word":"平整","pinyin":"píng zhěng","origin":"新版教材词语表·照片","idx":139},{"lesson":"17","word":"打仗","pinyin":"dǎ zhàng","origin":"新版教材词语表·照片","idx":140},{"lesson":"17","word":"自然","pinyin":"zì rán","origin":"新版教材词语表·照片","idx":141},{"lesson":"17","word":"当地","pinyin":"dāng dì","origin":"新版教材词语表·照片","idx":142},{"lesson":"17","word":"耗费","pinyin":"hào fèi","origin":"新版教材词语表·照片","idx":143},{"lesson":"17","word":"大量","pinyin":"dà liàng","origin":"新版教材词语表·照片","idx":144},{"lesson":"17","word":"智慧","pinyin":"zhìhuì","origin":"新版教材词语表·照片","idx":145},{"lesson":"17","word":"工程","pinyin":"gōng chéng","origin":"新版教材词语表·照片","idx":146},{"lesson":"17","word":"奇迹","pinyin":"qí jì","origin":"新版教材词语表·照片","idx":147},{"lesson":"18","word":"柱子","pinyin":"zhù zǐ","origin":"新版教材词语表·照片","idx":148},{"lesson":"18","word":"栏杆","pinyin":"lán gān","origin":"新版教材词语表·照片","idx":149},{"lesson":"18","word":"人物","pinyin":"rén wù","origin":"新版教材词语表·照片","idx":150},{"lesson":"18","word":"神清气爽","pinyin":"shén qīng qì shuǎng","origin":"新版教材词语表·照片","idx":151},{"lesson":"18","word":"建筑","pinyin":"jiàn zhù","origin":"新版教材词语表·照片","idx":152},{"lesson":"18","word":"耸立","pinyin":"sǒng lì","origin":"新版教材词语表·照片","idx":153},{"lesson":"18","word":"半山腰","pinyin":"bàn shān yāo","origin":"新版教材词语表·照片","idx":154},{"lesson":"18","word":"金碧辉煌","pinyin":"jīn bì huī huáng","origin":"新版教材词语表·照片","idx":155},{"lesson":"18","word":"镜子","pinyin":"jìng zǐ","origin":"新版教材词语表·照片","idx":156},{"lesson":"18","word":"隐隐约约","pinyin":"yǐn yǐn yuē yuē","origin":"新版教材词语表·照片","idx":157},{"lesson":"18","word":"游人","pinyin":"yóurén","origin":"新版教材词语表·照片","idx":158},{"lesson":"18","word":"狮子","pinyin":"shīzǐ","origin":"新版教材词语表·照片","idx":159},{"lesson":"18","word":"姿态","pinyin":"zī tài","origin":"新版教材词语表·照片","idx":160},{"lesson":"园地3","word":"陵寝","pinyin":"líng qǐn","origin":"新版教材词语表·照片","idx":161},{"lesson":"园地3","word":"景观","pinyin":"jǐngguān","origin":"新版教材词语表·照片","idx":162},{"lesson":"园地3","word":"丝绸","pinyin":"sī chóu","origin":"新版教材词语表·照片","idx":163},{"lesson":"20","word":"虽然","pinyin":"suī rán","origin":"新版教材词语表·照片","idx":164},{"lesson":"20","word":"拳头","pinyin":"quán tóu","origin":"新版教材词语表·照片","idx":165},{"lesson":"20","word":"故意","pinyin":"gù yì","origin":"新版教材词语表·照片","idx":166},{"lesson":"20","word":"神气","pinyin":"shén qì","origin":"新版教材词语表·照片","idx":167},{"lesson":"20","word":"忙乱","pinyin":"máng luàn","origin":"新版教材词语表·照片","idx":168},{"lesson":"20","word":"鞋子","pinyin":"xié zǐ","origin":"新版教材词语表·照片","idx":169},{"lesson":"20","word":"助威","pinyin":"zhù wēi","origin":"新版教材词语表·照片","idx":170},{"lesson":"20","word":"胳膊","pinyin":"gē bo","origin":"新版教材词语表·照片","idx":171},{"lesson":"20","word":"纷纷","pinyin":"fēn fēn","origin":"新版教材词语表·照片","idx":172},{"lesson":"20","word":"可笑","pinyin":"kě xiào","origin":"新版教材词语表·照片","idx":173},{"lesson":"20","word":"无缘无故","pinyin":"wú yuán wú gù","origin":"新版教材词语表·照片","idx":174},{"lesson":"21","word":"文艺","pinyin":"wén yì","origin":"新版教材词语表·照片","idx":175},{"lesson":"21","word":"表演","pinyin":"biǎo yǎn","origin":"新版教材词语表·照片","idx":176},{"lesson":"21","word":"角色","pinyin":"jué sè","origin":"新版教材词语表·照片","idx":177},{"lesson":"21","word":"排练","pinyin":"pái liàn","origin":"新版教材词语表·照片","idx":178},{"lesson":"21","word":"主意","pinyin":"zhǔ yi","origin":"新版教材词语表·照片","idx":179},{"lesson":"21","word":"通情达理","pinyin":"tōng qíng dá lǐ","origin":"新版教材词语表·照片","idx":180},{"lesson":"21","word":"充分","pinyin":"chōng fēn","origin":"新版教材词语表·照片","idx":181},{"lesson":"21","word":"提示","pinyin":"tí shì","origin":"新版教材词语表·照片","idx":182},{"lesson":"21","word":"演技","pinyin":"yǎn jì","origin":"新版教材词语表·照片","idx":183},{"lesson":"21","word":"撤换","pinyin":"chè huàn","origin":"新版教材词语表·照片","idx":184},{"lesson":"21","word":"等候","pinyin":"děng hòu","origin":"新版教材词语表·照片","idx":185},{"lesson":"21","word":"哄堂大笑","pinyin":"hōng táng dà xiào","origin":"新版教材词语表·照片","idx":186},{"lesson":"21","word":"垂头丧气","pinyin":"chuí tóu sàng qì","origin":"新版教材词语表·照片","idx":187},{"lesson":"园地4","word":"韭菜","pinyin":"jiǔ cài","origin":"新版教材词语表·照片","idx":188},{"lesson":"园地4","word":"芹菜","pinyin":"qín cài","origin":"新版教材词语表·照片","idx":189},{"lesson":"园地4","word":"辣椒","pinyin":"là jiāo","origin":"新版教材词语表·照片","idx":190},{"lesson":"园地4","word":"红薯","pinyin":"hóng shǔ","origin":"新版教材词语表·照片","idx":191},{"lesson":"园地4","word":"莲藕","pinyin":"lián ǒu","origin":"新版教材词语表·照片","idx":192},{"lesson":"园地4","word":"芋头","pinyin":"yù tóu","origin":"新版教材词语表·照片","idx":193},{"lesson":"24","word":"主席","pinyin":"zhǔ xí","origin":"新版教材词语表·照片","idx":194},{"lesson":"24","word":"举行","pinyin":"jǔ xíng","origin":"新版教材词语表·照片","idx":195},{"lesson":"24","word":"心情","pinyin":"xīn qíng","origin":"新版教材词语表·照片","idx":196},{"lesson":"24","word":"补充","pinyin":"bǔ chōng","origin":"新版教材词语表·照片","idx":197},{"lesson":"24","word":"激动","pinyin":"jī dòng","origin":"新版教材词语表·照片","idx":198},{"lesson":"24","word":"状态","pinyin":"zhuàng tài","origin":"新版教材词语表·照片","idx":199},{"lesson":"24","word":"奉献","pinyin":"fèng xiàn","origin":"新版教材词语表·照片","idx":200},{"lesson":"24","word":"运动员","pinyin":"yùn dòng yuán","origin":"新版教材词语表·照片","idx":201},{"lesson":"24","word":"训练","pinyin":"xùn liàn","origin":"新版教材词语表·照片","idx":202},{"lesson":"24","word":"建设","pinyin":"jiàn shè","origin":"新版教材词语表·照片","idx":203},{"lesson":"24","word":"勤劳","pinyin":"qín láo","origin":"新版教材词语表·照片","idx":204},{"lesson":"24","word":"邀请","pinyin":"yāo qǐng","origin":"新版教材词语表·照片","idx":205},{"lesson":"25","word":"崛起","pinyin":"jué qǐ","origin":"新版教材词语表·照片","idx":206},{"lesson":"25","word":"严肃","pinyin":"yán sù","origin":"新版教材词语表·照片","idx":207},{"lesson":"25","word":"干脆","pinyin":"gàn cuì","origin":"新版教材词语表·照片","idx":208},{"lesson":"25","word":"默默","pinyin":"mò mò","origin":"新版教材词语表·照片","idx":209},{"lesson":"25","word":"若有所思","pinyin":"ruò yǒu suǒ sī","origin":"新版教材词语表·照片","idx":210},{"lesson":"25","word":"清晰","pinyin":"qīng xī","origin":"新版教材词语表·照片","idx":211},{"lesson":"25","word":"离开","pinyin":"líkāi","origin":"新版教材词语表·照片","idx":212},{"lesson":"25","word":"随便","pinyin":"suí biàn","origin":"新版教材词语表·照片","idx":213},{"lesson":"25","word":"忘怀","pinyin":"wàng huái","origin":"新版教材词语表·照片","idx":214},{"lesson":"25","word":"非凡","pinyin":"fēi fán","origin":"新版教材词语表·照片","idx":215},{"lesson":"25","word":"惩处","pinyin":"chéngchù","origin":"新版教材词语表·照片","idx":216},{"lesson":"25","word":"训斥","pinyin":"xùn chì","origin":"新版教材词语表·照片","idx":217},{"lesson":"25","word":"燃烧","pinyin":"rán shāo","origin":"新版教材词语表·照片","idx":218},{"lesson":"25","word":"响亮","pinyin":"xiǎng liàng","origin":"新版教材词语表·照片","idx":219}],"reading":[{"lesson":"1","char":"盐","pinyin":"yán","blueSupplement":false,"origin":"新版教材识字表·照片","idx":0},{"lesson":"1","char":"薄","pinyin":"bó","blueSupplement":true,"origin":"新版教材识字表·照片","idx":1},{"lesson":"1","char":"隆","pinyin":"lóng","blueSupplement":true,"origin":"新版教材识字表·照片","idx":2},{"lesson":"1","char":"鼎","pinyin":"dǐng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":3},{"lesson":"1","char":"沸","pinyin":"fèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":4},{"lesson":"1","char":"浩","pinyin":"hào","blueSupplement":false,"origin":"新版教材识字表·照片","idx":5},{"lesson":"1","char":"崩","pinyin":"bēng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":6},{"lesson":"1","char":"霎","pinyin":"shà","blueSupplement":false,"origin":"新版教材识字表·照片","idx":7},{"lesson":"1","char":"余","pinyin":"yú","blueSupplement":false,"origin":"新版教材识字表·照片","idx":8},{"lesson":"1","char":"漫","pinyin":"màn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":9},{"lesson":"1","char":"吼","pinyin":"hǒu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":10},{"lesson":"2","char":"昧","pinyin":"mèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":11},{"lesson":"2","char":"坠","pinyin":"zhuì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":12},{"lesson":"2","char":"萤","pinyin":"yíng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":13},{"lesson":"3","char":"巢","pinyin":"cháo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":14},{"lesson":"3","char":"苇","pinyin":"wěi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":15},{"lesson":"3","char":"瞬","pinyin":"shùn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":16},{"lesson":"3","char":"穗","pinyin":"suì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":17},{"lesson":"3","char":"罗","pinyin":"luó","blueSupplement":false,"origin":"新版教材识字表·照片","idx":18},{"lesson":"3","char":"霸","pinyin":"bà","blueSupplement":false,"origin":"新版教材识字表·照片","idx":19},{"lesson":"4","char":"豌","pinyin":"wān","blueSupplement":false,"origin":"新版教材识字表·照片","idx":20},{"lesson":"4","char":"僵","pinyin":"jiāng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":21},{"lesson":"4","char":"预","pinyin":"yù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":22},{"lesson":"4","char":"揭","pinyin":"jiē","blueSupplement":false,"origin":"新版教材识字表·照片","idx":23},{"lesson":"4","char":"囚","pinyin":"qiú","blueSupplement":false,"origin":"新版教材识字表·照片","idx":24},{"lesson":"4","char":"劈","pinyin":"pī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":25},{"lesson":"4","char":"框","pinyin":"kuàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":26},{"lesson":"4","char":"吻","pinyin":"wěn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":27},{"lesson":"4","char":"脏","pinyin":"zàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":28},{"lesson":"4","char":"溢","pinyin":"yì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":29},{"lesson":"4","char":"健","pinyin":"jiàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":30},{"lesson":"4","char":"康","pinyin":"kāng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":31},{"lesson":"5","char":"蝙","pinyin":"biān","blueSupplement":false,"origin":"新版教材识字表·照片","idx":32},{"lesson":"5","char":"蝠","pinyin":"fú","blueSupplement":false,"origin":"新版教材识字表·照片","idx":33},{"lesson":"5","char":"蛾","pinyin":"é","blueSupplement":false,"origin":"新版教材识字表·照片","idx":34},{"lesson":"5","char":"避","pinyin":"bì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":35},{"lesson":"5","char":"锐","pinyin":"ruì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":36},{"lesson":"5","char":"蝇","pinyin":"yíng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":37},{"lesson":"5","char":"障","pinyin":"zhàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":38},{"lesson":"5","char":"碍","pinyin":"ài","blueSupplement":false,"origin":"新版教材识字表·照片","idx":39},{"lesson":"5","char":"荧","pinyin":"yíng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":40},{"lesson":"5","char":"屏","pinyin":"píng","blueSupplement":true,"origin":"新版教材识字表·照片","idx":41},{"lesson":"5","char":"驾","pinyin":"jià","blueSupplement":false,"origin":"新版教材识字表·照片","idx":42},{"lesson":"6","char":"橱","pinyin":"chú","blueSupplement":false,"origin":"新版教材识字表·照片","idx":43},{"lesson":"6","char":"焦","pinyin":"jiāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":44},{"lesson":"6","char":"扣","pinyin":"kòu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":45},{"lesson":"6","char":"嚷","pinyin":"rǎng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":46},{"lesson":"6","char":"溜","pinyin":"liū","blueSupplement":true,"origin":"新版教材识字表·照片","idx":47},{"lesson":"6","char":"筒","pinyin":"tǒng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":48},{"lesson":"6","char":"董","pinyin":"dǒng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":49},{"lesson":"7","char":"忌","pinyin":"jì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":50},{"lesson":"7","char":"将","pinyin":"jiāng","blueSupplement":true,"origin":"新版教材识字表·照片","idx":51},{"lesson":"7","char":"获","pinyin":"huò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":52},{"lesson":"7","char":"赢","pinyin":"yíng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":53},{"lesson":"7","char":"拳","pinyin":"quán","blueSupplement":false,"origin":"新版教材识字表·照片","idx":54},{"lesson":"7","char":"跃","pinyin":"yuè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":55},{"lesson":"7","char":"测","pinyin":"cè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":56},{"lesson":"7","char":"输","pinyin":"shū","blueSupplement":false,"origin":"新版教材识字表·照片","idx":57},{"lesson":"7","char":"谋","pinyin":"móu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":58},{"lesson":"7","char":"划","pinyin":"huà","blueSupplement":true,"origin":"新版教材识字表·照片","idx":59},{"lesson":"7","char":"策","pinyin":"cè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":60},{"lesson":"7","char":"荐","pinyin":"jiàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":61},{"lesson":"园地1","char":"钢","pinyin":"gāng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":62},{"lesson":"园地1","char":"揍","pinyin":"zòu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":63},{"lesson":"园地1","char":"锈","pinyin":"xiù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":64},{"lesson":"园地1","char":"沫","pinyin":"mò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":65},{"lesson":"园地1","char":"综","pinyin":"zōng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":66},{"lesson":"园地1","char":"氧","pinyin":"yǎng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":67},{"lesson":"园地1","char":"账","pinyin":"zhàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":68},{"lesson":"园地1","char":"矿","pinyin":"kuàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":69},{"lesson":"园地1","char":"俱","pinyin":"jù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":70},{"lesson":"8","char":"暮","pinyin":"mù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":71},{"lesson":"8","char":"残","pinyin":"cán","blueSupplement":false,"origin":"新版教材识字表·照片","idx":72},{"lesson":"8","char":"瑟","pinyin":"sè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":73},{"lesson":"8","char":"缘","pinyin":"yuán","blueSupplement":false,"origin":"新版教材识字表·照片","idx":74},{"lesson":"8","char":"降","pinyin":"jiàng","blueSupplement":true,"origin":"新版教材识字表·照片","idx":75},{"lesson":"8","char":"骚","pinyin":"sāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":76},{"lesson":"8","char":"评","pinyin":"píng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":77},{"lesson":"8","char":"逊","pinyin":"xùn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":78},{"lesson":"9","char":"茎","pinyin":"jīng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":79},{"lesson":"9","char":"柄","pinyin":"bǐng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":80},{"lesson":"9","char":"蜗","pinyin":"wō","blueSupplement":false,"origin":"新版教材识字表·照片","idx":81},{"lesson":"9","char":"曲","pinyin":"qū","blueSupplement":true,"origin":"新版教材识字表·照片","idx":82},{"lesson":"9","char":"萎","pinyin":"wěi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":83},{"lesson":"10","char":"蟋","pinyin":"xī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":84},{"lesson":"10","char":"蟀","pinyin":"shuài","blueSupplement":false,"origin":"新版教材识字表·照片","idx":85},{"lesson":"10","char":"宅","pinyin":"zhái","blueSupplement":false,"origin":"新版教材识字表·照片","idx":86},{"lesson":"10","char":"慎","pinyin":"shèn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":87},{"lesson":"10","char":"址","pinyin":"zhǐ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":88},{"lesson":"10","char":"畅","pinyin":"chàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":89},{"lesson":"10","char":"倾","pinyin":"qīng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":90},{"lesson":"10","char":"聚","pinyin":"jù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":91},{"lesson":"10","char":"置","pinyin":"zhì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":92},{"lesson":"10","char":"糙","pinyin":"cāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":93},{"lesson":"10","char":"朴","pinyin":"pǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":94},{"lesson":"10","char":"燥","pinyin":"zào","blueSupplement":false,"origin":"新版教材识字表·照片","idx":95},{"lesson":"11","char":"斧","pinyin":"fǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":96},{"lesson":"11","char":"缓","pinyin":"huǎn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":97},{"lesson":"11","char":"浊","pinyin":"zhuó","blueSupplement":false,"origin":"新版教材识字表·照片","idx":98},{"lesson":"11","char":"丈","pinyin":"zhàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":99},{"lesson":"11","char":"肢","pinyin":"zhī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":100},{"lesson":"11","char":"躯","pinyin":"qū","blueSupplement":false,"origin":"新版教材识字表·照片","idx":101},{"lesson":"11","char":"液","pinyin":"yè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":102},{"lesson":"12","char":"曰","pinyin":"yuē","blueSupplement":false,"origin":"新版教材识字表·照片","idx":103},{"lesson":"12","char":"溺","pinyin":"nì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":104},{"lesson":"13","char":"斯","pinyin":"sī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":105},{"lesson":"13","char":"悲","pinyin":"bēi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":106},{"lesson":"13","char":"惨","pinyin":"cǎn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":107},{"lesson":"13","char":"盗","pinyin":"dào","blueSupplement":false,"origin":"新版教材识字表·照片","idx":108},{"lesson":"13","char":"驰","pinyin":"chí","blueSupplement":false,"origin":"新版教材识字表·照片","idx":109},{"lesson":"13","char":"佩","pinyin":"pèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":110},{"lesson":"13","char":"违","pinyin":"wéi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":111},{"lesson":"13","char":"锁","pinyin":"suǒ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":112},{"lesson":"13","char":"遭","pinyin":"zāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":113},{"lesson":"13","char":"肝","pinyin":"gān","blueSupplement":false,"origin":"新版教材识字表·照片","idx":114},{"lesson":"13","char":"脏","pinyin":"zàng","blueSupplement":true,"origin":"新版教材识字表·照片","idx":115},{"lesson":"13","char":"愤","pinyin":"fèn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":116},{"lesson":"13","char":"砸","pinyin":"zá","blueSupplement":false,"origin":"新版教材识字表·照片","idx":117},{"lesson":"14","char":"兽","pinyin":"shòu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":118},{"lesson":"14","char":"措","pinyin":"cuò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":119},{"lesson":"14","char":"陷","pinyin":"xiàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":120},{"lesson":"14","char":"混","pinyin":"hùn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":121},{"lesson":"14","char":"拣","pinyin":"jiǎn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":122},{"lesson":"14","char":"燃","pinyin":"rán","blueSupplement":false,"origin":"新版教材识字表·照片","idx":123},{"lesson":"14","char":"炼","pinyin":"liàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":124},{"lesson":"14","char":"熄","pinyin":"xī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":125},{"lesson":"14","char":"浆","pinyin":"jiāng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":126},{"lesson":"14","char":"杀","pinyin":"shā","blueSupplement":false,"origin":"新版教材识字表·照片","idx":127},{"lesson":"14","char":"颂","pinyin":"sòng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":128},{"lesson":"园地2","char":"卉","pinyin":"huì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":129},{"lesson":"园地2","char":"玫","pinyin":"méi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":130},{"lesson":"园地2","char":"瑰","pinyin":"guī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":131},{"lesson":"园地2","char":"牡","pinyin":"mǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":132},{"lesson":"园地2","char":"丹","pinyin":"dān","blueSupplement":false,"origin":"新版教材识字表·照片","idx":133},{"lesson":"园地2","char":"蕾","pinyin":"lěi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":134},{"lesson":"园地2","char":"茉","pinyin":"mò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":135},{"lesson":"园地2","char":"莉","pinyin":"lì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":136},{"lesson":"园地2","char":"棠","pinyin":"táng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":137},{"lesson":"15","char":"嗅","pinyin":"xiù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":138},{"lesson":"15","char":"奈","pinyin":"nài","blueSupplement":false,"origin":"新版教材识字表·照片","idx":139},{"lesson":"15","char":"拯","pinyin":"zhěng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":140},{"lesson":"15","char":"嘶","pinyin":"sī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":141},{"lesson":"15","char":"哑","pinyin":"yǎ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":142},{"lesson":"15","char":"牺","pinyin":"xī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":143},{"lesson":"15","char":"牲","pinyin":"shēng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":144},{"lesson":"15","char":"庞","pinyin":"páng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":145},{"lesson":"16","char":"链","pinyin":"liàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":146},{"lesson":"16","char":"颤","pinyin":"chàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":147},{"lesson":"16","char":"攀","pinyin":"pān","blueSupplement":false,"origin":"新版教材识字表·照片","idx":148},{"lesson":"16","char":"辩","pinyin":"biàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":149},{"lesson":"16","char":"呵","pinyin":"hē","blueSupplement":false,"origin":"新版教材识字表·照片","idx":150},{"lesson":"17","char":"峻","pinyin":"jùn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":151},{"lesson":"17","char":"基","pinyin":"jī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":152},{"lesson":"17","char":"砌","pinyin":"qì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":153},{"lesson":"17","char":"扩","pinyin":"kuò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":154},{"lesson":"17","char":"砖","pinyin":"zhuān","blueSupplement":false,"origin":"新版教材识字表·照片","idx":155},{"lesson":"17","char":"屯","pinyin":"tún","blueSupplement":false,"origin":"新版教材识字表·照片","idx":156},{"lesson":"17","char":"兵","pinyin":"bīng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":157},{"lesson":"17","char":"堡","pinyin":"bǎo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":158},{"lesson":"17","char":"垒","pinyin":"lěi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":159},{"lesson":"17","char":"仗","pinyin":"zhàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":160},{"lesson":"17","char":"畜","pinyin":"chù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":161},{"lesson":"17","char":"耗","pinyin":"hào","blueSupplement":false,"origin":"新版教材识字表·照片","idx":162},{"lesson":"18","char":"殿","pinyin":"diàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":163},{"lesson":"18","char":"漆","pinyin":"qī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":164},{"lesson":"18","char":"琉","pinyin":"liú","blueSupplement":false,"origin":"新版教材识字表·照片","idx":165},{"lesson":"18","char":"佛","pinyin":"fó","blueSupplement":true,"origin":"新版教材识字表·照片","idx":166},{"lesson":"18","char":"煌","pinyin":"huáng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":167},{"lesson":"19","char":"享","pinyin":"xiǎng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":168},{"lesson":"19","char":"誉","pinyin":"yù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":169},{"lesson":"19","char":"宏","pinyin":"hóng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":170},{"lesson":"19","char":"皇","pinyin":"huáng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":171},{"lesson":"19","char":"率","pinyin":"lǜ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":172},{"lesson":"19","char":"着","pinyin":"zhuó","blueSupplement":true,"origin":"新版教材识字表·照片","idx":173},{"lesson":"19","char":"靴","pinyin":"xuē","blueSupplement":false,"origin":"新版教材识字表·照片","idx":174},{"lesson":"19","char":"誓","pinyin":"shì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":175},{"lesson":"19","char":"塑","pinyin":"sù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":176},{"lesson":"19","char":"惟","pinyin":"wéi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":177},{"lesson":"19","char":"肖","pinyin":"xiào","blueSupplement":false,"origin":"新版教材识字表·照片","idx":178},{"lesson":"19","char":"拟","pinyin":"nǐ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":179},{"lesson":"19","char":"逼","pinyin":"bī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":180},{"lesson":"园地3","char":"萨","pinyin":"sà","blueSupplement":false,"origin":"新版教材识字表·照片","idx":181},{"lesson":"园地3","char":"昭","pinyin":"zhāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":182},{"lesson":"园地3","char":"陵","pinyin":"líng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":183},{"lesson":"园地3","char":"寝","pinyin":"qǐn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":184},{"lesson":"园地3","char":"堰","pinyin":"yàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":185},{"lesson":"园地3","char":"尼","pinyin":"ní","blueSupplement":false,"origin":"新版教材识字表·照片","idx":186},{"lesson":"园地3","char":"绸","pinyin":"chóu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":187},{"lesson":"园地3","char":"廊","pinyin":"láng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":188},{"lesson":"20","char":"鹅","pinyin":"é","blueSupplement":false,"origin":"新版教材识字表·照片","idx":189},{"lesson":"20","char":"屁","pinyin":"pì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":190},{"lesson":"20","char":"股","pinyin":"gǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":191},{"lesson":"20","char":"谓","pinyin":"wèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":192},{"lesson":"20","char":"捶","pinyin":"chuí","blueSupplement":false,"origin":"新版教材识字表·照片","idx":193},{"lesson":"20","char":"顽","pinyin":"wán","blueSupplement":false,"origin":"新版教材识字表·照片","idx":194},{"lesson":"20","char":"吁","pinyin":"xū","blueSupplement":false,"origin":"新版教材识字表·照片","idx":195},{"lesson":"20","char":"膊","pinyin":"bo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":196},{"lesson":"20","char":"瓶","pinyin":"píng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":197},{"lesson":"20","char":"怖","pinyin":"bù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":198},{"lesson":"20","char":"欺","pinyin":"qī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":199},{"lesson":"20","char":"掐","pinyin":"qiā","blueSupplement":false,"origin":"新版教材识字表·照片","idx":200},{"lesson":"21","char":"露","pinyin":"lòu","blueSupplement":true,"origin":"新版教材识字表·照片","idx":201},{"lesson":"21","char":"羡","pinyin":"xiàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":202},{"lesson":"21","char":"殷","pinyin":"yīn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":203},{"lesson":"21","char":"逗","pinyin":"dòu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":204},{"lesson":"21","char":"撇","pinyin":"piē","blueSupplement":false,"origin":"新版教材识字表·照片","idx":205},{"lesson":"21","char":"啊","pinyin":"a","blueSupplement":true,"origin":"新版教材识字表·照片","idx":206},{"lesson":"21","char":"霉","pinyin":"méi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":207},{"lesson":"21","char":"亏","pinyin":"kuī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":208},{"lesson":"21","char":"撤","pinyin":"chè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":209},{"lesson":"21","char":"哄","pinyin":"hōng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":210},{"lesson":"21","char":"拙","pinyin":"zhuō","blueSupplement":false,"origin":"新版教材识字表·照片","idx":211},{"lesson":"21","char":"唉","pinyin":"āi","blueSupplement":true,"origin":"新版教材识字表·照片","idx":212},{"lesson":"22","char":"钉","pinyin":"dīng","blueSupplement":true,"origin":"新版教材识字表·照片","idx":213},{"lesson":"22","char":"质","pinyin":"zhì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":214},{"lesson":"22","char":"岳","pinyin":"yuè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":215},{"lesson":"22","char":"削","pinyin":"xiāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":216},{"lesson":"22","char":"废","pinyin":"fèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":217},{"lesson":"22","char":"骂","pinyin":"mà","blueSupplement":false,"origin":"新版教材识字表·照片","idx":218},{"lesson":"22","char":"帅","pinyin":"shuài","blueSupplement":false,"origin":"新版教材识字表·照片","idx":219},{"lesson":"22","char":"蜜","pinyin":"mì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":220},{"lesson":"22","char":"扭","pinyin":"niǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":221},{"lesson":"22","char":"彻","pinyin":"chè","blueSupplement":false,"origin":"新版教材识字表·照片","idx":222},{"lesson":"22","char":"溃","pinyin":"kuì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":223},{"lesson":"22","char":"豪","pinyin":"háo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":224},{"lesson":"23","char":"戎","pinyin":"róng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":225},{"lesson":"23","char":"诸","pinyin":"zhū","blueSupplement":false,"origin":"新版教材识字表·照片","idx":226},{"lesson":"23","char":"竞","pinyin":"jìng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":227},{"lesson":"23","char":"唯","pinyin":"wéi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":228},{"lesson":"园地4","char":"韭","pinyin":"jiǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":229},{"lesson":"园地4","char":"芹","pinyin":"qín","blueSupplement":false,"origin":"新版教材识字表·照片","idx":230},{"lesson":"园地4","char":"椒","pinyin":"jiāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":231},{"lesson":"园地4","char":"蒜","pinyin":"suàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":232},{"lesson":"园地4","char":"薯","pinyin":"shǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":233},{"lesson":"园地4","char":"藕","pinyin":"ǒu","blueSupplement":false,"origin":"新版教材识字表·照片","idx":234},{"lesson":"园地4","char":"芋","pinyin":"yù","blueSupplement":false,"origin":"新版教材识字表·照片","idx":235},{"lesson":"园地4","char":"姜","pinyin":"jiāng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":236},{"lesson":"24","char":"菲","pinyin":"fēi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":237},{"lesson":"24","char":"抛","pinyin":"pāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":238},{"lesson":"24","char":"奉","pinyin":"fèng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":239},{"lesson":"24","char":"亿","pinyin":"yì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":240},{"lesson":"24","char":"邀","pinyin":"yāo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":241},{"lesson":"25","char":"崛","pinyin":"jué","blueSupplement":false,"origin":"新版教材识字表·照片","idx":242},{"lesson":"25","char":"范","pinyin":"fàn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":243},{"lesson":"25","char":"魏","pinyin":"wèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":244},{"lesson":"25","char":"默","pinyin":"mò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":245},{"lesson":"25","char":"晰","pinyin":"xī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":246},{"lesson":"25","char":"惑","pinyin":"huò","blueSupplement":false,"origin":"新版教材识字表·照片","idx":247},{"lesson":"25","char":"轧","pinyin":"yà","blueSupplement":false,"origin":"新版教材识字表·照片","idx":248},{"lesson":"25","char":"惩","pinyin":"chéng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":249},{"lesson":"25","char":"肇","pinyin":"zhào","blueSupplement":false,"origin":"新版教材识字表·照片","idx":250},{"lesson":"25","char":"斥","pinyin":"chì","blueSupplement":false,"origin":"新版教材识字表·照片","idx":251},{"lesson":"25","char":"辱","pinyin":"rǔ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":252},{"lesson":"26","char":"昔","pinyin":"xī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":253},{"lesson":"26","char":"茅","pinyin":"máo","blueSupplement":false,"origin":"新版教材识字表·照片","idx":254},{"lesson":"26","char":"炕","pinyin":"kàng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":255},{"lesson":"26","char":"索","pinyin":"suǒ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":256},{"lesson":"26","char":"媚","pinyin":"mèi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":257},{"lesson":"27","char":"催","pinyin":"cuī","blueSupplement":false,"origin":"新版教材识字表·照片","idx":258},{"lesson":"27","char":"君","pinyin":"jūn","blueSupplement":false,"origin":"新版教材识字表·照片","idx":259},{"lesson":"27","char":"征","pinyin":"zhēng","blueSupplement":false,"origin":"新版教材识字表·照片","idx":260},{"lesson":"27","char":"塞","pinyin":"sāi","blueSupplement":false,"origin":"新版教材识字表·照片","idx":261},{"lesson":"27","char":"秦","pinyin":"qín","blueSupplement":false,"origin":"新版教材识字表·照片","idx":262},{"lesson":"27","char":"杰","pinyin":"jié","blueSupplement":false,"origin":"新版教材识字表·照片","idx":263},{"lesson":"27","char":"鬼","pinyin":"guǐ","blueSupplement":false,"origin":"新版教材识字表·照片","idx":264}],"notes":[],"proof":[],"poly":[{"idx":0,"char":"薄","contexts":[{"word":"薄弱","pinyin":"bó"},{"word":"薄片","pinyin":"báo"},{"word":"薄荷","pinyin":"bò"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":1,"char":"隆","contexts":[{"word":"兴隆","pinyin":"lóng"},{"word":"轰隆","pinyin":"lōng"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":2,"char":"屏","contexts":[{"word":"屏幕","pinyin":"píng"},{"word":"屏息","pinyin":"bǐng"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":3,"char":"溜","contexts":[{"word":"溜冰","pinyin":"liū"},{"word":"水溜","pinyin":"liù"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":4,"char":"将","contexts":[{"word":"将来","pinyin":"jiāng"},{"word":"大将","pinyin":"jiàng"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":5,"char":"划","contexts":[{"word":"划船","pinyin":"huá"},{"word":"计划","pinyin":"huà"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":6,"char":"降","contexts":[{"word":"降落","pinyin":"jiàng"},{"word":"投降","pinyin":"xiáng"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":7,"char":"曲","contexts":[{"word":"弯曲","pinyin":"qū"},{"word":"歌曲","pinyin":"qǔ"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":8,"char":"脏","contexts":[{"word":"肮脏","pinyin":"zāng"},{"word":"心脏","pinyin":"zàng"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":9,"char":"佛","contexts":[{"word":"佛像","pinyin":"fó"},{"word":"仿佛","pinyin":"fú"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":10,"char":"着","contexts":[{"word":"看着","pinyin":"zhe"},{"word":"着急","pinyin":"zháo"},{"word":"着陆","pinyin":"zhuó"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":11,"char":"露","contexts":[{"word":"露珠","pinyin":"lù"},{"word":"露脸","pinyin":"lòu"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":12,"char":"啊","contexts":[{"word":"啊！我懂了","pinyin":"ā"},{"word":"好啊","pinyin":"a"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":13,"char":"唉","contexts":[{"word":"唉声叹气","pinyin":"āi"},{"word":"唉，真可惜","pinyin":"ài"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":14,"char":"钉","contexts":[{"word":"钉子","pinyin":"dīng"},{"word":"钉牢","pinyin":"dìng"}],"origin":"新版教材蓝色多音字（补充组词）"},{"idx":15,"char":"闷","contexts":[{"word":"闷头","pinyin":"mēn"},{"word":"烦闷","pinyin":"mèn"}],"origin":"新版教材关联多音字拓展"},{"idx":16,"char":"铺","contexts":[{"word":"铺路","pinyin":"pū"},{"word":"店铺","pinyin":"pù"}],"origin":"新版教材关联多音字拓展"},{"idx":17,"char":"横","contexts":[{"word":"横线","pinyin":"héng"},{"word":"蛮横","pinyin":"hèng"}],"origin":"新版教材关联多音字拓展"},{"idx":18,"char":"重","contexts":[{"word":"重要","pinyin":"zhòng"},{"word":"重复","pinyin":"chóng"}],"origin":"新版教材关联多音字拓展"},{"idx":19,"char":"塞","contexts":[{"word":"塞子","pinyin":"sāi"},{"word":"边塞","pinyin":"sài"},{"word":"闭塞","pinyin":"sè"}],"origin":"新版教材关联多音字拓展"},{"idx":20,"char":"哄","contexts":[{"word":"哄堂大笑","pinyin":"hōng"},{"word":"哄孩子","pinyin":"hǒng"},{"word":"起哄","pinyin":"hòng"}],"origin":"新版教材关联多音字拓展"},{"idx":21,"char":"颤","contexts":[{"word":"发颤","pinyin":"chàn"},{"word":"颤栗","pinyin":"zhàn"}],"origin":"新版教材关联多音字拓展"},{"idx":22,"char":"长","contexts":[{"word":"增长","pinyin":"zhǎng"},{"word":"长短","pinyin":"cháng"}],"origin":"新版教材关联多音字拓展"},{"idx":23,"char":"差","contexts":[{"word":"差别","pinyin":"chā"},{"word":"差不多","pinyin":"chà"},{"word":"出差","pinyin":"chāi"}],"origin":"新版教材关联多音字拓展"}],"metadata":{"name":"高语牧·四年级上册语文｜新版教材","pages":[122,123,124,125,126,127,128,129],"writingMain":250,"vocabularyMain":220,"readingMain":250,"blueSupplementCount":15,"readingEntriesIncludingBlue":265,"status":"逐页核对新教材拍照的字词数量及课次；个别拼音发音、补充例词请家长继续校核。蓝色生字作为多音字附加项保留。","legacyIsolated":true},"application":[{"id":"application-new-v1-0","idx":0,"lesson":"综合应用","type":"application","focus":"浩浩荡荡","word":"浩浩荡荡","answer":"浩浩荡荡","options":["浩浩荡荡","风平浪静","隐隐约约","若有所思"],"prompt":"语境应用：远处的潮水一排接着一排涌来，气势宏大。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-1","idx":1,"lesson":"综合应用","type":"application","focus":"风平浪静","word":"风平浪静","answer":"风平浪静","options":["风平浪静","山崩地裂","人山人海","齐头并进"],"prompt":"语境应用：水面一点波浪也没有，十分平静。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-2","idx":2,"lesson":"综合应用","type":"application","focus":"精疲力竭","word":"精疲力竭","answer":"精疲力竭","options":["精疲力竭","神清气爽","哄堂大笑","通情达理"],"prompt":"语境应用：跑步后他体力几乎完全用尽，累得说不出话。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-3","idx":3,"lesson":"综合应用","type":"application","focus":"模糊","word":"模糊","answer":"模糊","options":["清晰","模糊","坚固","宏伟"],"prompt":"语境应用：这张照片对焦不准，人物的脸看不清。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-4","idx":4,"lesson":"综合应用","type":"application","focus":"隐隐约约","word":"隐隐约约","answer":"隐隐约约","options":["隐隐约约","一目了然","齐头并进","通情达理"],"prompt":"语境应用：远处山脚有一点灯光，时明时暗，看得不很真切。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-5","idx":5,"lesson":"综合应用","type":"application","focus":"金碧辉煌","word":"金碧辉煌","answer":"金碧辉煌","options":["金碧辉煌","神清气爽","山崩地裂","无可奈何"],"prompt":"语境应用：这座殿堂有华丽的彩画和金色装饰，光彩夺目。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-6","idx":6,"lesson":"综合应用","type":"application","focus":"通情达理","word":"通情达理","answer":"通情达理","options":["通情达理","气急败坏","精疲力竭","垂头丧气"],"prompt":"语境应用：妈妈能理解孩子的困难，也能把道理讲清楚。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-7","idx":7,"lesson":"综合应用","type":"application","focus":"哄堂大笑","word":"哄堂大笑","answer":"哄堂大笑","options":["哄堂大笑","垂头丧气","若有所思","神清气爽"],"prompt":"语境应用：演员一句话逗得全场观众同时大笑。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-8","idx":8,"lesson":"综合应用","type":"application","focus":"无可奈何","word":"无可奈何","answer":"无可奈何","options":["无可奈何","风平浪静","若有所思","齐头并进"],"prompt":"语境应用：反复尝试也没有办法解决，他只好叹气。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-9","idx":9,"lesson":"综合应用","type":"application","focus":"垂头丧气","word":"垂头丧气","answer":"垂头丧气","options":["垂头丧气","神清气爽","哄堂大笑","通情达理"],"prompt":"语境应用：比赛失利后，他低着头，很失落。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-10","idx":10,"lesson":"综合应用","type":"application","focus":"若有所思","word":"若有所思","answer":"若有所思","options":["若有所思","浩浩荡荡","人山人海","山崩地裂"],"prompt":"语境应用：他安静地坐着，仿佛正在思考什么。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-11","idx":11,"lesson":"综合应用","type":"application","focus":"坚定","word":"坚定","answer":"坚定","options":["坚定","模糊","松弛","疲倦"],"prompt":"语境应用：在危险面前，他的态度十分坚决，毫不退缩。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-12","idx":12,"lesson":"综合应用","type":"application","focus":"神清气爽","word":"神清气爽","answer":"神清气爽","options":["神清气爽","精疲力竭","气急败坏","垂头丧气"],"prompt":"语境应用：雨后空气清新，让人感到精神清朗、非常舒畅。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-13","idx":13,"lesson":"综合应用","type":"application","focus":"齐头并进","word":"齐头并进","answer":"齐头并进","options":["齐头并进","山崩地裂","隐隐约约","若有所思"],"prompt":"语境应用：两支队伍并排向前，谁也没有落后。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-14","idx":14,"lesson":"综合应用","type":"application","focus":"气急败坏","word":"气急败坏","answer":"气急败坏","options":["气急败坏","通情达理","精疲力竭","风平浪静"],"prompt":"语境应用：他生气得呼吸急促，连话都说不利索。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-15","idx":15,"lesson":"综合应用","type":"application","focus":"助威","word":"助威","answer":"助威","options":["助威","驱赶","掩护","揭晓"],"prompt":"语境应用：赛场边，大家鼓掌呐喊，给运动员增添声势。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-16","idx":16,"lesson":"综合应用","type":"application","focus":"揭晓","word":"揭晓","answer":"揭晓","options":["揭晓","逐渐","掩护","延迟"],"prompt":"语境应用：老师在全班面前公布了比赛结果。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-17","idx":17,"lesson":"综合应用","type":"application","focus":"掩护","word":"掩护","answer":"掩护","options":["掩护","排练","照耀","触角"],"prompt":"语境应用：暴风雨中，他用身体挡住风，保护身后的孩子。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-18","idx":18,"lesson":"综合应用","type":"application","focus":"辨别","word":"辨别","answer":"辨别","options":["辨别","辩论","撤换","遮挡"],"prompt":"语境应用：这道题需要认真区别两个形近而含义不同的字。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"},{"id":"application-new-v1-19","idx":19,"lesson":"综合应用","type":"application","focus":"排练","word":"排练","answer":"排练","options":["排练","揭晓","哄堂大笑","盘旋"],"prompt":"语境应用：他一遍遍地练习，希望演出的动作更加熟练。 请选择最恰当的词语。","explain":"根据词义和语境判断，不能只凭字形猜测。"}]};
+const QUIZ_ID="gaoyumu-grade4-chinese-new-textbook-2026-v1";
+const SB_URL="https://iqlnwzxmtjjgzisufljd.supabase.co",SB_PUBLIC_KEY="sb_publishable_jnY3xbWPgPFBd6naW35bXQ_tzZcNOTE";
+const K="gaoyumu-chinese-grade4-new-textbook-2026-v1";
+const PAPER_KEY=K+"-paper-sessions";
+const PROOF_HARD=[{"word":"飞驰","wrong":"飞弛","source":"拓展词语（不新增必写字）"},{"word":"松弛","wrong":"松驰","source":"拓展词语（不新增必写字）"},{"word":"分辨方向","wrong":"分辩方向","source":"拓展词语（不新增必写字）"},{"word":"辨别","wrong":"辩别","source":"拓展词语（不新增必写字）"},{"word":"辩论","wrong":"辨论","source":"拓展词语（不新增必写字）"},{"word":"辫子","wrong":"辩子","source":"拓展词语（不新增必写字）"},{"word":"花瓣","wrong":"花辩","source":"拓展词语（不新增必写字）"},{"word":"明辨是非","wrong":"明辩是非","source":"拓展词语（不新增必写字）"},{"word":"再接再厉","wrong":"再接再励","source":"拓展词语（不新增必写字）"},{"word":"无可奈何","wrong":"无可耐何","source":"拓展词语（不新增必写字）"},{"word":"金碧辉煌","wrong":"金壁辉煌","source":"拓展词语（不新增必写字）"},{"word":"浮躁","wrong":"浮燥","source":"拓展词语（不新增必写字）"},{"word":"迫不及待","wrong":"迫不急待","source":"拓展词语（不新增必写字）"},{"word":"山清水秀","wrong":"山青水秀","source":"拓展词语（不新增必写字）"},{"word":"一鼓作气","wrong":"一股作气","source":"拓展词语（不新增必写字）"},{"word":"按部就班","wrong":"按步就班","source":"拓展词语（不新增必写字）"},{"word":"不可思议","wrong":"不可思义","source":"拓展词语（不新增必写字）"},{"word":"眼花缭乱","wrong":"眼花潦乱","source":"拓展词语（不新增必写字）"},{"word":"辨认","wrong":"辩认","source":"拓展词语（不新增必写字）"},{"word":"竟然","wrong":"竞然","source":"拓展词语（不新增必写字）"},{"word":"墙壁","wrong":"墙璧","source":"拓展词语（不新增必写字）"},{"word":"栏杆","wrong":"拦杆","source":"拓展词语（不新增必写字）"},{"word":"艰巨","wrong":"坚巨","source":"拓展词语（不新增必写字）"},{"word":"清晰","wrong":"清淅","source":"拓展词语（不新增必写字）"},{"word":"繁星","wrong":"烦星","source":"拓展词语（不新增必写字）"},{"word":"模糊","wrong":"模湖","source":"拓展词语（不新增必写字）"},{"word":"牺牲","wrong":"牺生","source":"拓展词语（不新增必写字）"},{"word":"传播","wrong":"传波","source":"拓展词语（不新增必写字）"},{"word":"排练","wrong":"排炼","source":"拓展词语（不新增必写字）"},{"word":"抱负","wrong":"报负","source":"拓展词语（不新增必写字）"},{"word":"奉献","wrong":"奉现","source":"拓展词语（不新增必写字）"},{"word":"屹立","wrong":"迄立","source":"拓展词语（不新增必写字）"},{"word":"完璧归赵","wrong":"完壁归赵","source":"高阶拓展·璧是美玉"},{"word":"松弛","wrong":"松驰","source":"高阶拓展·弛指松懈"},{"word":"辨别","wrong":"辩别","source":"高阶拓展·辨指区别"},{"word":"辩论","wrong":"辨论","source":"高阶拓展·辩指争辩"},{"word":"干燥","wrong":"干躁","source":"高阶拓展·燥与干湿有关"},{"word":"急躁","wrong":"急燥","source":"高阶拓展·躁与情绪有关"},{"word":"明辨是非","wrong":"明辩是非","source":"高阶拓展·辨别是非"},{"word":"神清气爽","wrong":"神情气爽","source":"新版教材词语·清爽"},{"word":"精疲力竭","wrong":"精疲力揭","source":"新版教材词语·竭尽"},{"word":"山崩地裂","wrong":"山蹦地裂","source":"新版教材词语·崩塌"},{"word":"若有所思","wrong":"若有所丝","source":"新版教材词语·思考"},{"word":"无缘无故","wrong":"无原无故","source":"新版教材词语·缘由"}];
+const LABEL={writing:"新版写字表默写",reading:"新版识字表认读",vocab:"新版词语表默写",notes:"不使用",proof:"不使用低阶辨析",proofPlus:"高阶形近音近辨析",poly:"多音字拼音默写",application:"语境应用"};
+const $=id=>document.getElementById(id);
+const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch(_){return f}};
+const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
+const attempts=get(K+"-attempts",[]),drafts=get(K+"-drafts",{}),synced=new Set(get(K+"-synced",[]));
+let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper",answersVisible=false,pendingOnly=false;
+const paperSessions=get(PAPER_KEY,{});
+const paperSessionFor=r=>{const k=[$("semester").value.trim(),$("phase").value,mode,group,r].join("|")+"|paper";return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
+const paperSession=()=>paperSessionFor(round);
+const savePaper=()=>put(PAPER_KEY,paperSessions);
+const normalize=s=>String(s||"").replace(/[\s，,、。！!？?；;]/g,"").trim();
+const slug=()=>[$("semester").value.trim(),$("phase").value,mode,group,round].join("|")+(studyMode==="paper"?"|paper":"");
+const newId=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const x=Math.random()*16|0;return(c==="x"?x:(x&3|8)).toString(16)});
+const entries=()=>BANK[mode]||[];
+const chunk=()=>mode==="notes"?BANK.notes:entries().slice(group*44,(group+1)*44);
+function makeProofQuestion(i){
+ const correctAt=(i*3+1)%4,options=[],fixes=[];
+ const known=BANK.vocab.map(x=>x.word);
+ const anchors=[0,1,2,3].map(j=>BANK.proof[(i*4+j)%BANK.proof.length]);
+ for(let j=0;j<4;j++){
+  const anchor=anchors[j];
+  const words=[anchor.word],start=(i*17+j*31)%known.length;
+  for(let k=0;words.length<4&&k<known.length;k++){
+   const word=known[(start+k)%known.length];
+   if(!words.includes(word)&&!anchors.some(a=>a.word===word))words.push(word);
+  }
+  if(words.length!==4)throw Error("教材词语数量不足");
+  const turn=(i+j)%4,mixed=words.slice(turn).concat(words.slice(0,turn));
+  if(j!==correctAt){
+   mixed[mixed.indexOf(anchor.word)]=anchor.wrong;
+   fixes.push(String.fromCharCode(65+j)+"："+anchor.wrong+" → "+anchor.word);
+  }
+  options.push(mixed.join("　"));
+ }
+ return {id:"proof-"+i,type:"proof",lesson:"专项",focus:"辨析第"+(i+1)+"题",
+   word:"易混字成组辨析",answer:options[correctAt],options,
+   explain:"其他组的错别字："+fixes.join("；"),
+   prompt:"下面四组词语中，没有错别字的一项是（ ）。每组四个词，请仔细辨析。"};
+}
+function makeProofPlusQuestion(i){
+ const correctAt=(i*3+1)%4,options=[],fixes=[];
+ const anchors=[0,1,2,3].map(j=>PROOF_HARD[(i*4+j)%PROOF_HARD.length]);
+ const extras=BANK.vocab.map(x=>x.word);
+ for(let j=0;j<4;j++){
+   const a=anchors[j],words=[a.word];
+   const start=(i*29+j*13)%extras.length;
+   for(let k=0;words.length<4&&k<extras.length;k++){
+     const candidate=extras[(start+k)%extras.length];
+     if(!words.includes(candidate)&&!anchors.some(v=>v.word===candidate))words.push(candidate);
+   }
+   const offset=(i+j)%4;
+   const mixed=words.slice(offset).concat(words.slice(0,offset));
+   if(j!==correctAt){
+     mixed[mixed.indexOf(a.word)]=a.wrong;
+     fixes.push(String.fromCharCode(65+j)+"："+a.wrong+" → "+a.word);
+   }
+   options.push(mixed.join("　"));
+ }
+ return {id:"new-textbook-proof-plus-v1-"+i,type:"proof",lesson:"专项",focus:"高阶辨析第"+(i+1)+"题",
+   word:"高阶形音近易混字辨析",answer:options[correctAt],options,
+   explain:"其余组错别字："+fixes.join("；"),
+   prompt:"新版教材 · 高阶辨析（含标注的拓展词）：下面哪组词语全部写对？注意字形和语义差异。"};
+}
+function makePolyQuestion(p,i){
+ return {id:"poly-"+i,type:"poly",lesson:"专项",focus:p.char,
+   word:p.contexts.map(x=>x.word).join("、"),
+   readings:p.contexts,answer:p.contexts.map(x=>x.pinyin).join("|"),
+   prompt:"请分别写出“"+p.char+"”在下面每个词语中的读音（带声调）。"};
+}
+function questionsForCurrent(){
+  if(mode==="proof")return Array.from({length:12},(_,i)=>makeProofQuestion(i));
+  if(mode==="proofPlus")return Array.from({length:18},(_,i)=>makeProofPlusQuestion(i));
+  if(mode==="application")return BANK.application;
+  if(mode==="poly")return BANK.poly.map((p,i)=>makePolyQuestion(p,i));
+  return chunk().map((e,i)=>{
+    const qi=mode==="notes"?i:e.idx;
+    const id=mode+"-"+qi;
+    if(mode==="writing")return {id,type:mode,lesson:e.lesson,answer:e.char,focus:e.char,word:e.word,pinyin:e.pinyin,origin:e.origin};
+    if(mode==="vocab")return {id,type:mode,lesson:e.lesson,answer:e.word,focus:e.word,word:e.word,pinyin:e.pinyin};
+    if(mode==="reading")return {id,type:mode,lesson:e.lesson,answer:e.pinyin,focus:e.char,word:e.char,pinyin:e.pinyin};
+    return {id,type:mode,lesson:e.lesson,answer:e.answer,focus:e.answer,word:e.ref,pinyin:e.pinyin,masked:e.context,options:[e.target,e.other]};
+  });
+}
+const groupCount=()=>mode==="proof"||mode==="proofPlus"||mode==="poly"||mode==="application"?1:Math.ceil(entries().length/44);
+function setupGroups(){
+  $("group").innerHTML="";
+  for(let i=0;i<groupCount();i++){
+    const n=mode==="proof"?12:mode==="proofPlus"?18:mode==="poly"?BANK.poly.length:mode==="application"?BANK.application.length:mode==="notes"?BANK.notes.length:entries().slice(i*44,(i+1)*44).length;
+    $("group").insertAdjacentHTML("beforeend",'<option value="'+i+'">第'+(i+1)+'组 · '+n+'题</option>');
+  }
+  group=Math.min(group,groupCount()-1);$("group").value=String(group);
+}
+function priorAttempt(){
+  return attempts.filter(a=>a.quiz_id===QUIZ_ID&&a.semester===$("semester").value.trim()&&a.base_phase===$("phase").value&&a.mode===mode&&a.group===group&&a.round_no===round&&!a.replaced&&(a.study_mode||"typing")===studyMode).sort((a,b)=>b.completed_at.localeCompare(a.completed_at))[0]||null;
+}
+function filled(q){
+  if(q.type==="writing"||q.type==="vocab")return $("q-"+q.id)?.value.trim()||"";
+  if(q.type==="poly")return q.readings.map((_,i)=>
+    document.querySelector('[data-poly-id="'+q.id+'"][data-poly-no="'+i+'"]')?.value.trim()||"").join("|");
+  return document.querySelector('input[name="q-'+q.id+'"]:checked')?.value||"";
+}
+function completed(q){
+  if(q.type==="poly")return q.readings.every((_,i)=>
+    !!document.querySelector('[data-poly-id="'+q.id+'"][data-poly-no="'+i+'"]')?.value.trim());
+  return filled(q)!=="";
+}
+function phoneme(s){
+ let x=String(s||"").trim().toLowerCase().replace(/\s+/g,"").normalize("NFC");
+ const accented="āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ",plain="aeiouv";let tone=0;
+ x=x.replace(/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/g,ch=>{
+   const n=accented.indexOf(ch);tone=n%4+1;return plain[Math.floor(n/4)];
+ });
+ x=x.replace(/ü/g,"v").replace(/u:/g,"v");
+ return /[1-5]$/.test(x)?x:x+(tone?String(tone):"");
+}
+function isCorrect(q,s){
+ if(q.type!=="poly")return normalize(s)===normalize(q.answer);
+ const values=String(s||"").split("|");
+ return values.length===q.readings.length&&q.readings.every((x,i)=>!!values[i]&&phoneme(values[i])===phoneme(x.pinyin));
+}
+function feedbackFor(q){
+ if(q.type==="proof")return esc(q.explain);
+ if(q.type==="poly")return "完整拼音："+q.readings.map(x=>esc(x.word)+" <strong>"+esc(x.pinyin)+"</strong>").join("；");
+ return q.type==="writing"?"参考词语："+esc(q.word):q.type==="application"?"根据语境选择最准确的词语。":"";
+}
+function answers(){const a={};questions.forEach(q=>a[q.id]=filled(q));return a;}
+function saveDraft(){if(locked)return;drafts[slug()]=answers();put(K+"-drafts",drafts);}
+function showProgress(){
+  if(studyMode==="paper"){
+    const p=paperSession(),count=questions.filter(q=>!!p.marks[q.id]).length;
+    $("answerProgress").textContent=answersVisible?"本轮勾选掌握 "+count+" / "+questions.length+" 题":"纸笔手写 · 本轮"+questions.length+"题（答案隐藏）";
+    $("progressFill").style.width=(answersVisible?100*count/Math.max(1,questions.length):0)+"%";
+    $("gradeBtn").disabled=answersVisible;
+    $("gradeBtn").textContent=answersVisible?"参考答案已显示":"确认写完 · 核对并显示参考答案";
+    $("paperFinishBtn").hidden=!answersVisible;
+    $("paperFinishBtn").textContent=locked?"更新本轮勾选记录":"核对完成 · 保存本轮勾选";
+    $("guide").textContent=answersVisible?"请对照纸上的手写答案，勾选每道写对的题；未勾选的题计入错字榜。勾选自动保存在本机，核对完再点击保存。":"本次进入试卷答案默认隐藏，原来勾选和成绩仍在；写完并核对时再显示参考答案。";
+    return;
+  }
+  $("paperFinishBtn").hidden=true;
+  const count=questions.filter(q=>completed(q)).length;
+  const all=questions.length;
+  $("answerProgress").textContent="已答 "+count+" / "+all+" 题";
+  $("progressFill").style.width=(100*count/Math.max(1,all))+"%";
+  $("gradeBtn").disabled=!!locked||count!==all||!all;
+  $("guide").textContent=locked?"本轮已批改，答案保留。切换其他轮再切回来仍能查看成绩。":
+    count===all?"全部题目已经作答，现在可以批改。":"还差 "+(all-count)+" 题，不能提前批改或查看答案。";
+  if(!locked)saveDraft();
+}
+function card(q,i){
+  const article=document.createElement("article");article.className="card";article.id="card-"+q.id;
+  let html='<div><span class="n">'+(i+1)+'</span><span class="kind">'+esc(mode==="proofPlus"?LABEL.proofPlus:LABEL[q.type])+(q.type==="proof"||q.type==="poly"?" · 专项":" · 第"+esc(q.lesson)+"课")+'</span></div>';
+  if(q.type==="writing"){
+    const writingSet=new Set(BANK.writing.map(x=>x.char));
+    const masked=[...q.word].map(ch=>ch===q.answer?"¤":writingSet.has(ch)?"□":ch).join("");
+    const chunks=masked.split("¤");
+    const hint=esc(chunks[0])+'<input data-input="1" maxlength="1" id="q-'+q.id+'" autocomplete="off" aria-label="填写缺少的字">'+
+      chunks.slice(1).map((x,i)=>(i?"□":"")+esc(x)).join("");
+    html+='<div class="prompt">根据拼音和词语语境补写缺少的字：</div><span class="pinyin">'+esc(q.pinyin)+'</span>'+
+       '<div class="inline">'+hint+'</div>'+
+       (q.origin==="example"?'<p class="help">补充示例词（仅作语境提示，非原书词语表）</p>':'');
+  }else if(q.type==="vocab"){
+    html+='<div class="prompt">看拼音写词语（第'+esc(q.lesson)+'课 · '+[...q.answer].length+'个字）：</div>'+
+       '<span class="pinyin">'+esc(q.pinyin)+'</span><input class="answertext" data-input="1" id="q-'+q.id+'" placeholder="请输入完整词语" autocomplete="off">';
+  }else if(q.type==="proof"){
+    html+='<div class="prompt">'+esc(q.prompt)+'</div><div class="options proof-options">'+q.options.map((text,i)=>
+      '<label><input data-input="1" type="radio" name="q-'+q.id+'" value="'+esc(text)+'"><span class="proof-option-text"><b>'+String.fromCharCode(65+i)+'.</b> '+esc(text)+'</span></label>').join("")+'</div>';
+  }else if(q.type==="poly"){
+    html+='<div class="prompt">'+esc(q.prompt)+'</div><div class="poly-reading">'+q.readings.map((part,i)=>
+      '<label class="poly-context"><span>'+esc(part.word)+'</span><input data-input="1" data-poly-id="'+q.id+'" data-poly-no="'+i+
+      '" type="text" autocomplete="off" spellcheck="false" placeholder="写出拼音" aria-label="'+esc(part.word)+'中的读音"></label>').join("")+
+      '</div><p class="help">可使用带声调拼音或数字声调，如 zhang3。少写一处不能批改。</p>';
+  }else if(q.type==="application"){
+    html+='<div class="prompt">'+esc(q.prompt)+'</div><div class="options">'+q.options.map((w,i)=>
+      '<label><input data-input="1" type="radio" name="q-'+q.id+'" value="'+esc(w)+'"><span>'+String.fromCharCode(65+i)+'. '+esc(w)+'</span></label>').join("")+'</div>';
+  }else if(q.type==="reading"){
+    const pool=[...new Set(BANK.reading.map(x=>x.pinyin))].filter(x=>x!==q.answer);
+    const n=Number(q.id.replace(/\D/g,""))||0;const options=[q.answer,pool[(n*7+17)%pool.length],pool[(n*11+21)%pool.length],pool[(n*13+33)%pool.length]];
+    const unique=[...new Set(options)];for(let k=0;unique.length<4&&k<pool.length;k++)if(!unique.includes(pool[k]))unique.push(pool[k]);
+    const rot=unique.slice((n%4)).concat(unique.slice(0,n%4));
+    html+='<div class="prompt">认读这个字，选择正确读音：</div><div class="inline">'+esc(q.word)+'</div><div class="options">'+
+      rot.map(o=>'<label><input data-input="1" type="radio" name="q-'+q.id+'" value="'+esc(o)+'">'+esc(o)+'</label>').join("")+'</div>';
+  }else{
+    html+='<div class="prompt">选出缺字词语的正确写法：</div><span class="pinyin">'+esc(q.pinyin)+'</span>'+
+      '<div class="inline">'+esc(q.masked)+'</div><div class="options">'+q.options.map(o=>
+      '<label><input data-input="1" type="radio" name="q-'+q.id+'" value="'+esc(o)+'">'+esc(o)+'</label>').join("")+'</div>';
+  }
+  html+='<div class="feedback"></div>';
+  if(studyMode==="paper"){
+    html+='<div class="paper-mark"><div class="paper-mark-title">手写核对 · 三次记录</div><div class="paper-mark-grid">'+
+      [1,2,3].map(r=>{
+        const p=paperSessionFor(r);
+        return '<label title="'+(p.revealed?'根据第'+r+'次纸笔核对的结果勾选':'第'+r+'次尚未批改，先独立作答并核对')+'"><input type="checkbox" data-paper-tick="'+q.id+'" data-paper-round="'+r+'" '+
+          (p.marks[q.id]?'checked ':'')+((answersVisible&&p.revealed&&r===round)?'':'disabled ')+
+          '><span>第'+r+'次 · 写对</span></label>';
+      }).join("")+'</div><div class="help">勾选表示这一轮手写正确；未勾选表示未掌握。未核对的轮次暂不可勾选。</div></div>';
+  }
+  article.innerHTML=html;
+  if(q.type==="writing")article.style.order=String((i%8)*6+Math.floor(i/8));
+  if(studyMode==="paper"){
+    article.querySelectorAll("[data-input]").forEach(input=>{
+      if(input.type==="radio"){if(q.type==="proof")input.remove();else{const option=input.closest("label");if(option)option.remove();}}
+      else{const box=document.createElement("span");box.className="paper-placeholder";box.textContent=input.maxLength===1?"□":"（写在纸上）";input.replaceWith(box);}
+    });
+    const options=article.querySelector(".options");
+    if(options&&q.type!=="proof"){const note=document.createElement("p");note.className="help";note.textContent="请独立在纸上写出正确答案，核对前不显示选项。";options.replaceWith(note);}
+  }
+  return article;
+}
+function fillSaved(ans){
+  questions.forEach(q=>{
+    if(q.type==="writing"||q.type==="vocab"){const input=$("q-"+q.id);if(input)input.value=ans[q.id]||"";}
+    else if(q.type==="poly"){
+      const parts=String(ans[q.id]||"").split("|");
+      q.readings.forEach((_,i)=>{
+       const input=document.querySelector('[data-poly-id="'+q.id+'"][data-poly-no="'+i+'"]');
+       if(input)input.value=parts[i]||"";
+      });
+    }else document.querySelectorAll('input[name="q-'+q.id+'"]').forEach(x=>x.checked=x.value===(ans[q.id]||""));
+  });
+}
+function showGraded(a,scroll){
+  locked=a;
+  if((a.study_mode||"typing")==="paper"){
+    const p=paperSession();p.revealed=true;
+    for(const x of a.items||[])p.marks[x.id]=!!x.correct;
+    savePaper();renderPaperReview();showProgress();
+    if(scroll)$("result").scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  const byId=new Map((a.items||[]).map(x=>[x.id,x]));
+  let correct=0;
+  questions.forEach(q=>{
+    const item=byId.get(q.id);const ans=item?.answer||"";
+    const okay=isCorrect(q,ans);if(okay)correct++;
+    const c=$("card-"+q.id);c.classList.add("graded",okay?"correct":"wrong");
+    c.querySelector(".feedback").innerHTML=(okay?"✓ 已答对":"✗ 需要复习")+
+      '　正确答案：<strong>'+esc(q.type==="poly"?q.readings.map(x=>x.pinyin).join("、"):q.answer)+'</strong>　'+feedbackFor(q);
+  });
+  $("result").hidden=false;$("result").innerHTML='<strong>本轮已批改</strong>：'+correct+'/'+questions.length+' 题正确。错题已进入成长档案。';
+  $("gradeBtn").textContent="本轮已批改";$("gradeBtn").disabled=true;
+  document.querySelectorAll("#cards input").forEach(x=>x.disabled=true);
+  showProgress();if(scroll)$("result").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function renderPaperReview(){
+  const p=paperSession();if(!answersVisible||!p.revealed)return;
+  let correct=0;
+  questions.forEach(q=>{
+    const c=$("card-"+q.id);
+    if(!c)return;
+    c.classList.add("graded");
+    c.querySelectorAll("[data-paper-tick]").forEach(tick=>{
+      const rr=Number(tick.dataset.paperRound);
+      const session=paperSessionFor(rr);
+      tick.checked=!!session.marks[q.id];
+      tick.disabled=!(answersVisible&&session.revealed&&rr===round);
+    });
+    c.querySelector(".feedback").innerHTML='参考答案：<strong>'+esc(q.type==="poly"?q.readings.map(x=>x.pinyin).join("、"):q.answer)+'</strong>　'+feedbackFor(q);
+    if(p.marks[q.id])correct++;
+  });
+  $("result").hidden=false;
+  $("result").innerHTML='<strong>纸笔自核：</strong>已勾选写对 '+correct+' / '+questions.length+
+    ' 题。未勾选的题将作为未掌握内容。确认后点击“保存本轮勾选”。';
+}
+function revealPaper(){
+  if(studyMode!=="paper"||answersVisible)return;
+  if(!confirm("确认已经在纸上独立完成本组全部题目？确定后才显示参考答案；未写完请先取消。"))return;
+  const p=paperSession();p.revealed=true;answersVisible=true;savePaper();renderPaperReview();showProgress();
+  $("result").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function savePaperMarks(){
+  if(studyMode!=="paper")return;
+  const p=paperSession();if(!answersVisible||!p.revealed)return;
+  if(!confirm("确定已经逐题对照手写答案核对完毕？未勾选的题会记录为未掌握。"))return;
+  const old=priorAttempt();
+  const meta={quiz_id:QUIZ_ID,id:newId(),child_name:"高语牧",semester:$("semester").value.trim(),
+    base_phase:$("phase").value,mode,group,round_no:round,completed_at:new Date().toISOString(),study_mode:"paper"};
+  meta.items=questions.map(q=>({id:q.id,type:q.type,focus:q.focus,word:q.word,expected:q.answer,
+    answer:"[纸笔自核]",correct:!!p.marks[q.id]}));
+  meta.total_questions=meta.items.length;
+  meta.correct_questions=meta.items.filter(x=>x.correct).length;
+  meta.score=Math.round(100*meta.correct_questions/Math.max(1,meta.total_questions));
+  if(old)old.replaced=true;
+  attempts.push(meta);
+  if(!put(K+"-attempts",attempts)){
+    attempts.pop();if(old)delete old.replaced;alert("本机保存失败，未提交本轮记录。");return;
+  }
+  locked=meta;renderPaperReview();showProgress();board();
+  if(unlocked)syncAll();
+  else cloudMessage("本轮纸笔自核结果已保存在本机；解锁家庭档案后可同步云端。");
+}
+function newestResultFor(q){
+ // Read-only: records and three paper marks are never altered by filtering.
+ const semester=$("semester").value.trim(),phase=$("phase").value;
+ const records=attempts.filter(a=>a.quiz_id===QUIZ_ID&&a.child_name==="高语牧"&&a.semester===semester&&a.base_phase===phase&&a.mode===mode&&a.group===group)
+ .sort((a,b)=>b.completed_at.localeCompare(a.completed_at));
+ for(const a of records){
+   const hit=(a.items||[]).find(x=>x.id===q.id&&x.expected===q.answer);
+   if(hit)return !!hit.correct;
+ }
+ if(studyMode==="paper")for(let r=3;r>=1;r--){
+   const p=paperSessionFor(r);
+   if(p.revealed)return !!p.marks[q.id];
+ }
+ return null; // no completed review means the question still needs practice
+}
+function applyPendingOnly(){
+ let shown=0,hidden=0;
+ questions.forEach(q=>{
+   const card=$("card-"+q.id);
+   const keep=!pendingOnly||newestResultFor(q)!==true;
+   if(card)card.classList.toggle("pending-hidden",!keep);
+   if(keep)shown++;else hidden++;
+ });
+ $("pendingCount").textContent=pendingOnly?"显示待巩固 "+shown+" 题，暂时隐藏已掌握 "+hidden+" 题（仅筛选，不改变记录）":"默认显示全部 "+questions.length+" 题";
+ if(pendingOnly&&hidden&&studyMode==="typing"&&!locked){
+   $("gradeBtn").disabled=true;
+   $("guide").textContent="当前是历史待巩固筛选。为避免漏题误批，整轮自动批改前请关闭筛选。";
+ }
+ if(pendingOnly&&hidden&&studyMode==="paper"){
+   $("paperFinishBtn").disabled=true;
+   $("guide").textContent="筛选只供查看或纸上复习；如需保存完整轮次的勾选，请先切回全部题目。";
+ }else $("paperFinishBtn").disabled=false;
+}
+function showPaper(){
+  answersVisible=false;
+  questions=questionsForCurrent();locked=null;$("result").hidden=true;$("result").innerHTML="";$("gradeBtn").textContent="批改并显示答案";
+  $("cards").innerHTML="";questions.forEach((q,i)=>$("cards").appendChild(card(q,i)));
+  $("currentTitle").textContent=LABEL[mode]+" · 第"+(group+1)+"组 · 第"+round+"轮";
+  const saved=priorAttempt();
+  if(studyMode==="paper"){
+    if(saved)showGraded(saved,false);
+    else if(paperSession().revealed)renderPaperReview();
+  }else{
+    if(saved){fillSaved(Object.fromEntries(saved.items.map(x=>[x.id,x.answer])));showGraded(saved,false);}
+    else fillSaved(drafts[slug()]||{});
+  }
+  showProgress();applyPendingOnly();
+}
+function grade(){
+  if(studyMode==="paper"){revealPaper();return;}
+  if(locked)return;
+  if(questions.some(q=>!completed(q))){showProgress();return;}
+  const meta={quiz_id:QUIZ_ID,id:newId(),child_name:"高语牧",semester:$("semester").value.trim(),
+    base_phase:$("phase").value,mode,group,round_no:round,completed_at:new Date().toISOString()};
+  const items=questions.map(q=>({id:q.id,type:q.type,focus:q.focus,word:q.word,expected:q.answer,
+    answer:filled(q),correct:isCorrect(q,filled(q))}));
+  meta.items=items;meta.total_questions=items.length;meta.correct_questions=items.filter(x=>x.correct).length;
+  meta.score=Math.round(100*meta.correct_questions/meta.total_questions);
+  attempts.push(meta);
+  if(!put(K+"-attempts",attempts)){attempts.pop();alert("此浏览器无法保存成绩，请换用固定网页地址");return;}
+  delete drafts[slug()];put(K+"-drafts",drafts);showGraded(meta,true);board();
+  if(unlocked)syncAll();else $("cloudStatus").textContent="✓ 成绩已保存本机；解锁家庭档案后可同步到云端。";
+}
+function reset(){
+  if(studyMode==="paper"){
+    if(!confirm("重新开始当前纸笔轮次？历史成绩保留，当前轮会重新隐藏答案，原勾选草稿将清空。"))return;
+    const old=priorAttempt();if(old)old.replaced=true;
+    paperSessions[slug()]={revealed:false,marks:{}};
+    savePaper();put(K+"-attempts",attempts);locked=null;showPaper();return;
+  }
+  if(!confirm("重新作答本轮？历史成绩不会删除，新完成的记录会覆盖当前轮的显示。"))return;
+  locked=null;const a=priorAttempt();
+  if(a){a.replaced=true;put(K+"-attempts",attempts);}
+  drafts[slug()]={};put(K+"-drafts",drafts);
+  questions=questionsForCurrent();$("result").hidden=true;$("gradeBtn").textContent="批改并显示答案";
+  $("cards").innerHTML="";questions.forEach((q,i)=>$("cards").appendChild(card(q,i)));showProgress();
+}
+function board(){
+  const stats=new Map();
+  for(const a of attempts)for(const x of a.items||[]){
+    const k=x.type+"|"+x.focus;
+    if(!stats.has(k))stats.set(k,{word:x.focus,label:LABEL[x.type],count:0,wrong:0});
+    const t=stats.get(k);t.count++;if(!x.correct)t.wrong++;
+  }
+  const rank=[...stats.values()].filter(x=>x.wrong).sort((a,b)=>b.wrong-a.wrong).slice(0,50);
+  $("wrongBoard").innerHTML=rank.length?rank.map(x=>'<p><mark>'+esc(x.word)+'</mark> · '+esc(x.label)+' · 错'+x.wrong+'/'+x.count+'次</p>').join(""):'<p class="help">暂无错题记录。完成并批改试卷后这里会自动统计。</p>';
+}
+function savedSynced(){put(K+"-synced",[...synced]);}
+function cloudMessage(msg){$("cloudStatus").textContent=msg;}
+async function connectCloud(){
+ try{
+  if(!window.supabase)throw Error("Supabase脚本未加载；请检查网络");
+  cloud=window.supabase.createClient(SB_URL,SB_PUBLIC_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+  let sess=await cloud.auth.getSession();if(sess.error)throw sess.error;
+  if(!sess.data.session){sess=await cloud.auth.signInAnonymously();if(sess.error)throw sess.error;}
+  user=(await cloud.auth.getUser()).data.user;if(!user)throw Error("没有取得设备身份");
+  const check=await cloud.from("family_access").select("user_id").eq("user_id",user.id).maybeSingle();
+  if(check.error)throw check.error;
+  unlocked=!!check.data;$("cloudBadge").textContent=unlocked?"云端已连接 · 已解锁":"已连接 · 待解锁";
+  cloudMessage(unlocked?"✓ 当前设备已有家庭权限，可以自动同步。":"请输入家庭暗号解锁，或者先在本机练习。");
+  if(unlocked)await syncAll();
+ }catch(e){$("cloudBadge").textContent="暂时离线";cloudMessage("云端暂不可用；本机仍可练习："+(e.message||e));}
+}
+async function unlock(){
+ const pass=$("passphrase").value.trim();
+ if(!pass){cloudMessage("请先输入家庭暗号。");return;}
+ if(!cloud){await connectCloud();if(!cloud)return;}
+ $("unlockBtn").disabled=true;
+ try{
+  const result=await cloud.functions.invoke("unlock-family",{body:{passphrase:pass}});
+  if(result.error)throw result.error;
+  if(!result.data?.ok)throw Error(result.data?.error||"暗号不正确");
+  $("passphrase").value="";
+  const x=await cloud.from("family_access").select("user_id").eq("user_id",user.id).maybeSingle();
+  if(x.error)throw x.error;
+  unlocked=!!x.data;if(!unlocked)throw Error("授权未生效");
+  $("cloudBadge").textContent="已解锁";
+  await syncAll();cloudMessage("✓ 家庭档案解锁成功，已同步当前设备的学习记录。");
+ }catch(e){cloudMessage("解锁失败："+(e.message||e));}
+ finally{$("unlockBtn").disabled=false;}
+}
+async function syncOne(a){
+  if(synced.has(a.id))return true;
+  const exists=await cloud.from("quiz_attempts_secure").select("id").eq("id",a.id).maybeSingle();
+  if(exists.error)throw exists.error;
+  if(!exists.data){
+    const payload={id:a.id,created_by:user.id,child_name:a.child_name,quiz_id:QUIZ_ID,semester:a.semester,
+      phase:a.base_phase+"·"+LABEL[a.mode]+"·第"+(a.group+1)+"组"+(a.study_mode==="paper"?"·纸笔":""),round_no:a.round_no,
+      total_questions:a.total_questions,correct_questions:a.correct_questions,score:a.score,completed_at:a.completed_at};
+    const res=await cloud.from("quiz_attempts_secure").insert(payload);
+    if(res.error)throw res.error;
+  }
+  const q=await cloud.from("quiz_item_results_secure").select("question_type").eq("attempt_id",a.id).limit(200);
+  if(q.error)throw q.error;
+  const existing=new Set((q.data||[]).map(x=>x.question_type));
+  const add=a.items.filter(x=>!existing.has((a.study_mode==="paper"?"paper-":"")+x.type+"|"+x.id)).map(x=>({
+    attempt_id:a.id,created_by:user.id,child_name:a.child_name,semester:a.semester,
+    correct_char:x.focus,expected_word:x.expected,question_type:(a.study_mode==="paper"?"paper-":"")+x.type+"|"+x.id,
+    given_answer:x.answer,is_correct:x.correct,answered_at:a.completed_at
+  }));
+  if(add.length){const result=await cloud.from("quiz_item_results_secure").insert(add);if(result.error)throw result.error;}
+  synced.add(a.id);savedSynced();return true;
+}
+async function syncAll(){
+ if(!unlocked||!cloud)return;
+ let count=0;
+ for(const a of attempts)if(!synced.has(a.id)){
+    try{if(await syncOne(a))count++;}catch(e){cloudMessage("本机记录已保留，上传失败："+(e.message||e));return;}
+ }
+ cloudMessage("✓ 云端已连接 · 本次同步"+count+"轮 · 本机共"+attempts.length+"轮记录。");
+}
+async function restore(){
+ if(!cloud||!unlocked){cloudMessage("先解锁家庭档案，再从云端恢复。");return;}
+ $("restoreBtn").disabled=true;
+ try{
+   const res=await cloud.from("quiz_attempts_secure").select("id,child_name,semester,phase,round_no,total_questions,correct_questions,score,completed_at")
+     .eq("quiz_id",QUIZ_ID).eq("child_name","高语牧").order("completed_at",{ascending:false}).limit(500);
+   if(res.error)throw res.error;
+   const roots=(res.data||[]).filter(a=>!attempts.some(x=>x.id===a.id));
+   if(!roots.length){cloudMessage("没有需要恢复的新记录。");return;}
+   const rows=await cloud.from("quiz_item_results_secure").select("attempt_id,correct_char,expected_word,question_type,given_answer,is_correct,answered_at").in("attempt_id",roots.map(x=>x.id)).limit(10000);
+   if(rows.error)throw rows.error;
+   let count=0;
+   for(const a of roots){
+      const parts=a.phase.split("·");if(parts.length!==3&&parts.length!==4)continue;
+      const modeKey=Object.keys(LABEL).find(k=>LABEL[k]===parts[1]);const groupNum=Number(parts[2].replace(/[^0-9]/g,""));
+      if(!modeKey||!groupNum)continue;
+      const entries=(rows.data||[]).filter(x=>x.attempt_id===a.id);
+      attempts.push({id:a.id,quiz_id:QUIZ_ID,child_name:"高语牧",semester:a.semester,base_phase:parts[0],mode:modeKey,group:groupNum-1,round_no:a.round_no,study_mode:parts[3]==="纸笔"?"paper":"typing",
+       total_questions:a.total_questions,correct_questions:a.correct_questions,score:a.score,completed_at:a.completed_at,
+       items:entries.map(x=>({id:x.question_type.split("|")[1],type:x.question_type.split("|")[0].replace(/^paper-/,""),focus:x.correct_char,word:x.expected_word,
+         expected:x.expected_word,answer:x.given_answer,correct:x.is_correct}))});
+      synced.add(a.id);count++;
+   }
+   put(K+"-attempts",attempts);savedSynced();board();showPaper();
+   cloudMessage("✓ 从云端补回"+count+"轮记录，已保留本机原有内容。");
+ }catch(e){cloudMessage("恢复失败："+(e.message||e));}
+ finally{$("restoreBtn").disabled=false;}
+}
+function init(){
+  document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>{
+    mode=b.dataset.mode;group=0;round=1;$("round").value="1";
+    document.querySelectorAll("[data-mode]").forEach(x=>x.classList.toggle("active",x===b));
+    setupGroups();showPaper();
+  }));
+  $("answerMode").addEventListener("change",()=>{studyMode=$("answerMode").value;showPaper();});
+  $("group").addEventListener("change",()=>{group=Number($("group").value);showPaper();});
+  $("round").addEventListener("change",()=>{round=Number($("round").value);showPaper();});
+  $("startBtn").addEventListener("click",()=>{group=Number($("group").value);round=Number($("round").value);showPaper();});
+  $("semester").addEventListener("change",showPaper);$("phase").addEventListener("change",showPaper);
+  $("pendingOnly").addEventListener("change",e=>{pendingOnly=!!e.target.checked;showProgress();applyPendingOnly();});
+  $("cards").addEventListener("input",()=>{showProgress();if(pendingOnly)applyPendingOnly();});
+  $("cards").addEventListener("change",e=>{
+    if(e.target.matches("[data-paper-tick]")){
+      if(studyMode!=="paper")return;
+      const markRound=Number(e.target.dataset.paperRound);
+      const target=paperSessionFor(markRound);
+      if(!target.revealed){e.target.checked=false;return;}
+      target.marks[e.target.dataset.paperTick]=e.target.checked;
+      savePaper();
+      if(markRound===round){renderPaperReview();showProgress();}
+      else e.target.checked=!!target.marks[e.target.dataset.paperTick];
+      return;
+    }
+    showProgress();if(pendingOnly)applyPendingOnly();
+  });
+  $("gradeBtn").addEventListener("click",grade);$("paperFinishBtn").addEventListener("click",savePaperMarks);$("resetBtn").addEventListener("click",reset);
+  $("nextBtn").addEventListener("click",()=>{if(round<3){round++;$("round").value=String(round);}else{round=1;$("round").value="1";group=Math.min(group+1,groupCount()-1);$("group").value=String(group);}showPaper();});
+  $("boardBtn").addEventListener("click",board);
+  $("unlockBtn").addEventListener("click",unlock);$("syncBtn").addEventListener("click",syncAll);
+  $("restoreBtn").addEventListener("click",restore);$("passphrase").addEventListener("keydown",e=>{if(e.key==="Enter")unlock();});
+  setupGroups();showPaper();board();connectCloud();
+}
+init();
+})();
+</script></body></html>
