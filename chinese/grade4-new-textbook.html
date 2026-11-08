@@ -231,7 +231,7 @@ function card(q,i){
       chunks.slice(1).map((x,i)=>(i?"□":"")+esc(x)).join("");
     html+='<div class="prompt">根据拼音和词语语境补写缺少的字：</div><span class="pinyin">'+esc(q.pinyin)+'</span>'+
        '<div class="inline">'+hint+'</div>'+
-       (q.origin==="example"?'<p class="help">补充示例词（仅作语境提示，非原书词语表）</p>':'');
+       (q.origin&&q.origin.includes("补充")?'<p class="help">补充示例词（仅供默写语境，不是课本词语表原词）</p>':'');
   }else if(q.type==="vocab"){
     html+='<div class="prompt">看拼音写词语（第'+esc(q.lesson)+'课 · '+[...q.answer].length+'个字）：</div>'+
        '<span class="pinyin">'+esc(q.pinyin)+'</span><input class="answertext" data-input="1" id="q-'+q.id+'" placeholder="请输入完整词语" autocomplete="off">';
