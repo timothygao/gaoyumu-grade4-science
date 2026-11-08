@@ -38,7 +38,7 @@ button{font:inherit;font-weight:700;border:1px solid #aac7db;background:#eaf5fc;
 #wrongBoard{margin:12px 0;max-height:260px;overflow:auto}
 mark{background:#ffecb8}
 @media(max-width:740px){main{padding:10px 10px 50px}#cards{grid-template-columns:1fr}.card{padding:16px}.toolbar label{min-width:135px}}
-@media print{header,.cloud,.actions,.tabs,.toolbar,.feedback,.notice{display:none!important}.card{page-break-inside:avoid}#cards{display:block}.card{margin-bottom:12px}}
+.pending-tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0;border:1px solid #d6e7f1;border-radius:11px;padding:10px 14px;background:#f7fcff}.pending-tools label{font-weight:750;color:#225b7b;display:flex;align-items:center;gap:8px;cursor:pointer}.pending-tools input{width:18px;height:18px;min-height:unset}.pending-hidden{display:none!important}@media print{header,.cloud,.actions,.tabs,.toolbar,.feedback,.notice{display:none!important}.card{page-break-inside:avoid}#cards{display:block}.card{margin-bottom:12px}}
 .paper-mark{margin-top:10px;padding:10px;background:#f3f8fc;border:1px dashed #b5cfdf;border-radius:10px;color:#235c78}.paper-mark input{min-height:auto;width:18px;height:18px}.paper-mark-title{font-weight:800;color:#245778;margin-bottom:8px}.paper-mark-grid{display:flex;flex-wrap:wrap;gap:8px}.paper-mark-grid label{display:flex;align-items:center;gap:7px;border:1px solid #d3e5f0;background:#fff;padding:7px 10px;border-radius:9px;font-size:13px;font-weight:700}.paper-mark-grid label:has(input:disabled){opacity:.5}.paper-mark label{cursor:pointer}.paper-placeholder{display:inline-block;min-width:48px;padding:5px 10px;border-bottom:2px solid #558eb5;color:#728ba0;text-align:center}.paper-choice-note{font-size:12px;color:#56768a}.paper-bar{background:#eff8f1;padding:11px;border-radius:10px;margin:12px 0;color:#25674e}#paperFinishBtn{background:#177458;color:white;border-color:#177458}.proof-options{grid-template-columns:1fr}.proof-options label{align-items:flex-start;background:#fafdff;padding:12px 13px}.proof-option-text{line-height:1.8;overflow-wrap:anywhere}.poly-reading{display:grid;gap:10px}.poly-context{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #dce7ee;padding:10px;border-radius:10px}.poly-context input{max-width:165px}.card[style*="order"]{margin-bottom:8px}#cards{column-gap:28px;row-gap:25px}</style></head><body><main><header>
 <div class="top">高语牧 · 四年级上册 · 语文</div><h1>字词闯关与错字成长档案</h1>
 <p class="muted">完全按上传的117—124页识字表、写字表、词语表整理。与旧三年级250字卷分开保存。</p>
@@ -51,10 +51,10 @@ mark{background:#ffecb8}
 <label>本次阶段<select id="phase"><option>预习</option><option selected>复习</option><option>期末复习</option></select></label><label>家庭暗号<input id="passphrase" type="password" autocomplete="off" placeholder="首次在此设备解锁"></label></div>
 <div class="cloud-buttons"><button id="unlockBtn" class="primary">解锁家庭档案</button><button id="syncBtn">同步已批改记录</button><button id="restoreBtn">从云端恢复</button></div><p id="cloudStatus" class="help">等待连接……</p></section>
 <section class="panel">
-<h2>选择练习</h2><div class="tabs" id="tabs"><button type="button" class="tab active" data-mode="writing">✍ 写字表 · 258字</button><button type="button" class="tab" data-mode="vocab">📖 词语表 · 259词</button><button type="button" class="tab" data-mode="reading">🗣 识字表 · 263字</button><button type="button" class="tab" data-mode="notes">🔍 原书旁注 · 8题</button><button type="button" class="tab" data-mode="proof">🕵️ 易混字综合辨析 · 12题</button><button type="button" class="tab" data-mode="poly">✍ 多音字 · 写全所有读音</button></div>
+<h2>选择练习</h2><div class="tabs" id="tabs"><button type="button" class="tab active" data-mode="writing">✍ 写字表 · 258字</button><button type="button" class="tab" data-mode="vocab">📖 词语表 · 259词</button><button type="button" class="tab" data-mode="reading">🗣 识字表 · 263字</button><button type="button" class="tab" data-mode="notes">🔍 原书旁注 · 8题</button><button type="button" class="tab" data-mode="proof">🕵️ 原版易混字 · 12题（保留记录）</button><button type="button" class="tab" data-mode="proofPlus">🔍 高阶形音近易混字 · 12题</button><button type="button" class="tab" data-mode="poly">✍ 多音字 · 写全所有读音</button></div>
 <div class="toolbar"><label>答题方式<select id="answerMode"><option value="paper" selected>纸上手写 · 自己核对</option><option value="typing">网页输入 · 自动批改</option></select></label><label>题目分组<select id="group"></select></label><label>复习轮次<select id="round"><option value="1">第1轮</option><option value="2">第2轮</option><option value="3">第3轮</option></select></label><button id="startBtn">开始 / 切换练习</button></div>
 <div class="progress"><div id="progressFill"></div></div>
-<div class="stats"><strong id="currentTitle">写字表 · 第1组 · 第1轮</strong><span id="answerProgress">已答 0 题</span></div>
+<div class="stats"><strong id="currentTitle">写字表 · 第1组 · 第1轮</strong><span id="answerProgress">已答 0 题</span></div><div class="pending-tools"><label><input type="checkbox" id="pendingOnly"> 只显示待巩固题目</label><span class="help" id="pendingCount">默认显示全部题目</span></div>
 <div class="actions"><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="paperFinishBtn" hidden>逐题核对完成 · 保存本轮勾选</button><button id="resetBtn">重新作答当前轮</button><button id="nextBtn">下一轮</button></div><p class="help" id="guide">网页模式全部作答后自动批改；纸笔模式每个字下方有第1次／第2次／第3次勾选框。先纸上独立写完、确认显示答案，再勾选对应轮次写对的题；未勾选计入错题。</p>
 <div id="cards"></div><div id="result" hidden></div>
 </section>
@@ -69,13 +69,14 @@ const QUIZ_ID="gaoyumu-grade4-chinese-2026-v1";
 const SB_URL="https://iqlnwzxmtjjgzisufljd.supabase.co",SB_PUBLIC_KEY="sb_publishable_jnY3xbWPgPFBd6naW35bXQ_tzZcNOTE";
 const K="gaoyumu-chinese-grade4-2026-v1";
 const PAPER_KEY=K+"-paper-sessions";
-const LABEL={writing:"写字表",reading:"识字表",vocab:"词语表",notes:"易混字",proof:"易混字综合辨析",poly:"多音字拼音默写"};
+const PROOF_HARD=[{"word":"飞驰","wrong":"飞弛","source":"拓展词语（不新增必写字）"},{"word":"松弛","wrong":"松驰","source":"拓展词语（不新增必写字）"},{"word":"分辨方向","wrong":"分辩方向","source":"拓展词语（不新增必写字）"},{"word":"辨别","wrong":"辩别","source":"拓展词语（不新增必写字）"},{"word":"辩论","wrong":"辨论","source":"拓展词语（不新增必写字）"},{"word":"辫子","wrong":"辩子","source":"拓展词语（不新增必写字）"},{"word":"花瓣","wrong":"花辩","source":"拓展词语（不新增必写字）"},{"word":"明辨是非","wrong":"明辩是非","source":"拓展词语（不新增必写字）"},{"word":"再接再厉","wrong":"再接再励","source":"拓展词语（不新增必写字）"},{"word":"无可奈何","wrong":"无可耐何","source":"拓展词语（不新增必写字）"},{"word":"金碧辉煌","wrong":"金壁辉煌","source":"拓展词语（不新增必写字）"},{"word":"浮躁","wrong":"浮燥","source":"拓展词语（不新增必写字）"},{"word":"迫不及待","wrong":"迫不急待","source":"拓展词语（不新增必写字）"},{"word":"山清水秀","wrong":"山青水秀","source":"拓展词语（不新增必写字）"},{"word":"一鼓作气","wrong":"一股作气","source":"拓展词语（不新增必写字）"},{"word":"按部就班","wrong":"按步就班","source":"拓展词语（不新增必写字）"},{"word":"不可思议","wrong":"不可思义","source":"拓展词语（不新增必写字）"},{"word":"眼花缭乱","wrong":"眼花潦乱","source":"拓展词语（不新增必写字）"},{"word":"辨认","wrong":"辩认","source":"拓展词语（不新增必写字）"},{"word":"竟然","wrong":"竞然","source":"拓展词语（不新增必写字）"},{"word":"墙壁","wrong":"墙璧","source":"拓展词语（不新增必写字）"},{"word":"栏杆","wrong":"拦杆","source":"拓展词语（不新增必写字）"},{"word":"艰巨","wrong":"坚巨","source":"拓展词语（不新增必写字）"},{"word":"清晰","wrong":"清淅","source":"拓展词语（不新增必写字）"},{"word":"繁星","wrong":"烦星","source":"拓展词语（不新增必写字）"},{"word":"模糊","wrong":"模湖","source":"拓展词语（不新增必写字）"},{"word":"牺牲","wrong":"牺生","source":"拓展词语（不新增必写字）"},{"word":"传播","wrong":"传波","source":"拓展词语（不新增必写字）"},{"word":"排练","wrong":"排炼","source":"拓展词语（不新增必写字）"},{"word":"抱负","wrong":"报负","source":"拓展词语（不新增必写字）"},{"word":"奉献","wrong":"奉现","source":"拓展词语（不新增必写字）"},{"word":"屹立","wrong":"迄立","source":"拓展词语（不新增必写字）"}];
+const LABEL={writing:"写字表",reading:"识字表",vocab:"词语表",notes:"易混字",proof:"易混字综合辨析（旧版）",proofPlus:"高阶形音近易混字辨析",poly:"多音字拼音默写"};
 const $=id=>document.getElementById(id);
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))||f}catch(_){return f}};
 const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
 const attempts=get(K+"-attempts",[]),drafts=get(K+"-drafts",{}),synced=new Set(get(K+"-synced",[]));
-let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper",answersVisible=false;
+let mode="writing",group=0,round=1,questions=[],locked=null,cloud=null,user=null,unlocked=false,studyMode="paper",answersVisible=false,pendingOnly=false;
 const paperSessions=get(PAPER_KEY,{});
 const paperSessionFor=r=>{const k=[$("semester").value.trim(),$("phase").value,mode,group,r].join("|")+"|paper";return paperSessions[k]||(paperSessions[k]={revealed:false,marks:{}})};
 const paperSession=()=>paperSessionFor(round);
@@ -109,6 +110,30 @@ function makeProofQuestion(i){
    explain:"其他组的错别字："+fixes.join("；"),
    prompt:"下面四组词语中，没有错别字的一项是（ ）。每组四个词，请仔细辨析。"};
 }
+function makeProofPlusQuestion(i){
+ const correctAt=(i*3+1)%4,options=[],fixes=[];
+ const anchors=[0,1,2,3].map(j=>PROOF_HARD[(i*4+j)%PROOF_HARD.length]);
+ const extras=BANK.vocab.map(x=>x.word);
+ for(let j=0;j<4;j++){
+   const a=anchors[j],words=[a.word];
+   const start=(i*29+j*13)%extras.length;
+   for(let k=0;words.length<4&&k<extras.length;k++){
+     const candidate=extras[(start+k)%extras.length];
+     if(!words.includes(candidate)&&!anchors.some(v=>v.word===candidate))words.push(candidate);
+   }
+   const offset=(i+j)%4;
+   const mixed=words.slice(offset).concat(words.slice(0,offset));
+   if(j!==correctAt){
+     mixed[mixed.indexOf(a.word)]=a.wrong;
+     fixes.push(String.fromCharCode(65+j)+"："+a.wrong+" → "+a.word);
+   }
+   options.push(mixed.join("　"));
+ }
+ return {id:"proofPlus-v1-"+i,type:"proof",lesson:"专项",focus:"高阶辨析第"+(i+1)+"题",
+   word:"高阶形音近易混字辨析",answer:options[correctAt],options,
+   explain:"其余组错别字："+fixes.join("；"),
+   prompt:"拓展辨析（不增加教材必写字）：以下哪组词语全部书写正确？重点辨认同音、近音和形近字。"};
+}
 function makePolyQuestion(p,i){
  return {id:"poly-"+i,type:"poly",lesson:"专项",focus:p.char,
    word:p.contexts.map(x=>x.word).join("、"),
@@ -117,6 +142,7 @@ function makePolyQuestion(p,i){
 }
 function questionsForCurrent(){
   if(mode==="proof")return Array.from({length:12},(_,i)=>makeProofQuestion(i));
+  if(mode==="proofPlus")return Array.from({length:12},(_,i)=>makeProofPlusQuestion(i));
   if(mode==="poly")return BANK.poly.map((p,i)=>makePolyQuestion(p,i));
   return chunk().map((e,i)=>{
     const qi=mode==="notes"?i:e.idx;
@@ -127,7 +153,7 @@ function questionsForCurrent(){
     return {id,type:mode,lesson:e.lesson,answer:e.answer,focus:e.answer,word:e.ref,pinyin:e.pinyin,masked:e.context,options:[e.target,e.other]};
   });
 }
-const groupCount=()=>mode==="proof"||mode==="poly"?1:Math.ceil(entries().length/44);
+const groupCount=()=>mode==="proof"||mode==="proofPlus"||mode==="poly"?1:Math.ceil(entries().length/44);
 function setupGroups(){
   $("group").innerHTML="";
   for(let i=0;i<groupCount();i++){
@@ -332,6 +358,39 @@ function savePaperMarks(){
   if(unlocked)syncAll();
   else cloudMessage("本轮纸笔自核结果已保存在本机；解锁家庭档案后可同步云端。");
 }
+function newestResultFor(q){
+ // Read-only: records and three paper marks are never altered by filtering.
+ const semester=$("semester").value.trim(),phase=$("phase").value;
+ const records=attempts.filter(a=>a.quiz_id===QUIZ_ID&&a.child_name==="高语牧"&&a.semester===semester&&a.base_phase===phase&&a.mode===mode&&a.group===group)
+ .sort((a,b)=>b.completed_at.localeCompare(a.completed_at));
+ for(const a of records){
+   const hit=(a.items||[]).find(x=>x.id===q.id&&x.expected===q.answer);
+   if(hit)return !!hit.correct;
+ }
+ if(studyMode==="paper")for(let r=3;r>=1;r--){
+   const p=paperSessionFor(r);
+   if(p.revealed)return !!p.marks[q.id];
+ }
+ return null; // no completed review means the question still needs practice
+}
+function applyPendingOnly(){
+ let shown=0,hidden=0;
+ questions.forEach(q=>{
+   const card=$("card-"+q.id);
+   const keep=!pendingOnly||newestResultFor(q)!==true;
+   if(card)card.classList.toggle("pending-hidden",!keep);
+   if(keep)shown++;else hidden++;
+ });
+ $("pendingCount").textContent=pendingOnly?"显示待巩固 "+shown+" 题，暂时隐藏已掌握 "+hidden+" 题（仅筛选，不改变记录）":"默认显示全部 "+questions.length+" 题";
+ if(pendingOnly&&hidden&&studyMode==="typing"&&!locked){
+   $("gradeBtn").disabled=true;
+   $("guide").textContent="当前是历史待巩固筛选。为避免漏题误批，整轮自动批改前请关闭筛选。";
+ }
+ if(pendingOnly&&hidden&&studyMode==="paper"){
+   $("paperFinishBtn").disabled=true;
+   $("guide").textContent="筛选只供查看或纸上复习；如需保存完整轮次的勾选，请先切回全部题目。";
+ }else $("paperFinishBtn").disabled=false;
+}
 function showPaper(){
   answersVisible=false;
   questions=questionsForCurrent();locked=null;$("result").hidden=true;$("result").innerHTML="";$("gradeBtn").textContent="批改并显示答案";
@@ -345,7 +404,7 @@ function showPaper(){
     if(saved){fillSaved(Object.fromEntries(saved.items.map(x=>[x.id,x.answer])));showGraded(saved,false);}
     else fillSaved(drafts[slug()]||{});
   }
-  showProgress();
+  showProgress();applyPendingOnly();
 }
 function grade(){
   if(studyMode==="paper"){revealPaper();return;}
@@ -489,7 +548,8 @@ function init(){
   $("round").addEventListener("change",()=>{round=Number($("round").value);showPaper();});
   $("startBtn").addEventListener("click",()=>{group=Number($("group").value);round=Number($("round").value);showPaper();});
   $("semester").addEventListener("change",showPaper);$("phase").addEventListener("change",showPaper);
-  $("cards").addEventListener("input",showProgress);
+  $("pendingOnly").addEventListener("change",e=>{pendingOnly=!!e.target.checked;showProgress();applyPendingOnly();});
+  $("cards").addEventListener("input",()=>{showProgress();if(pendingOnly)applyPendingOnly();});
   $("cards").addEventListener("change",e=>{
     if(e.target.matches("[data-paper-tick]")){
       if(studyMode!=="paper")return;
@@ -502,7 +562,7 @@ function init(){
       else e.target.checked=!!target.marks[e.target.dataset.paperTick];
       return;
     }
-    showProgress();
+    showProgress();if(pendingOnly)applyPendingOnly();
   });
   $("gradeBtn").addEventListener("click",grade);$("paperFinishBtn").addEventListener("click",savePaperMarks);$("resetBtn").addEventListener("click",reset);
   $("nextBtn").addEventListener("click",()=>{if(round<3){round++;$("round").value=String(round);}else{round=1;$("round").value="1";group=Math.min(group+1,groupCount()-1);$("group").value=String(group);}showPaper();});
