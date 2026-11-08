@@ -221,7 +221,7 @@ function showProgress(){
 }
 function card(q,i){
   const article=document.createElement("article");article.className="card";article.id="card-"+q.id;
-  let html='<div><span class="n">'+(i+1)+'</span><span class="kind">'+esc(LABEL[q.type])+(q.type==="proof"||q.type==="poly"?" · 专项":" · 第"+esc(q.lesson)+"课")+'</span></div>';
+  let html='<div><span class="n">'+(i+1)+'</span><span class="kind">'+esc(mode==="proofPlus"?LABEL.proofPlus:LABEL[q.type])+(q.type==="proof"||q.type==="poly"?" · 专项":" · 第"+esc(q.lesson)+"课")+'</span></div>';
   if(q.type==="writing"){
     const writingSet=new Set(BANK.writing.map(x=>x.char));
     const masked=[...q.word].map(ch=>ch===q.answer?"¤":writingSet.has(ch)?"□":ch).join("");
