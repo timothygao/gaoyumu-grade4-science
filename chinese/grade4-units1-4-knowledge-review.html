@@ -1,0 +1,374 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高语牧四年级语文·第1—4单元知识清单复习卷</title><style>
+:root{--navy:#183d56;--blue:#28739c;--light:#edf7fd;--border:#d2e3eb;--muted:#637a8d;--bg:#f4f8fb;--green:#18795f;--orange:#a96216}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(165deg,#e8f5fc,#f9fcfe 300px);font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--navy)}
+main{max-width:1220px;padding:20px 16px 80px;margin:auto}header,.panel,.cloud{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 24px #2855740b;padding:20px;margin-bottom:16px}
+h1{font-size:clamp(23px,3.5vw,33px);margin:4px 0 9px}h2{font-size:20px;margin:4px 0 10px}h3{font-size:16px}p{margin:6px 0}a{color:var(--blue)}
+small,.muted{font-size:13px;color:var(--muted)}.tag{display:inline-block;background:#e7f3fb;color:#255b79;font-weight:700;font-size:12px;padding:5px 10px;border-radius:16px;margin:3px 5px 3px 0}
+.notice{background:#fff6e9;border:1px solid #e8d09a;color:#755320;border-radius:11px;padding:12px;font-size:14px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.toolbar label{display:grid;gap:5px;flex:1;min-width:145px;font-size:13px;color:#536b7f}
+select,input[type=text],input[type=password],textarea{border:1px solid #bfd1df;background:white;border-radius:9px;padding:10px 12px;color:#173b52;font:inherit;min-width:0}
+select{width:100%}.toolbar input{width:100%}button{border:1px solid #bfd3e0;background:#fff;color:#26587b;border-radius:10px;padding:10px 14px;cursor:pointer;font:inherit;font-weight:700}
+button.primary{background:#226fa0;color:white;border-color:#226fa0}button:disabled{opacity:.55;cursor:not-allowed}
+.actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}.actions .hint{font-size:13px;color:var(--muted)}
+.progress{height:9px;background:#e3edf3;border-radius:20px;overflow:hidden;margin-top:15px}.progress i{display:block;height:100%;background:linear-gradient(90deg,#288cba,#23a585);width:0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}.tabs button{padding:7px 13px}.tabs .active{background:#dff0fb;border-color:#6eafd3}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:14px}
+.card{background:#fff;border:1px solid #cfe0e9;border-radius:16px;padding:18px;box-shadow:0 2px 10px #2e759308}
+.card .meta{font-size:13px;color:#5e7991;font-weight:800;display:flex;justify-content:space-between;gap:10px}
+.card .prompt{font-size:17px;font-weight:700;line-height:1.6;margin:15px 0 10px;white-space:pre-wrap}
+.card .pinyin{display:inline-block;font-size:17px;background:#eef5fa;color:#486c85;border-radius:22px;padding:7px 14px;margin-bottom:9px;letter-spacing:.3px}
+.card .entry{display:grid;gap:8px}.card .entry input,.card .entry textarea{width:100%}.card .entry textarea{min-height:78px}
+.card .result{margin-top:10px;background:#eaf7f1;border-left:3px solid #24836b;padding:10px 12px;border-radius:7px;color:#23604e;display:none;white-space:pre-wrap}
+.card.graded .result{display:block}.card.auto-correct{border-color:#8cc8ae}.card.auto-wrong{border-color:#e9b1a3}
+.marks{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px;border-top:1px dashed #d4e4ec;padding-top:13px}
+.marks label{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;background:#f1f6fa;border:1px solid #e4edf2;padding:5px 8px;border-radius:8px}
+.marks input{accent-color:#187d62;width:17px;height:17px}.status{font-size:12px;color:#637e8f;margin-top:9px}
+.unitTitle{grid-column:1/-1;background:#e7f1f8;padding:11px 16px;border-radius:10px;font-size:20px;font-weight:800;margin-top:8px}
+.sectionTitle{grid-column:1/-1;border-bottom:2px solid #b7d5e8;color:#225b80;padding:9px 4px;font-size:17px;font-weight:800;margin-top:12px}
+.empty{background:#fff4e9;border:1px solid #ebd4aa;padding:15px;border-radius:12px}
+#wrongBoard{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.wrong{border:1px solid #d9e7ed;border-radius:12px;padding:12px;background:#fcfefe}.wrong b{font-size:18px}
+.cloudbox{display:flex;flex-wrap:wrap;gap:10px;align-items:end}.cloudbox label{flex:1;min-width:180px;display:grid;gap:5px}
+#cloudStatus{padding:10px 12px;background:#f2f8fa;border-radius:8px;font-size:13px}
+details{margin-top:12px}.hide{display:none!important}.paperReady{display:inline-flex;gap:7px;align-items:center;border:1px solid #d0dfeb;background:#f3f9fd;border-radius:9px;padding:10px}
+@media(max-width:780px){.cards{grid-template-columns:1fr}.toolbar label{min-width:135px}header,.panel,.cloud{padding:15px}.card{padding:15px}}
+@media print{body{background:white}main{max-width:100%;padding:0}.controls,.actions,.cloud,.marks,.notice,#wrongPanel,.progress,.status,.navLink,.result,.cloudbox,#cloudStatus{display:none!important}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.card{break-inside:avoid;box-shadow:none;border:1px solid #bbb}.unitTitle,.sectionTitle{break-after:avoid}header{box-shadow:none}}
+</style></head><body>
+<main>
+<header><div class="muted">高语牧 · 四年级上册语文 · 2026秋 · 学习知识清单</div><h1>第1—4单元 · 语文综合复习卷</h1>
+<p>根据家长上传的四张知识清单编题。分单元练习或一次完成综合卷；课本词语、拼音、形近字、多音字、近反义词、课文理解、仿写和背诵均纳入。</p>
+<div><span class="tag">共323题</span><span class="tag">第1—4单元</span><span class="tag">每题三次核对勾选</span><span class="tag">网页作答／纸上手写</span><span class="tag">家庭Supabase云同步</span></div>
+<div class="notice"><strong>做题规则：</strong>答案默认隐藏。网页作答必须填写当前轮所有应答题，才能“批改并显示答案”；纸上手写需确认全部写完才能显示答案。批改后逐题勾选本次“写对”，未勾选的题纳入待巩固，切换轮次不会清除记录。<br><strong>资料范围：</strong>仅针对本次第1—4单元知识清单，不混入此前的117—124页生字卷。词语拼音优先关联既有四年级题库，首次使用请按课本复核多音读法。</div>
+<p class="navLink"><a href="https://timothygao.github.io/gaoyumu-grade4-science/chinese/grade4-new-textbook.html">原四年级字词卷</a> · <a href="https://github.com/timothygao/gaoyumu-chinese">语文 GitHub 仓库</a></p>
+</header>
+<section class="panel controls" id="controls">
+ <div class="toolbar">
+  <label>复习范围<select id="unit"><option value="1">第一单元</option><option value="2">第二单元</option><option value="3">第三单元</option><option value="4">第四单元</option><option value="all">第1—4单元综合（323题）</option></select></label>
+  <label>考查内容<select id="section"><option value="all">全部题型</option><option value="vocab">课本词语听写</option><option value="reading">易错字读音</option><option value="poly">多音字专项</option><option value="synonym">近义词</option><option value="antonym">反义词</option><option value="shape">形近字组词</option><option value="idiom">词语积累</option><option value="recall">课文回顾</option><option value="expression">仿写与表达</option><option value="recite">背诵与默写</option></select></label>
+  <label>答题方式<select id="method"><option value="paper">纸上手写 · 自行核对</option><option value="typing">网页输入 · 辅助批改</option></select></label>
+  <label>复习阶段<select id="phase"><option value="复习">日常复习</option><option value="预习">预习</option><option value="期末复习">期末复习</option></select></label>
+  <label>学期<input type="text" id="semester" value="2026秋"></label>
+ </div>
+ <div class="actions"><strong>复习次数：</strong><span class="tabs"><button class="active" data-switch-round="1">第1次</button><button data-switch-round="2">第2次</button><button data-switch-round="3">第3次</button></span><label style="margin-left:auto;font-size:14px"><input id="pendingOnly" type="checkbox"> 只显示待巩固题目</label></div>
+ <div class="actions"><label id="paperReadyWrap" class="paperReady"><input type="checkbox" id="paperReady"> 我已在纸上独立完成本次所有题目</label><button class="primary" id="gradeBtn" disabled>批改并显示答案</button><button id="finishBtn" disabled>确认本轮核对完成</button><button id="printBtn">打印试卷</button><button id="nextBtn">下一轮</button></div>
+ <div class="progress"><i id="progressFill"></i></div><div class="status" id="progressText"></div><div class="status" id="notice"></div>
+</section>
+<section id="questionSection"><div class="cards" id="cards"></div><div id="empty" class="empty hide"></div>
+<div class="panel controls"><div class="actions"><button class="primary" id="gradeBottom" disabled>批改并显示答案</button><button id="finishBottom" disabled>确认本轮核对完成</button><span class="muted">已勾选掌握的题目不会丢失，三次记录各自独立。</span></div></div></section>
+<section class="panel" id="wrongPanel"><h2>错题与待巩固记录</h2><p class="muted">只统计真正完成核对并保存的轮次，保留每次正确／错误信息；历史成绩不会被新卷覆盖。</p><div class="actions"><button id="refreshWrong">刷新错题榜</button><span id="historyCount" class="muted"></span></div><div id="wrongBoard"></div></section>
+<section class="cloud"><h2>☁ 家庭 Supabase 云端</h2><p class="muted">沿用之前的家庭授权；匿名登录后需家庭暗号解锁（已授权设备可能无需再次输入）。只上传真实核对完成的成绩。</p>
+ <div class="cloudbox"><label>家庭暗号<input id="passphrase" type="password" placeholder="首次使用此设备时输入" autocomplete="off"></label><button id="unlockBtn">解锁家庭档案</button><button id="syncBtn">同步已完成记录</button><button id="restoreBtn">从云端恢复历史</button></div><p id="cloudStatus">准备连接……</p></section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script><script>(function appMain(){
+ "use strict";
+ const DATA={"title":"高语牧四年级语文第1—4单元知识清单复习题库","edition":"2026-11-10","sourceImages":["IMG_5923.jpg","IMG_5924.jpg","IMG_5925.jpg","IMG_5922.jpg"],"metadata":{"schoolYear":"2026秋","grade":4,"child":"高语牧","description":"根据4张照片人工整理的知识清单；各单元包括词语、读音、多音字、近反义词、形近字、积累、课文回顾、写作与背诵。首次使用请核对字词。","pinyinStatus":"词语拼音优先关联已建立的四年级写字词语题库；无法关联的未擅自生成带声调拼音，可采用家长听写／纸笔模式。"},"units":[{"unit":1,"title":"第一单元·知识积累／运用与背诵","texts":"观潮、繁星、现代诗二首","vocabulary":[{"id":"u1-v1","word":"奇观","source":"课本词语听写","pinyin":"qí guān","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v2","word":"据说","source":"课本词语听写","pinyin":"jùshuō","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v3","word":"人山人海","source":"课本词语听写","pinyin":"rén shān rén hǎi","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v4","word":"顿时","source":"课本词语听写","pinyin":"dùn shí","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v5","word":"风平浪静","source":"课本词语听写","pinyin":"fēng píng làngjìng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v6","word":"逐渐","source":"课本词语听写","pinyin":"zhú jiàn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v7","word":"齐头并进","source":"课本词语听写","pinyin":"qí tóu bìng jìn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v8","word":"浩浩荡荡","source":"课本词语听写","pinyin":"hàohàodàng dàng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v9","word":"山崩地裂","source":"课本词语听写","pinyin":"shān bēng dì liè","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v10","word":"霎时","source":"课本词语听写","pinyin":"shà shí","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v11","word":"余波","source":"课本词语听写","pinyin":"yú bō","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v12","word":"繁星","source":"课本词语听写","pinyin":"fán xīng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v13","word":"密密麻麻","source":"课本词语听写","pinyin":"mì mì má má","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v14","word":"忘记","source":"课本词语听写","pinyin":"wàng jì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v15","word":"谈话","source":"课本词语听写","pinyin":"tán huà","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v16","word":"渐渐","source":"课本词语听写","pinyin":"jiàn jiàn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v17","word":"模糊","source":"课本词语听写","pinyin":"mó hú","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v18","word":"周围","source":"课本词语听写","pinyin":"zhōu wéi","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v19","word":"飞奔","source":"课本词语听写","pinyin":"fēi bēn","pinyinSource":"人工按词语核对（新增）"},{"id":"u1-v20","word":"柔和","source":"课本词语听写","pinyin":"róu hé","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v21","word":"梦幻","source":"课本词语听写","pinyin":"mèng huàn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v22","word":"怀抱","source":"课本词语听写","pinyin":"huái bào","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u1-v23","word":"沉睡","source":"课本词语听写","pinyin":"chén shuì","pinyinSource":"现有四上新版教材题库同词条"}],"readings":[{"id":"u1-r1","word":"薄雾","pinyin":"bó wù"},{"id":"u1-r2","word":"大堤","pinyin":"dà dī"},{"id":"u1-r3","word":"屹立","pinyin":"yì lì"},{"id":"u1-r4","word":"鼎沸","pinyin":"dǐng fèi"},{"id":"u1-r5","word":"霎时","pinyin":"shà shí"},{"id":"u1-r6","word":"颤动","pinyin":"chàn dòng"},{"id":"u1-r7","word":"半昧","pinyin":"bàn mèi"},{"id":"u1-r8","word":"坠落","pinyin":"zhuì luò"},{"id":"u1-r9","word":"归巢","pinyin":"guī cháo"},{"id":"u1-r10","word":"芦苇","pinyin":"lú wěi"},{"id":"u1-r11","word":"一瞬","pinyin":"yí shùn"},{"id":"u1-r12","word":"一穗","pinyin":"yí suì"}],"polyphonic":[{"id":"u1-p1","char":"薄","readings":[{"word":"薄雾","pinyin":"bó"},{"word":"薄饼","pinyin":"báo"},{"word":"薄荷","pinyin":"bò"}]},{"id":"u1-p2","char":"号","readings":[{"word":"风号浪吼","pinyin":"háo"},{"word":"号码","pinyin":"hào"}]},{"id":"u1-p3","char":"模","readings":[{"word":"模糊","pinyin":"mó"},{"word":"模样","pinyin":"mú"}]}],"synonyms":[{"id":"u1-s1","word":"宽阔","answer":"宽广"},{"id":"u1-s2","word":"屹立","answer":"矗立"},{"id":"u1-s3","word":"逐渐","answer":"渐渐"},{"id":"u1-s4","word":"柔和","answer":"柔美"},{"id":"u1-s5","word":"静寂","answer":"寂静"},{"id":"u1-s6","word":"恢复","answer":"复原"}],"antonyms":[{"id":"u1-a1","word":"平静","answer":"喧闹"},{"id":"u1-a2","word":"模糊","answer":"清晰"},{"id":"u1-a3","word":"微小","answer":"巨大"},{"id":"u1-a4","word":"明亮","answer":"昏暗"},{"id":"u1-a5","word":"宽阔","answer":"狭窄"},{"id":"u1-a6","word":"柔和","answer":"强烈"}],"confusables":[{"id":"u1-c0","left":{"char":"堤","word":"大堤"},"right":{"char":"提","word":"提问"}},{"id":"u1-c1","left":{"char":"震","word":"地震"},"right":{"char":"振","word":"振奋"}},{"id":"u1-c2","left":{"char":"昧","word":"半昧"},"right":{"char":"味","word":"味道"}},{"id":"u1-c3","left":{"char":"怀","word":"怀抱"},"right":{"char":"坏","word":"破坏"}}],"accumulation":[{"id":"u1-i1","word":"人声鼎沸"},{"id":"u1-i2","word":"锣鼓喧天"},{"id":"u1-i3","word":"震耳欲聋"},{"id":"u1-i4","word":"响彻云霄"},{"id":"u1-i5","word":"低声细语"},{"id":"u1-i6","word":"窃窃私语"},{"id":"u1-i7","word":"鸦雀无声"},{"id":"u1-i8","word":"悄无声息"}],"recall":[{"id":"u1-t1","prompt":"《观潮》按什么顺序描写钱塘江大潮？","answer":"潮来前→潮来时→潮头过后","explain":"按照清单所列时间顺序作答。"},{"id":"u1-t2","prompt":"《繁星》的作者是谁？","answer":"巴金","explain":"教材清单的文学常识。"},{"id":"u1-t3","prompt":"《秋晚的江上》呈现了怎样的画面？","answer":"归鸟、斜阳、芦苇组成的秋江晚景","explain":"作答要提到归鸟、斜阳和芦苇。"},{"id":"u1-t4","prompt":"读《观潮》时，可以怎样更深刻地理解文字？","answer":"联系词句想象画面，也可想象声音、气味","explain":"清单强调联系词句想象画面。"},{"id":"u1-t5","prompt":"“一时间，潮水像千万匹白色战马齐头并进……”突出潮水什么特点？","answer":"气势雄伟、声势浩大","explain":"从潮来时的景象理解。"}],"expression":[{"id":"u1-e1","prompt":"请把“清风把树叶吹动了”改为被字句。","answer":"树叶被清风吹动了。","explain":"保持原意不变。","manual":true},{"id":"u1-e2","prompt":"模仿《推荐一个好地方》，用两三句话介绍一处你喜欢的地方，写清特点和理由。","answer":"示例：我推荐西湖。湖水清澈，岸边绿树成荫；傍晚还有美丽的落日，特别适合散步。","explain":"开放题请家长按是否写出地点、特点、理由核对。","manual":true},{"id":"u1-e3","prompt":"按“突然、过了一会儿、最后”写出一次天气变化。","answer":"示例：突然乌云密布，过了一会儿大雨落下，最后天空又渐渐放晴。","explain":"开放题检查时间顺序。","manual":true}],"recitation":[{"id":"u1-b1","prompt":"《浪淘沙》（其七）第一句是什么？","answer":"八月涛声吼地来","explain":"教材标黄诗句。"},{"id":"u1-b2","prompt":"《浪淘沙》（其七）第二句是什么？","answer":"头高数丈触山回","explain":"课本诗句。"},{"id":"u1-b3","prompt":"“须臾却入海门去”后一句是什么？","answer":"卷起沙堆似雪堆","explain":"按原清单。"},{"id":"u1-b4","prompt":"“一年好景君须记”的下一句？","answer":"最是橙黄橘绿时","explain":"《赠刘景文》苏轼。"}]},{"unit":2,"title":"第二单元·知识积累／运用与背诵","texts":"一个豆荚里的五粒豆、夜间飞行的秘密、方帽子店、田忌赛马","vocabulary":[{"id":"u2-v1","word":"暖洋洋","source":"课本词语听写","pinyin":"nuǎn yáng yáng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v2","word":"舒适","source":"课本词语听写","pinyin":"shū shì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v3","word":"揭晓","source":"课本词语听写","pinyin":"jiēxiǎo","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v4","word":"身份","source":"课本词语听写","pinyin":"shēn fèn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v5","word":"暖和","source":"课本词语听写","pinyin":"nuǎn huo","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v6","word":"的确","source":"课本词语听写","pinyin":"dí què","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v7","word":"曾经","source":"课本词语听写","pinyin":"céngjīng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v8","word":"打滚","source":"课本词语听写","pinyin":"dǎ gǔn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v9","word":"水沟","source":"课本词语听写","pinyin":"shuǐ gōu","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v10","word":"注视","source":"课本词语听写","pinyin":"zhùshì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v11","word":"蚊子","source":"课本词语听写","pinyin":"wén zǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v12","word":"即使","source":"课本词语听写","pinyin":"jí shǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v13","word":"问题","source":"课本词语听写","pinyin":"wèn tí","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v14","word":"绳子","source":"课本词语听写","pinyin":"shéng zǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v15","word":"苍蝇","source":"课本词语听写","pinyin":"cāng yíng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v16","word":"证明","source":"课本词语听写","pinyin":"zhèng míng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v17","word":"相互","source":"课本词语听写","pinyin":"xiāng hù","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v18","word":"配合","source":"课本词语听写","pinyin":"pèi hé","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v19","word":"研究","source":"课本词语听写","pinyin":"yán jiū","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v20","word":"类似","source":"课本词语听写","pinyin":"lèisì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v21","word":"能够","source":"课本词语听写","pinyin":"néng gòu","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v22","word":"帽子","source":"课本词语听写","pinyin":"mào zǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v23","word":"脑袋","source":"课本词语听写","pinyin":"nǎo dai","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v24","word":"舒服","source":"课本词语听写","pinyin":"shū fú","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v25","word":"假如","source":"课本词语听写","pinyin":"jiǎ rú","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v26","word":"设法","source":"课本词语听写","pinyin":"shè fǎ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v27","word":"懂事","source":"课本词语听写","pinyin":"dǒng shì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v28","word":"一溜烟","source":"课本词语听写","pinyin":"yī liù yān","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v29","word":"各式各样","source":"课本词语听写","pinyin":"gè shì gè yàng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v30","word":"摆放","source":"课本词语听写","pinyin":"bǎi fàng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v31","word":"玻璃","source":"课本词语听写","pinyin":"bō li","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v32","word":"提纲","source":"课本词语听写","pinyin":"tí gāng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v33","word":"生锈","source":"课本词语听写","pinyin":"shēng xiù","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v34","word":"泡沫","source":"课本词语听写","pinyin":"pào mò","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v35","word":"综合","source":"课本词语听写","pinyin":"zōnghé","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v36","word":"氧气","source":"课本词语听写","pinyin":"yǎng qì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v37","word":"结账","source":"课本词语听写","pinyin":"jié zhàng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v38","word":"矿物","source":"课本词语听写","pinyin":"kuàngwù","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u2-v39","word":"俱乐部","source":"课本词语听写","pinyin":"jù lè bù","pinyinSource":"现有四上新版教材题库同词条"}],"readings":[{"id":"u2-r1","word":"豌豆","pinyin":"wān dòu"},{"id":"u2-r2","word":"窗框","pinyin":"chuāng kuàng"},{"id":"u2-r3","word":"蝙蝠","pinyin":"biān fú"},{"id":"u2-r4","word":"敏锐","pinyin":"mǐn ruì"},{"id":"u2-r5","word":"障碍","pinyin":"zhàng ài"},{"id":"u2-r6","word":"荧屏","pinyin":"yíng píng"},{"id":"u2-r7","word":"橱窗","pinyin":"chú chuāng"},{"id":"u2-r8","word":"一溜烟","pinyin":"yí liù yān"},{"id":"u2-r9","word":"孙膑","pinyin":"sūn bìn"},{"id":"u2-r10","word":"谋划","pinyin":"móu huà"},{"id":"u2-r11","word":"引荐","pinyin":"yǐn jiàn"},{"id":"u2-r12","word":"生锈","pinyin":"shēng xiù"}],"polyphonic":[{"id":"u2-p1","char":"称","readings":[{"word":"相称","pinyin":"chèn"},{"word":"称赞","pinyin":"chēng"}]},{"id":"u2-p2","char":"系","readings":[{"word":"系铃铛","pinyin":"jì"},{"word":"关系","pinyin":"xì"}]},{"id":"u2-p3","char":"塞","readings":[{"word":"塞住","pinyin":"sāi"},{"word":"边塞","pinyin":"sài"},{"word":"堵塞","pinyin":"sè"}]}],"synonyms":[{"id":"u2-s1","word":"舒适","answer":"舒服"},{"id":"u2-s2","word":"揭晓","answer":"公布"},{"id":"u2-s3","word":"灵巧","answer":"灵活"},{"id":"u2-s4","word":"敏锐","answer":"敏感"},{"id":"u2-s5","word":"信任","answer":"信赖"},{"id":"u2-s6","word":"坚信","answer":"深信"}],"antonyms":[{"id":"u2-a1","word":"僵硬","answer":"柔软"},{"id":"u2-a2","word":"虚弱","answer":"强壮"},{"id":"u2-a3","word":"黑暗","answer":"光明"},{"id":"u2-a4","word":"灵巧","answer":"笨拙"},{"id":"u2-a5","word":"舒服","answer":"难受"},{"id":"u2-a6","word":"胜利","answer":"失败"}],"confusables":[{"id":"u2-c1","left":{"char":"即","word":"即使"},"right":{"char":"既","word":"既然"}},{"id":"u2-c2","left":{"char":"绳","word":"绳子"},"right":{"char":"蝇","word":"苍蝇"}},{"id":"u2-c3","left":{"char":"账","word":"结账"},"right":{"char":"怅","word":"惆怅"}},{"id":"u2-c4","left":{"char":"纲","word":"提纲"},"right":{"char":"刚","word":"刚才"}}],"accumulation":[{"id":"u2-i1","word":"方方正正"},{"id":"u2-i2","word":"密密麻麻"},{"id":"u2-i3","word":"胸有成竹"},{"id":"u2-i4","word":"跃跃欲试"},{"id":"u2-i5","word":"兴致勃勃"}],"recall":[{"id":"u2-t1","prompt":"《一个豆荚里的五粒豆》中第五粒豆为什么能带给女孩希望？","answer":"它生根、长叶、开花，使生病的女孩重新燃起希望并逐渐康复","explain":"抓住“生长变化”与女孩的变化。"},{"id":"u2-t2","prompt":"蝙蝠夜间探路主要靠什么？","answer":"嘴发出超声波，耳朵接收反射回来的超声波","explain":"清单归纳：嘴和耳朵配合。"},{"id":"u2-t3","prompt":"雷达探路的原理与蝙蝠有什么相似？","answer":"发出无线电波并接收反射信号判断障碍位置","explain":"对应蝙蝠的超声波原理。"},{"id":"u2-t4","prompt":"《方帽子店》告诉人们什么道理？","answer":"要敢于质疑旧观念、勇于创新","explain":"标黄核心结论。"},{"id":"u2-t5","prompt":"《田忌赛马》中孙膑运用什么方法帮助田忌？","answer":"观察、分析并合理安排出场顺序","explain":"田忌以下对上、以上对中、以中对下。"},{"id":"u2-t6","prompt":"《田忌赛马》孙膑的赛马顺序是什么？","answer":"下等马对上等马、上等马对中等马、中等马对下等马","explain":"按清单的竞赛策略。"}],"expression":[{"id":"u2-e1","prompt":"对“为什么叶子会卷起来”写一个自问自答的问题。","answer":"为什么叶子会卷起来？因为有只小虫把叶子当成了家。","explain":"开放题：问题应有问号，回答要对应问题。","manual":true},{"id":"u2-e2","prompt":"请从课文内容、表达写法、联系生活三个角度中选两个，对一个现象提出不同问题。","answer":"示例：蝙蝠怎样在黑暗中避障？人们从蝙蝠身上获得了什么发明启示？","explain":"开放题：两个问题应角度不同。","manual":true},{"id":"u2-e3","prompt":"介绍一位家人，写出两处具体特点及一个实例。","answer":"示例：妈妈做事认真，会反复检查工作；她还很有耐心，每天陪我读书。","explain":"开放题：人物特点不能只空泛形容，要有具体事例。","manual":true}],"recitation":[{"id":"u2-b1","prompt":"“博学之，审问之”下一句是什么？","answer":"慎思之，明辨之，笃行之","explain":"《中庸》。"},{"id":"u2-b2","prompt":"“智能之士，不学不成”的下半句是什么？","answer":"不问不知","explain":"王充。"},{"id":"u2-b3","prompt":"“人非生而知之者”下一句是什么？","answer":"孰能无惑","explain":"韩愈。"},{"id":"u2-b4","prompt":"“善疑者，不疑人之所疑”下一句是什么？","answer":"而疑人之所不疑","explain":"方以智。"},{"id":"u2-b5","prompt":"“为学患无疑”下一句是什么？","answer":"疑则有进","explain":"陆九渊。"}]},{"unit":3,"title":"第三单元·知识积累／阅读与表达","texts":"古诗三首、爬山虎的脚、蟋蟀的住宅","vocabulary":[{"id":"u3-v1","word":"爬山虎","source":"课本词语听写","pinyin":"páshān hǔ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v2","word":"操场","source":"课本词语听写","pinyin":"cāo chǎng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v3","word":"嫩绿","source":"课本词语听写","pinyin":"nèn lǜ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v4","word":"新鲜","source":"课本词语听写","pinyin":"xīn xiān","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v5","word":"均匀","source":"课本词语听写","pinyin":"jūn yún","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v6","word":"空隙","source":"课本词语听写","pinyin":"kōngxì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v7","word":"叶柄","source":"课本词语听写","pinyin":"yè bǐng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v8","word":"触角","source":"课本词语听写","pinyin":"chù jiǎo","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v9","word":"弯曲","source":"课本词语听写","pinyin":"wān qū","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v10","word":"痕迹","source":"课本词语听写","pinyin":"hén jì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v11","word":"瞧不起","source":"课本词语听写","pinyin":"qiáo bù qǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v12","word":"牢固","source":"课本词语听写","pinyin":"láo gù","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v13","word":"住宅","source":"课本词语听写","pinyin":"zhù zhái","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v14","word":"选择","source":"课本词语听写","pinyin":"xuǎn zé","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v15","word":"住址","source":"课本词语听写","pinyin":"zhù zhǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v16","word":"大厅","source":"课本词语听写","pinyin":"dà tīng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v17","word":"柔弱","source":"课本词语听写","pinyin":"róu ruò","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v18","word":"平坦","source":"课本词语听写","pinyin":"píng tǎn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v19","word":"光滑","source":"课本词语听写","pinyin":"guāng huá","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v20","word":"修理","source":"课本词语听写","pinyin":"xiū lǐ","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v21","word":"重要","source":"课本词语听写","pinyin":"zhòng yào","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u3-v22","word":"增长","source":"课本词语听写","pinyin":"zēng zhǎng","pinyinSource":"现有四上新版教材题库同词条"}],"readings":[{"id":"u3-r1","word":"瑟瑟","pinyin":"sè sè"},{"id":"u3-r2","word":"逊色","pinyin":"xùn sè"},{"id":"u3-r3","word":"叶柄","pinyin":"yè bǐng"},{"id":"u3-r4","word":"根茎","pinyin":"gēn jīng"},{"id":"u3-r5","word":"蜗牛","pinyin":"wō niú"},{"id":"u3-r6","word":"枯萎","pinyin":"kū wěi"},{"id":"u3-r7","word":"蟋蟀","pinyin":"xī shuài"},{"id":"u3-r8","word":"住宅","pinyin":"zhù zhái"},{"id":"u3-r9","word":"倾斜","pinyin":"qīng xié"},{"id":"u3-r10","word":"骤雨","pinyin":"zhòu yǔ"},{"id":"u3-r11","word":"粗糙","pinyin":"cū cāo"},{"id":"u3-r12","word":"干燥","pinyin":"gān zào"}],"polyphonic":[{"id":"u3-p1","char":"降","readings":[{"word":"投降","pinyin":"xiáng"},{"word":"下降","pinyin":"jiàng"}]},{"id":"u3-p2","char":"曲","readings":[{"word":"弯曲","pinyin":"qū"},{"word":"歌曲","pinyin":"qǔ"}]},{"id":"u3-p3","char":"扒","readings":[{"word":"扒土","pinyin":"bā"},{"word":"扒手","pinyin":"pá"}]}],"synonyms":[{"id":"u3-s1","word":"均匀","answer":"匀称"},{"id":"u3-s2","word":"牢固","answer":"稳固"},{"id":"u3-s3","word":"慎重","answer":"谨慎"},{"id":"u3-s4","word":"隐蔽","answer":"隐秘"},{"id":"u3-s5","word":"简朴","answer":"朴素"},{"id":"u3-s6","word":"宽敞","answer":"宽阔"}],"antonyms":[{"id":"u3-a1","word":"弯曲","answer":"笔直"},{"id":"u3-a2","word":"牢固","answer":"松散"},{"id":"u3-a3","word":"粗糙","answer":"光滑"},{"id":"u3-a4","word":"潮湿","answer":"干燥"},{"id":"u3-a5","word":"柔弱","answer":"强壮"},{"id":"u3-a6","word":"隐蔽","answer":"暴露"}],"confusables":[{"id":"u3-c1","left":{"char":"暮","word":"日暮"},"right":{"char":"幕","word":"幕布"}},{"id":"u3-c2","left":{"char":"缘","word":"缘故"},"right":{"char":"绿","word":"绿色"}},{"id":"u3-c3","left":{"char":"柄","word":"叶柄"},"right":{"char":"病","word":"生病"}},{"id":"u3-c4","left":{"char":"择","word":"选择"},"right":{"char":"泽","word":"光泽"}}],"accumulation":[{"id":"u3-i1","word":"狗窝"},{"id":"u3-i2","word":"鼠洞"},{"id":"u3-i3","word":"牛棚"},{"id":"u3-i4","word":"猪圈"},{"id":"u3-i5","word":"马厩"},{"id":"u3-i6","word":"鱼塘"},{"id":"u3-i7","word":"鸟巢"},{"id":"u3-i8","word":"虎穴"}],"recall":[{"id":"u3-t1","prompt":"《暮江吟》描写的是哪些景物？","answer":"残阳、江水、露珠、新月","explain":"傍晚与夜晚江景。"},{"id":"u3-t2","prompt":"《题西林壁》为什么说“不识庐山真面目”？","answer":"因为身在庐山之中，从不同角度看到的景象不一样","explain":"角度不同，所见不同。"},{"id":"u3-t3","prompt":"《雪梅》中的“梅须逊雪三分白，雪却输梅一段香”说明什么？","answer":"事物各有长处和不足，不能只从一个方面判断","explain":"教材标黄诗句。"},{"id":"u3-t4","prompt":"《爬山虎的脚》怎样写得观察细致？","answer":"连续观察，按顺序描写脚的位置、形状和爬墙过程","explain":"突出持续细致的观察。"},{"id":"u3-t5","prompt":"《蟋蟀的住宅》为什么称蟋蟀为“伟大的工程”？","answer":"蟋蟀用柔弱的工具认真修建住宅","explain":"拟人化表达。"}],"expression":[{"id":"u3-e1","prompt":"写一段连续观察日记的开头，交代观察对象、日期和变化。","answer":"示例：11月10日，我观察阳台上的绿豆。今天它长出小芽，比昨天长高了。","explain":"开放题：须写明观察对象及具体变化。","manual":true},{"id":"u3-e2","prompt":"用拟人手法写一句话，把小动物当作人来写。","answer":"示例：小蟋蟀认真地整理自己的小屋。","explain":"开放题：有人的行为或情感。","manual":true},{"id":"u3-e3","prompt":"观察身边的植物，按位置→形状→变化写三句话。","answer":"示例：叶子长在细细的枝头，形状像小船。过了几天，叶缘慢慢变黄。","explain":"开放题：细节和顺序清楚。","manual":true}],"recitation":[{"id":"u3-b1","prompt":"“一道残阳铺水中”下一句是什么？","answer":"半江瑟瑟半江红","explain":"《暮江吟》白居易。"},{"id":"u3-b2","prompt":"“可怜九月初三夜”下一句是什么？","answer":"露似真珠月似弓","explain":"按图片书写的“真珠”。"},{"id":"u3-b3","prompt":"“横看成岭侧成峰”下一句是什么？","answer":"远近高低各不同","explain":"《题西林壁》苏轼。"},{"id":"u3-b4","prompt":"“不识庐山真面目”下一句是什么？","answer":"只缘身在此山中","explain":"《题西林壁》。"},{"id":"u3-b5","prompt":"“梅须逊雪三分白”下一句是什么？","answer":"雪却输梅一段香","explain":"《雪梅》卢钺。"}]},{"unit":4,"title":"第四单元·知识积累／运用与背诵","texts":"盘古开天地、精卫填海、普罗米修斯、女娲补天","vocabulary":[{"id":"u4-v1","word":"宇宙","source":"课本词语听写","pinyin":"yǔ zhòu","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v2","word":"黑乎乎","source":"课本词语听写","pinyin":"hēi hū hū","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v3","word":"翻身","source":"课本词语听写","pinyin":"fānshēn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v4","word":"下降","source":"课本词语听写","pinyin":"xià jiàng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v5","word":"精疲力竭","source":"课本词语听写","pinyin":"jīngpí lì jié","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v6","word":"飘动","source":"课本词语听写","pinyin":"piāo dòng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v7","word":"照耀","source":"课本词语听写","pinyin":"zhào yào","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v8","word":"四肢","source":"课本词语听写","pinyin":"sì zhī","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v9","word":"奔流不息","source":"课本词语听写","pinyin":"bēn liú bù xī","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v10","word":"茂盛","source":"课本词语听写","pinyin":"mào shèng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v11","word":"整个","source":"课本词语听写","pinyin":"zhěng gè","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v12","word":"喷射","source":"课本词语听写","pinyin":"pēn shè","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v13","word":"气急败坏","source":"课本词语听写","pinyin":"qì jí bài huài","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v14","word":"严厉","source":"课本词语听写","pinyin":"yán lì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v15","word":"立即","source":"课本词语听写","pinyin":"lì jí","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v16","word":"执行","source":"课本词语听写","pinyin":"zhí xíng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v17","word":"敬佩","source":"课本词语听写","pinyin":"jìngpèi","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v18","word":"坚定","source":"课本词语听写","pinyin":"jiān dìng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v19","word":"忍受","source":"课本词语听写","pinyin":"rěn shòu","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v20","word":"遭受","source":"课本词语听写","pinyin":"zāo shòu","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v21","word":"尽管","source":"课本词语听写","pinyin":"jǐn guǎn","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v22","word":"屈服","source":"课本词语听写","pinyin":"qū fú","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v23","word":"肝脏","source":"课本词语听写","pinyin":"gān zàng","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v24","word":"获得","source":"课本词语听写","pinyin":"huò dé","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v25","word":"花卉","source":"课本词语听写","pinyin":"huā huì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v26","word":"玫瑰","source":"课本词语听写","pinyin":"méiguī","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v27","word":"牡丹","source":"课本词语听写","pinyin":"mǔ dān","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v28","word":"花蕾","source":"课本词语听写","pinyin":"huā lěi","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v29","word":"茉莉","source":"课本词语听写","pinyin":"mò lì","pinyinSource":"现有四上新版教材题库同词条"},{"id":"u4-v30","word":"海棠","source":"课本词语听写","pinyin":"hǎi táng","pinyinSource":"现有四上新版教材题库同词条"}],"readings":[{"id":"u4-r1","word":"混沌","pinyin":"hùn dùn"},{"id":"u4-r2","word":"躯干","pinyin":"qū gàn"},{"id":"u4-r3","word":"溺水","pinyin":"nì shuǐ"},{"id":"u4-r4","word":"堙塞","pinyin":"yīn sè"},{"id":"u4-r5","word":"惩罚","pinyin":"chéng fá"},{"id":"u4-r6","word":"肝脏","pinyin":"gān zàng"},{"id":"u4-r7","word":"女娲","pinyin":"nǚ wā"},{"id":"u4-r8","word":"熄灭","pinyin":"xī miè"},{"id":"u4-r9","word":"花卉","pinyin":"huā huì"},{"id":"u4-r10","word":"牡丹","pinyin":"mǔ dān"},{"id":"u4-r11","word":"花蕾","pinyin":"huā lěi"},{"id":"u4-r12","word":"海棠","pinyin":"hǎi táng"}],"polyphonic":[{"id":"u4-p1","char":"少","readings":[{"word":"少女","pinyin":"shào"},{"word":"多少","pinyin":"shǎo"}]},{"id":"u4-p2","char":"脏","readings":[{"word":"肝脏","pinyin":"zàng"},{"word":"脏水","pinyin":"zāng"}]},{"id":"u4-p3","char":"恶","readings":[{"word":"凶恶","pinyin":"è"},{"word":"厌恶","pinyin":"wù"},{"word":"恶心","pinyin":"ě"}]}],"synonyms":[{"id":"u4-s1","word":"缓缓","answer":"慢慢"},{"id":"u4-s2","word":"茂盛","answer":"茂密"},{"id":"u4-s3","word":"敬佩","answer":"钦佩"},{"id":"u4-s4","word":"坚定","answer":"坚决"},{"id":"u4-s5","word":"屈服","answer":"屈从"},{"id":"u4-s6","word":"艰难","answer":"困难"}],"antonyms":[{"id":"u4-a1","word":"黑暗","answer":"光明"},{"id":"u4-a2","word":"上升","answer":"下降"},{"id":"u4-a3","word":"坚定","answer":"动摇"},{"id":"u4-a4","word":"凶恶","answer":"善良"},{"id":"u4-a5","word":"幸福","answer":"痛苦"},{"id":"u4-a6","word":"艰难","answer":"容易"}],"confusables":[{"id":"u4-c1","left":{"char":"竭","word":"竭力"},"right":{"char":"渴","word":"口渴"}},{"id":"u4-c2","left":{"char":"曰","word":"名曰"},"right":{"char":"日","word":"日子"}},{"id":"u4-c3","left":{"char":"既","word":"既然"},"right":{"char":"即","word":"立即"}},{"id":"u4-c4","left":{"char":"炼","word":"熔炼"},"right":{"char":"练","word":"练习"}}],"accumulation":[{"id":"u4-i1","word":"腾云驾雾"},{"id":"u4-i2","word":"上天入地"},{"id":"u4-i3","word":"神机妙算"},{"id":"u4-i4","word":"各显神通"},{"id":"u4-i5","word":"三头六臂"},{"id":"u4-i6","word":"神通广大"},{"id":"u4-i7","word":"未卜先知"},{"id":"u4-i8","word":"刀枪不入"},{"id":"u4-i9","word":"开天辟地"}],"recall":[{"id":"u4-t1","prompt":"《盘古开天地》中盘古开天辟地的过程是什么？","answer":"劈开天地→顶天立地→化为万物","explain":"注意先后顺序。"},{"id":"u4-t2","prompt":"盘古的故事体现了什么精神？","answer":"无私奉献、开拓创造","explain":"图片标黄内容。"},{"id":"u4-t3","prompt":"《精卫填海》里的精卫要做什么？","answer":"衔木石填东海","explain":"表现坚定的意志。"},{"id":"u4-t4","prompt":"“夸父逐日”体现了什么精神？","answer":"想要征服自然、勇于追求","explain":"单元神话拓展。"},{"id":"u4-t5","prompt":"普罗米修斯为什么受到惩罚？","answer":"为了人类取火，触怒宙斯而受到惩罚","explain":"体现他勇敢和坚定。"},{"id":"u4-t6","prompt":"《女娲补天》中女娲做了什么？","answer":"炼石补天、撑天、杀黑龙、堵地缝，拯救人类","explain":"按图片课文回顾。"},{"id":"u4-t7","prompt":"神话故事的主要特点是什么？","answer":"神奇的想象、鲜明的人物，寄托古人对世界的认识和愿望","explain":"清单概括。"}],"expression":[{"id":"u4-e1","prompt":"复述盘古开天地的故事，交代起因、经过和结果。","answer":"示例：混沌中盘古醒来，劈开天地并撑住它们。后来他的身体化为万物。","explain":"开放题核对起因、经过、结果与关键人物。","manual":true},{"id":"u4-e2","prompt":"用“先……接着……最后……”复述女娲补天的主要经过。","answer":"示例：先寻找彩石，接着炼石补天，最后天地恢复平静。","explain":"开放题强调顺序和关键事件。","manual":true},{"id":"u4-e3","prompt":"“我和____过一天”：选定神话人物，说清遇见地点和经历，写出感受。","answer":"示例：我和精卫过一天，一起衔石填海。我学会了坚持。","explain":"开放题：选人物、写地点经历和感受。","manual":true}],"recitation":[{"id":"u4-b1","prompt":"《精卫填海》中“炎帝之少女”的下一句是什么？","answer":"名曰女娃","explain":"《山海经·北山经》。"},{"id":"u4-b2","prompt":"“女娃游于东海，溺而不返”下一句是什么？","answer":"故为精卫","explain":"按清单文本。"},{"id":"u4-b3","prompt":"“常衔西山之木石”下一句是什么？","answer":"以堙于东海","explain":"按教材书写。"},{"id":"u4-b4","prompt":"《嫦娥》第一句是什么？","answer":"云母屏风烛影深","explain":"李商隐。"},{"id":"u4-b5","prompt":"“长河渐落晓星沉”下一句是什么？","answer":"嫦娥应悔偷灵药","explain":"《嫦娥》。"},{"id":"u4-b6","prompt":"“嫦娥应悔偷灵药”下一句是什么？","answer":"碧海青天夜夜心","explain":"《嫦娥》。"}]}]};
+ const QUIZ_ID="gaoyumu-grade4-chinese-knowledge-u1-u4-2026-v1";
+ const STORE="gaoyumu-grade4-chinese-knowledge-u1-u4-v1";
+ const SB_URL="https://iqlnwzxmtjjgzisufljd.supabase.co";
+ const PUBLIC_KEY="sb_publishable_jnY3xbWPgPFBd6naW35bXQ_tzZcNOTE";
+ const $=id=>document.getElementById(id);
+ const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const wordCount=s=>[...String(s||"")].length;
+ const parse=(k,f)=>{try{const s=JSON.parse(localStorage.getItem(k)||"null");return s&&typeof s==="object"?s:f}catch{return f}};
+ const state=parse(STORE,{sessions:{},history:[],syncIds:[]});
+ if(!state.sessions)state.sessions={};if(!Array.isArray(state.history))state.history=[];if(!Array.isArray(state.syncIds))state.syncIds=[];
+ const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(state));return true}catch(e){$("notice").textContent="本机存储失败："+e.message;return false}};
+ const randId=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const n=Math.random()*16|0;return(c==="x"?n:(n&3|8)).toString(16)});
+ let whichUnit="1",section="all",method="paper",phase="复习",semester="2026秋",round=1,pendingOnly=false;
+ let current=[],raw=[],cloud=null,cloudUser=null,unlocked=false,busy=false;
+ const TITLES={vocab:"课本词语听写",reading:"易错字读音",poly:"多音字专项",synonym:"近义词",antonym:"反义词",shape:"形近字组词",idiom:"词语积累",recall:"课文回顾",expression:"仿写与表达",recite:"背诵与默写"};
+ const normalize=s=>String(s??"").normalize("NFC").trim().toLowerCase().replace(/[　\s，,。、！!？?；;：:（）()“”"']/g,"");
+ const readNorm=s=>normalize(s).replace(/ü/g,"v").replace(/u:/g,"v");
+ const unitId=u=>`u${u.unit}`;
+ function makeQuestions(){
+  const out=[];
+  for(const u of DATA.units.filter(v=>whichUnit==="all"||String(v.unit)===whichUnit)){
+   const push=(q,t,extra={})=>out.push({...q,type:t,unit:u.unit,unitTitle:u.title,category:TITLES[t],...extra});
+   u.vocabulary.forEach(v=>push(v,"vocab",{id:v.id,answer:v.word,
+     prompt:`根据拼音默写完整的课本词语（${wordCount(v.word)}个字）`,hint:v.pinyin}));
+   u.readings.forEach(v=>push(v,"reading",{id:v.id,answer:v.pinyin,prompt:`为“${v.word}”写出准确读音（带声调）`}));
+   u.polyphonic.forEach(v=>push(v,"poly",{id:v.id,answer:v.readings.map(x=>x.pinyin).join("、"),
+     prompt:`多音字“${v.char}”：依次写出下列词语中的读音`,parts:v.readings}));
+   u.synonyms.forEach(v=>push(v,"synonym",{id:v.id,prompt:`“${v.word}”的近义词是什么？`,answer:v.answer}));
+   u.antonyms.forEach(v=>push(v,"antonym",{id:v.id,prompt:`“${v.word}”的反义词是什么？`,answer:v.answer}));
+   u.confusables.forEach(v=>push(v,"shape",{id:v.id,prompt:`看词语语境，依次写出两个形近字（用顿号分隔）：\n${v.left.word.replace(v.left.char,"□")}　／　${v.right.word.replace(v.right.char,"□")}`,
+     answer:v.left.char+"、"+v.right.char}));
+   u.accumulation.forEach(v=>{
+    const chars=[...v.word],last=chars.pop();
+    push(v,"idiom",{id:v.id,answer:last,prompt:`词语积累：请补写最后一个字\n${chars.join("")}□`});
+   });
+   u.recall.forEach(v=>push(v,"recall",{id:v.id,prompt:v.prompt,answer:v.answer,explain:v.explain,manual:true}));
+   u.expression.forEach(v=>push(v,"expression",{id:v.id,prompt:v.prompt,answer:v.answer,explain:v.explain,manual:true}));
+   u.recitation.forEach(v=>push(v,"recite",{id:v.id,prompt:v.prompt,answer:v.answer,explain:v.explain}));
+  }
+  return section==="all"?out:out.filter(x=>x.type===section);
+ }
+ const scope=()=>[semester,phase,whichUnit,section,method].join("|");
+ const sessionKey=r=>scope()+"|第"+r+"轮";
+ const session=r=>state.sessions[sessionKey(r)]||(state.sessions[sessionKey(r)]={answers:{},marks:{},graded:false,completed:false,written:false});
+ const previous=r=>r===1?null:state.sessions[sessionKey(r-1)];
+ function selectQuestions(){
+  raw=makeQuestions();
+  const prev=previous(round);
+  if(round>1&&(!prev||!prev.completed)){
+   current=[];return false;
+  }
+  current=round===1?raw:raw.filter(q=>!prev.marks[q.id]);
+  return true;
+ }
+ function sourceText(q){
+  if(q.type==="vocab")return `<span class="pinyin">拼音：${safe(q.hint||"")}</span>`;
+  if(q.type==="poly")return `<div class="muted">词语：${q.parts.map(x=>safe(x.word)).join("　／　")}</div>`;
+  return "";
+ }
+ function outputValue(q,r){
+  const v=r.answers[q.id];return v==null?"":String(v);
+ }
+ function cardHtml(q,i,lastUnit,lastType){
+  const ss=session(round),stages=[1,2,3].map(k=>session(k));
+  const text=outputValue(q,ss);
+  const header=(q.unit!==lastUnit?`<div class="unitTitle">${safe(q.unitTitle)}</div>`:"")+
+    (q.unit!==lastUnit||q.type!==lastType?`<div class="sectionTitle">${safe(TITLES[q.type])}</div>`:"");
+  const reviewed=!!ss.graded;
+  const auto=reviewed&&!q.manual&&text.trim()&&(q.type==="poly"?readNorm(text)===readNorm(q.answer):normalize(text)===normalize(q.answer));
+  const clazz=reviewed?(auto?" graded auto-correct":"graded"):"";
+  const valueField=q.type==="expression"||q.type==="recall"
+    ?`<textarea data-answer="${safe(q.id)}" ${reviewed?"disabled":""} placeholder="在这里作答；纸笔模式可以留空">${safe(text)}</textarea>`
+    :`<input type="text" data-answer="${safe(q.id)}" value="${safe(text)}" ${reviewed?"disabled":""} autocomplete="off" placeholder="填写完整答案">`;
+  const marks=`<div class="marks">${[1,2,3].map(k=>{
+    const one=stages[k-1];const isActive=k===round&&reviewed;
+    return `<label><input type="checkbox" data-mark="${safe(q.id)}" data-mark-round="${k}" ${one.marks[q.id]?"checked":""} ${!isActive?"disabled":""}>第${k}次写对</label>`;
+  }).join("")}</div>`;
+  return header+`<article class="card ${clazz}" data-card="${safe(q.id)}">
+    <div class="meta"><span>${String(i+1).padStart(2,"0")} · ${safe(q.category)}</span><span>第${q.unit}单元</span></div>
+    <div class="prompt">${safe(q.prompt)}</div>${sourceText(q)}
+    <div class="entry">${method==="typing"?valueField:'<div class="muted">纸上手写 · 请先完成再核对，不在页面填写。</div>'}</div>
+    <div class="result">参考答案：<strong>${safe(q.answer)}</strong>${q.explain?"\n核对要点："+safe(q.explain):""}</div>
+    ${marks}<div class="status">${reviewed?"已经批改，可核对并更正本次写对勾选。":"本次尚未批改，三个核对框保留但暂不可勾选。"}</div>
+   </article>`;
+ }
+ function show(){
+  const ready=selectQuestions(),ss=session(round);
+  $("unit").value=whichUnit;$("section").value=section;$("method").value=method;$("phase").value=phase;$("semester").value=semester;
+  document.querySelectorAll("[data-switch-round]").forEach(b=>b.classList.toggle("active",Number(b.dataset.switchRound)===round));
+  $("paperReadyWrap").classList.toggle("hide",method!=="paper"||!!ss.graded);
+  $("paperReady").checked=!!ss.written;
+  $("cards").innerHTML="";
+  if(!ready){$("empty").classList.remove("hide");$("empty").textContent=`请先完成第${round-1}次复习的核对并点击“确认本轮核对完成”，才能进入第${round}次。`;}
+  else if(!current.length){$("empty").classList.remove("hide");$("empty").textContent="当前范围已全部掌握，没有需要重复练习的题目。";}
+  else{
+   $("empty").classList.add("hide");
+   let html="",lastU=null,lastT=null;
+   const visible=pendingOnly?current.filter(q=>!recentlyMastered(q.id)):current;
+   visible.forEach((q,i)=>{html+=cardHtml(q,i,lastU,lastT);lastU=q.unit;lastT=q.type;});
+   $("cards").innerHTML=html;
+   if(!visible.length){$("empty").classList.remove("hide");$("empty").textContent="待巩固筛选下没有题目，取消筛选可查看全部。";}
+  }
+  $("notice").textContent=ss.graded?"当前轮次已经批改。切换单元和轮次后回来，答案、勾选仍然保留。":"答案尚未显示。先完成全部题目，再使用“批改并显示答案”。";
+  refreshProgress();board();
+ }
+ function recentlyMastered(qid){
+  const ss=session(round);
+  if(ss.graded)return !!ss.marks[qid];
+  if(round>1){const p=previous(round);if(p?.completed)return !!p.marks[qid];}
+  return false;
+ }
+ function refreshProgress(){
+  const ss=session(round);const total=current.length,done=method==="typing"?current.filter(q=>String(ss.answers[q.id]||"").trim()).length:(ss.written?total:0);
+  const can=total>0&&done===total&&!ss.graded;
+  $("gradeBtn").disabled=!can;$("gradeBottom").disabled=!can;
+  $("finishBtn").disabled=!ss.graded||!total;$("finishBottom").disabled=!ss.graded||!total;
+  $("gradeBtn").textContent=ss.graded?"本轮参考答案已显示":"批改并显示答案";
+  $("gradeBottom").textContent=$("gradeBtn").textContent;
+  $("finishBtn").textContent=ss.completed?"更新本轮核对记录":"确认本轮核对完成";
+  $("finishBottom").textContent=$("finishBtn").textContent;
+  $("progressFill").style.width=(total?100*done/total:0)+"%";
+  $("progressText").textContent=`第${round}次 · 共${total}题 · ${method==="typing"?"已作答":"已确认写完"} ${done}/${total} · 已勾选写对 ${current.filter(q=>ss.marks[q.id]).length}题`;
+ }
+ function gradedReveal(){
+  const ss=session(round);
+  if(ss.graded||!current.length)return;
+  if(method==="paper"){
+    if(!ss.written){alert("必须先在纸上独立完成本轮全部题目，再勾选已写完。");return;}
+    if(!confirm("确认已在纸上完成本轮全部题目？确认后显示参考答案供逐题自核。"))return;
+  }else{
+    const miss=current.filter(q=>!String(ss.answers[q.id]||"").trim());
+    if(miss.length){alert(`还有${miss.length}题未填写，不能提前显示答案。`);return;}
+    // Only strict text items receive an initial machine judgment; manually assessed
+    // reading comprehension and writing never auto-pass.
+    current.forEach(q=>{if(q.manual)return;const ans=String(ss.answers[q.id]||"");
+      ss.marks[q.id]=(q.type==="poly"?readNorm(ans)===readNorm(q.answer):normalize(ans)===normalize(q.answer));});
+  }
+  ss.graded=true;save();show();
+ }
+ function markChange(qid,rr,checked){
+  if(rr!==round||!session(rr).graded)return;
+  session(rr).marks[qid]=checked;save();refreshProgress();board();
+  if(pendingOnly)show();
+ }
+ function finish(){
+  const ss=session(round);
+  if(!ss.graded||!current.length)return;
+  if(!confirm("已逐题核对完毕？打勾表示写对；不打勾表示仍需巩固。"))return;
+  const items=current.map(q=>({id:q.id,type:q.type,correct:!!ss.marks[q.id],
+   word:q.type==="vocab"?q.answer:q.type==="poly"?q.char:q.answer,
+   answer:method==="paper"?"[纸笔自核]":String(ss.answers[q.id]||""),
+   expected:q.answer,category:q.category,unit:q.unit}));
+  const snapshot={id:randId(),quiz_id:QUIZ_ID,child:"高语牧",semester,phase,method,unit:whichUnit,section,
+    round,items,completedAt:new Date().toISOString(),synced:false};
+  // Preserve history for audit; latest snapshot wins when looking up this session.
+  state.history.push(snapshot);ss.completed=true;ss.snapshotId=snapshot.id;
+  if(!save()){state.history.pop();ss.completed=false;return;}
+  $("notice").textContent="本轮已经保存到本机。云端授权成功后自动上传。";
+  board();show();
+  if(unlocked)syncAll();
+ }
+ function latestItems(){
+  const recent=new Map();
+  for(const snap of state.history.filter(x=>x.quiz_id===QUIZ_ID).sort((a,b)=>String(b.completedAt).localeCompare(String(a.completedAt))))
+   for(const q of snap.items||[]){if(!recent.has(q.id))recent.set(q.id,{...q,last:snap.completedAt});}
+  return [...recent.values()];
+ }
+ function board(){
+  const all=state.history.filter(x=>x.quiz_id===QUIZ_ID);
+  $("historyCount").textContent=`已保存 ${all.length}次完整核对`;
+  const arr=latestItems().filter(x=>!x.correct);
+  $("wrongBoard").innerHTML=arr.length?arr.slice(0,45).map(x=>`<div class="wrong"><b>${safe(x.word)}</b><div class="muted">第${x.unit}单元 · ${safe(x.category)} · 最近一次未掌握</div></div>`).join(""):'<div class="muted">暂无已提交的错题记录。请完成一次核对后查看。</div>';
+ }
+ function storeEvent(e){
+  if(e.target.matches("[data-answer]")){
+   const ss=session(round);if(ss.graded)return;
+   ss.answers[e.target.dataset.answer]=e.target.value;save();refreshProgress();
+  }
+ }
+ function changeEvent(e){
+  if(e.target.matches("[data-mark]")){markChange(e.target.dataset.mark,Number(e.target.dataset.markRound),e.target.checked);return;}
+  if(e.target.matches("[data-answer]"))storeEvent(e);
+ }
+ function advance(){
+  if(round<3){round++;show();}
+  else{round=1;const u=Number(whichUnit)||1;whichUnit=String(u<4?u+1:1);show();}
+ }
+ function cloudMessage(message){$("cloudStatus").textContent=message;}
+ async function connect(){
+  if(!window.supabase){cloudMessage("Supabase组件暂未加载，可能网络受限；本机复习可继续。");return;}
+  try{
+   cloud=window.supabase.createClient(SB_URL,PUBLIC_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+   const res=await cloud.auth.getSession();if(res.error)throw res.error;
+   if(!res.data?.session){const got=await cloud.auth.signInAnonymously();if(got.error)throw got.error;}
+   const user=await cloud.auth.getUser();if(user.error)throw user.error;cloudUser=user.data.user;
+   if(!cloudUser)throw Error("未取得浏览器登录身份");
+   const found=await cloud.from("family_access").select("user_id").eq("user_id",cloudUser.id).maybeSingle();
+   if(found.error)throw found.error;
+   unlocked=!!found.data;cloudMessage(unlocked?"云端已连接 · 家庭档案已解锁，可自动同步":"云端已连接 · 尚未解锁，请输入家庭暗号");
+   if(unlocked)await syncAll();
+  }catch(e){cloudMessage("云端暂不可用："+(e.message||e)+"；本机可继续使用。");}
+ }
+ async function unlock(){
+  const pass=$("passphrase").value.trim();
+  if(!pass){cloudMessage("请输入家庭暗号。");return;}
+  if(!cloud){await connect();if(!cloud)return;}
+  try{
+   const res=await cloud.functions.invoke("unlock-family",{body:{passphrase:pass}});
+   if(res.error)throw res.error;if(!res.data?.ok)throw Error(res.data?.error||"家庭暗号验证失败");
+   $("passphrase").value="";
+   const a=await cloud.from("family_access").select("user_id").eq("user_id",cloudUser.id).maybeSingle();
+   if(a.error)throw a.error;unlocked=!!a.data;
+   cloudMessage(unlocked?"家庭档案已解锁，正在同步历史记录。":"解锁未生效，请检查权限。");
+   if(unlocked)await syncAll();
+  }catch(e){cloudMessage("解锁失败："+(e.message||e));}
+ }
+ async function syncAll(){
+  if(!unlocked||busy)return;
+  busy=true;let uploaded=0;
+  try{
+   for(const a of state.history.filter(s=>!s.synced&&s.quiz_id===QUIZ_ID)){
+    const row={id:a.id,created_by:cloudUser.id,child_name:"高语牧",quiz_id:QUIZ_ID,semester:a.semester,
+      phase:[a.phase,a.unit,a.section,a.method].join("|"),round_no:a.round,total_questions:a.items.length,
+      correct_questions:a.items.filter(x=>x.correct).length,
+      score:Number((100*a.items.filter(x=>x.correct).length/Math.max(1,a.items.length)).toFixed(2)),
+      completed_at:a.completedAt};
+    const exists=await cloud.from("quiz_attempts_secure").select("id").eq("id",a.id).maybeSingle();
+    if(exists.error)throw exists.error;
+    if(!exists.data){const ins=await cloud.from("quiz_attempts_secure").insert(row);if(ins.error)throw ins.error;}
+    const old=await cloud.from("quiz_item_results_secure").select("question_type").eq("attempt_id",a.id).limit(1000);
+    if(old.error)throw old.error;
+    const known=new Set((old.data||[]).map(x=>x.question_type));
+    for(let k=0;k<a.items.length;k+=80){
+      const batch=a.items.slice(k,k+80).filter(x=>!known.has(x.type+"|"+x.id));
+      if(!batch.length)continue;
+      const ins=await cloud.from("quiz_item_results_secure").insert(batch.map(x=>({
+        attempt_id:a.id,created_by:cloudUser.id,child_name:"高语牧",semester:a.semester,correct_char:x.word,
+        expected_word:x.expected,question_type:x.type+"|"+x.id,
+        given_answer:JSON.stringify({answer:x.answer,unit:x.unit,category:x.category,manual:a.method==="paper"}),
+        is_correct:x.correct,answered_at:a.completedAt
+      })));
+      if(ins.error)throw ins.error;
+    }
+    a.synced=true;save();uploaded++;
+   }
+   cloudMessage("家庭档案已解锁，云端同步完成。本次上传 "+uploaded+" 轮。");
+  }catch(e){cloudMessage("同步失败："+(e.message||e)+"。本机记录保留。");}
+  finally{busy=false;}
+ }
+ async function restore(){
+  if(!unlocked){cloudMessage("请先解锁家庭档案。");return;}
+  if(busy)return;
+  busy=true;let count=0;
+  try{
+   const list=await cloud.from("quiz_attempts_secure").select("id,semester,phase,round_no,completed_at")
+     .eq("quiz_id",QUIZ_ID).eq("child_name","高语牧").eq("semester",semester).order("completed_at",{ascending:false}).limit(200);
+   if(list.error)throw list.error;
+   const known=new Set(state.history.map(x=>x.id));
+   const missing=(list.data||[]).filter(x=>!known.has(x.id));
+   for(let k=0;k<missing.length;k+=4){
+    const slice=missing.slice(k,k+4),ids=slice.map(x=>x.id);
+    const rows=await cloud.from("quiz_item_results_secure").select("attempt_id,question_type,expected_word,correct_char,given_answer,is_correct").in("attempt_id",ids).limit(1000);
+    if(rows.error)throw rows.error;
+    for(const a of slice){
+     const [st,un,ct,md]=String(a.phase||"").split("|");
+     if(!["paper","typing"].includes(md)||!["all","1","2","3","4"].includes(un))continue;
+     const items=(rows.data||[]).filter(x=>x.attempt_id===a.id).map(x=>{
+       let v={};try{v=JSON.parse(x.given_answer||"{}")}catch{}
+       return{id:x.question_type.split("|").slice(1).join("|"),type:x.question_type.split("|")[0],
+        word:x.correct_char,expected:x.expected_word,answer:v.answer||"",correct:!!x.is_correct,unit:v.unit||Number(un)||1,category:v.category||""};
+     });
+     const snapshot={id:a.id,quiz_id:QUIZ_ID,child:"高语牧",semester:a.semester,phase:st,unit:un,section:ct,method:md,
+       round:Number(a.round_no),items,completedAt:a.completed_at,synced:true};
+     state.history.push(snapshot);
+     const key=[a.semester,st,un,ct,md,"第"+snapshot.round+"轮"].join("|");
+     const old=state.sessions[key];
+     if(!old||(!old.completed&&!Object.values(old.answers||{}).some(Boolean))){
+       state.sessions[key]={graded:true,completed:true,written:md==="paper",answers:Object.fromEntries(items.map(x=>[x.id,x.answer])),
+         marks:Object.fromEntries(items.map(x=>[x.id,x.correct])),snapshotId:a.id};
+     }
+     count++;
+    }
+   }
+   save();show();cloudMessage("云端恢复完成：补回 "+count+" 次历史核对，未覆盖本机草稿。");
+  }catch(e){cloudMessage("恢复失败："+(e.message||e));}
+  finally{busy=false;}
+ }
+ function init(){
+  $("unit").addEventListener("change",e=>{whichUnit=e.target.value;round=1;show();});
+  $("section").addEventListener("change",e=>{section=e.target.value;round=1;show();});
+  $("method").addEventListener("change",e=>{method=e.target.value;round=1;show();});
+  $("phase").addEventListener("change",e=>{phase=e.target.value;round=1;show();});
+  $("semester").addEventListener("change",e=>{semester=e.target.value.trim()||"2026秋";round=1;show();});
+  $("pendingOnly").addEventListener("change",e=>{pendingOnly=e.target.checked;show();});
+  document.querySelectorAll("[data-switch-round]").forEach(b=>b.addEventListener("click",()=>{round=Number(b.dataset.switchRound);show();}));
+  $("paperReady").addEventListener("change",e=>{const ss=session(round);if(ss.graded)return;ss.written=e.target.checked;save();refreshProgress();});
+  $("cards").addEventListener("input",storeEvent);
+  $("cards").addEventListener("change",changeEvent);
+  for(const id of ["gradeBtn","gradeBottom"])$(id).addEventListener("click",gradedReveal);
+  for(const id of ["finishBtn","finishBottom"])$(id).addEventListener("click",finish);
+  $("printBtn").addEventListener("click",()=>window.print());
+  $("nextBtn").addEventListener("click",advance);
+  $("refreshWrong").addEventListener("click",board);
+  $("unlockBtn").addEventListener("click",unlock);
+  $("syncBtn").addEventListener("click",syncAll);
+  $("restoreBtn").addEventListener("click",restore);
+  show();connect();
+ }
+ init();
+})();</script></body></html>
