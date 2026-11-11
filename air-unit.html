@@ -1,1 +1,124 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>四年级科学 · 空气 · 独立复习</title><link rel="stylesheet" href="science-review.css?v=20261111"><script id="review-config" type="application/json">{"grade": 4, "quizId": "gaoyumu-grade4-science-air-8lesson-v1", "defaultName": "高语牧", "localKey": "gao-science-air-v1:", "title": "四年级科学 · 空气", "air": true, "source": "review-source-air-unit.txt"}</script><script defer src="review-mastery.js?v=20261111-2"></script><script defer src="air-unit-app.js?v=20261111-2"></script></head><body><main><header><p>科学 · 三轮独立复习</p><h1>四年级科学 · 空气</h1><nav><a href="./">主科学卷</a> <a href="air-unit.html">空气</a><a href="chinese/grade4-new-textbook.html">语文</a></nav></header><div id="app"><p role="status">正在加载试卷……</p></div></main></body></html>
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f3f8fc">
+<title>高语牧 · 四上科学《空气》单元｜三轮巩固</title>
+<style>
+:root{--ink:#1c3548;--muted:#64798b;--blue:#246ea8;--teal:#167e77;--bg:#f3f8fc;--border:#d7e4ed;--red:#b44a38;--green:#1d7954}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#eaf4fb 0,#f7fafc 280px,#f4f8fa 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+.container{max-width:960px;margin:auto;padding:24px 16px 90px}
+header{padding:24px 26px;border-radius:20px;background:white;border:1px solid var(--border);box-shadow:0 8px 24px rgba(28,74,105,.05)}
+.eyebrow{color:var(--teal);font-weight:800;font-size:13px;letter-spacing:.06em}
+h1{font-size:clamp(24px,3.6vw,34px);line-height:1.35;margin:6px 0}header p{font-size:14px;color:var(--muted);margin:5px 0 0}
+.toplinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.toplinks a{font-size:13px;color:#276b9d;padding:6px 11px;border:1px solid #d1e0e9;background:#f9fcff;border-radius:9px;text-decoration:none}
+.container h2{font-size:19px;margin:0}
+.step-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 11px}
+.section{margin-top:17px;border:1px solid var(--border);background:white;border-radius:17px;padding:18px;box-shadow:0 5px 17px rgba(20,58,90,.035)}
+.intro{font-size:13px;color:var(--muted);margin:5px 0 0}
+.mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.mode-switch button{background:#f4f8fb;border:1px solid #d0e0eb;border-radius:12px;padding:13px;color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+.mode-switch button.active{color:#fff;background:var(--blue);border-color:var(--blue)}
+.mode-switch small{display:block;opacity:.82;font-size:12px;font-weight:500}
+.round-switch{display:flex;flex-wrap:wrap;gap:8px;margin:11px 0}
+.round-switch button{background:#f9fbfd;border:1px solid #c8d8e4;border-radius:99px;padding:8px 16px;font-size:14px;color:#32546a;cursor:pointer}
+.round-switch button.active{background:#e7f4fb;border-color:#458aaf;color:#14557e;font-weight:800}
+.round-switch button:disabled{opacity:.5;cursor:not-allowed}
+.action{margin-top:16px;padding:20px;border-radius:15px;border:1px solid #bad8e7;background:linear-gradient(115deg,#eef9ff,#f7fffb)}
+.action-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:7px}
+.current-label{color:#32637c;font-weight:800;font-size:14px}
+.bigcount{font-size:41px;font-weight:900;color:#155b82;line-height:1.05}
+.bigcount small{font-size:16px;color:#678699;font-weight:600}
+.action-note{font-size:13px;color:#5e768a}
+.progress-track{background:#d9e7eb;height:8px;border-radius:12px;overflow:hidden;margin:15px 0 8px}
+.progress-bar{height:100%;width:0;background:#2e9a7d;transition:width .18s}
+.progress-copy{font-size:13px;color:#5c7586}
+.next-action{font-size:15px;font-weight:650;margin:14px 0 0;color:#1a5c78}
+.list-control{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:20px 0 8px}
+.list-control label{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:#326079}
+.list-control input{width:19px;height:19px;accent-color:var(--teal)}
+.lesson{margin:14px 0;background:white;border-radius:15px;border:1px solid var(--border);overflow:hidden}
+.lesson-heading{background:#f4f9fc;padding:13px 17px;display:flex;align-items:center;justify-content:space-between;gap:6px;border-bottom:1px solid var(--border)}
+.lesson-heading h3{font-size:16px;margin:0;color:#285679}
+.lesson-heading span{font-size:12px;color:#748b98}
+.lesson-items{padding:5px 14px}
+.question{padding:17px 6px;border-bottom:1px solid #e6eff4}.question:last-child{border-bottom:0}
+.question-top{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.qnum{font-size:12px;color:#607c8e;font-weight:900;padding:2px 6px;background:#eaf2f8;border-radius:6px}
+.mark{border-radius:99px;background:#ecf1f5;color:#527083;padding:3px 11px;font-size:12px;font-weight:700}
+.mark.good{background:#eaf8f1;color:#217b56}.mark.bad{background:#fff0ec;color:#b44b39}
+.prompt{font-size:16px;font-weight:700;color:#24394a;margin-bottom:12px}
+.answer-label{display:block;font-size:12px;color:#637f91;margin-bottom:4px;font-weight:700}
+.qanswer{display:block;width:100%;border:1px solid #bed3e0;border-radius:10px;background:white;padding:11px 12px;font-size:15px;color:#203b4e;font-family:inherit;line-height:1.65;outline:none}
+.qanswer:focus{border-color:#3485ad;box-shadow:0 0 0 3px #c4e5f1}
+.qanswer:disabled{background:#f8fafb;color:#8797a1}
+.mark-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:9px}
+.tick-label{font-size:13px;display:flex;align-items:center;gap:8px;color:#31556d}
+.tick-label input{width:19px;height:19px;accent-color:var(--teal)}
+.skip{font-size:13px;border:1px solid #c5dbe4;color:#4b6a7b;background:#f7fafb;border-radius:9px;padding:7px 10px;cursor:pointer}
+.skip:disabled{opacity:.5;cursor:not-allowed}
+.round-marks{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:11px;font-size:12px;color:#78919e}
+.round-marks label{display:flex;align-items:center;gap:3px}
+.round-marks input{accent-color:var(--teal)}
+.answer-reveal{background:#fff8eb;border:1px solid #e8d6a7;padding:12px;margin-top:12px;border-radius:10px;color:#754b11}
+.answer-reveal p{margin:4px 0 0;font-size:13px;color:#87652c}
+.exempt-note{font-size:13px;color:var(--green);margin:8px 0}
+.empty{padding:24px;background:#eff8f3;border:1px dashed #a9d6bb;border-radius:12px;color:#246848;margin-top:12px}
+.actions{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button.primary,button.secondary{border-radius:12px;padding:13px 14px;font-size:15px;font-family:inherit;font-weight:800;cursor:pointer}
+button.primary{color:white;border:1px solid var(--blue);background:var(--blue)}
+button.secondary{color:var(--teal);border:1px solid #acd1c3;background:#e9f8f2}
+button:disabled{opacity:.45;cursor:not-allowed}
+.actions #next{grid-column:1/-1}
+.result{padding:15px;margin-top:13px;border:1px solid #b7d8c8;background:#eef9f3;border-radius:12px;font-size:14px}
+.result p{margin:5px 0}
+.notice{font-size:13px;color:#708798;margin:10px 0 0}
+details.cloud{margin-top:23px;border:1px solid #d5e4eb;border-radius:16px;background:#fff;padding:17px}
+details summary{cursor:pointer;font-weight:800;color:#275c7a}
+.cloud-content{padding-top:11px}
+.cloud-fields{display:flex;flex-wrap:wrap;gap:10px}
+.cloud-fields label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:#3b5c6e;flex:1;min-width:140px}
+.cloud-fields input{padding:10px;border:1px solid #c0d2df;border-radius:9px;font-size:15px;background:white}
+.cloud-buttons{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+.cloud-buttons button{border:1px solid #b9d4df;border-radius:10px;background:#f6fbfe;color:#245d7b;padding:10px 12px;font-size:14px;cursor:pointer}
+.cloud-buttons button:first-child{background:var(--blue);color:white;border-color:var(--blue)}
+.cloud-status{border-radius:9px;background:#f3f8fc;color:#4b7288;font-size:13px;padding:10px 12px;overflow-wrap:anywhere;white-space:pre-wrap}
+.footer{margin:24px 0 0;font-size:12px;line-height:1.8;color:#78909e}
+@media(max-width:600px){.container{padding:12px 10px 65px}header{padding:18px 15px}.section{padding:14px}.mode-switch button{padding:10px 7px}.actions{grid-template-columns:1fr}.actions #next{grid-column:auto}.action{padding:16px}.bigcount{font-size:37px}.lesson-items{padding:4px 10px}}
+@media print{body{background:white}.toplinks,.round-switch,.mode-switch,.actions,.cloud,.mark-controls,.round-marks{display:none!important}.question{page-break-inside:avoid}}
+</style>
+
+
+
+<link rel="stylesheet" href="review-tools.css?v=20261111-3"><script id="review-config" type="application/json">{"grade": 4, "quizId": "gaoyumu-grade4-science-air-8lesson-v1", "defaultName": "高语牧", "localKey": "gao-science-air-v1:", "title": "四年级科学 · 空气", "air": true, "source": "review-source-air-unit.txt"}</script><script defer src="review-mastery.js?v=20261111-3"></script><script defer src="air-unit-app.js?v=20261111-3"></script></head><body><div id="original-layout"><main class="container">
+<header><div class="eyebrow">高语牧 · 四年级上册 · 科学</div>
+<h1>《空气》单元三轮巩固卷</h1>
+<p>根据《空气》单元第1—8课知识清单制作；基础知识和生活情境分开，不在答题前显示参考答案。</p>
+<nav class="toplinks"><a href="./">返回《呼吸与消化》</a><a href="https://github.com/timothygao/gaoyumu-grade4-science">试卷仓库</a></nav>
+</header>
+<section class="section">
+<div class="step-title"><h2>选择练习内容</h2></div>
+<div class="mode-switch"><button type="button" class="active" data-mode-switch="memory"><span>基础知识卷</span><small>45题 · 红色重点与实验结论</small></button><button type="button" data-mode-switch="scene"><span>生活情境卷</span><small>18题 · 判断、解释、验证</small></button></div>
+<p class="intro">先完成第一轮；第二、三轮自动排除前面已经确认掌握的题目。勾选代表“这题独立答对”，并不是“已经做过”。</p>
+<div class="round-switch" aria-label="三轮练习"><button type="button" class="active" data-round-switch="1">第1轮</button><button type="button" data-round-switch="2">第2轮</button><button type="button" data-round-switch="3">第3轮</button></div>
+<div class="action" aria-live="polite">
+<div class="action-top"><div><span id="current-label" class="current-label">基础填空 · 第1轮</span><div class="action-note" id="headline-note">第1轮完整练习</div></div><div class="bigcount"><span id="headline-count">45</span><small id="headline-total">/ 45题</small></div></div>
+<div class="progress-track"><div class="progress-bar" id="round-progress"></div></div>
+<div id="progress-copy" class="progress-copy">累计掌握 0/45题</div>
+<p class="next-action" id="now-action">完成本轮需要做的题目，然后批改。</p>
+</div>
+</section>
+<div class="list-control"><h2>本轮题目</h2><label><input type="checkbox" id="review-only"> 只显示待巩固题</label></div>
+<div id="question-groups" aria-live="polite"><div class="empty">正在加载知识点题库……</div></div>
+<div class="actions"><button class="primary" id="grade" type="button" disabled>批改并显示参考答案</button><button class="secondary" id="finish" type="button" disabled>本轮全部核对完毕</button><button class="secondary" id="next" type="button" disabled>进入下一轮 · 只练不会的</button></div>
+<div id="result" class="result" hidden></div>
+<p class="notice">每道题下方保留<strong>第1轮、第2轮、第3轮</strong>勾选框。完成本轮作答并批改后，再勾选独立答对的题；不会的可以点“暂时不会”。已完成记录保留在历史中，再次复习请使用上方“空白复练”或“错题分级与再练”。</p>
+<details class="cloud"><summary>☁ 家庭云端保存与恢复</summary><div class="cloud-content">
+<p class="intro">每次点击“本轮全部核对完毕”后，会保存在本机；解锁家庭档案后同步到原有 Supabase。独立试卷编号，不覆盖旧版科学记录。</p>
+<div class="cloud-fields"><label>学生<input value="高语牧" readonly></label><label>学期<input id="semester" value="2026秋" aria-label="学期"></label><label>家庭暗号<input id="passphrase" type="password" autocomplete="off" placeholder="仅用于家庭解锁"></label></div>
+<div class="cloud-buttons"><button type="button" id="unlock">解锁家庭档案</button><button type="button" id="sync">重新同步本机记录</button><button type="button" id="restore">从云端补回记录</button></div>
+<div class="cloud-status" id="cloud-status">正在检查云端连接……</div>
+</div></details>
+<div id="save-status" class="footer">学习过程自动保存在本机（以浏览器权限为准）。</div>
+<footer class="footer">学习范围：第1课感受空气；第2课空气占据空间；第3课空气压缩；第4课空气质量；第5课空气流动的力量；第6课热气球；第7课风的成因；第8课自制打气筒。原文件标题含“1—4课”，正文实际包含第1—8课，本卷按全文制作。情境题根据原知识点重新设问，参考答案不替代教师或家长核对。</footer>
+</main></div><div id="app" class="wrap container" hidden></div></body></html>
