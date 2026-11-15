@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>拼音诊断 第二版</title>
+<style>
+:root{
+  --paper:#f6efe1; --card:#fffaf0; --ink:#2b2622; --muted:#8a7f72; --line:#e2d6c0;
+  --red:#b8322a; --green:#3f7a5a; --amber:#c58a1d; --accent:#6b4f3a; --soft:#efe4d2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Kaiti SC","STKaiti","KaiTi","楷体",serif;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 80px}
+h1{font-size:28px;margin:0;letter-spacing:2px}
+h2{font-size:22px;margin:30px 0 8px;border-left:5px solid var(--accent);padding-left:10px}
+h3{font-size:20px;margin:22px 0 6px;color:var(--accent)}
+h4{font-size:17px;margin:14px 0 6px}
+.sub{color:var(--muted);margin:2px 0 12px}
+.note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:12px 0}
+.py{font-family:"Times New Roman","Songti SC",serif;letter-spacing:.5px}
+.tabs{display:flex;gap:6px;margin:16px 0 4px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tabs button{font:inherit;font-size:18px;border:none;background:none;padding:8px 14px;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button.on{color:var(--accent);border-color:var(--accent)}
+.page{display:none}.page.on{display:block}
+.settings{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:16px}
+select,input[type=range]{font:inherit;font-size:15px}
+select{padding:4px 6px;border-radius:6px;border:1px solid var(--line);background:#fff;max-width:260px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.q .no{color:var(--muted);font-size:14px}
+.q .word{font-size:30px;text-align:center;margin:2px 0 8px;letter-spacing:4px}
+.q .pyword{font-size:26px;text-align:center;margin:4px 0 10px}
+.row{display:flex;gap:6px}
+.row button{flex:1;font:inherit;font-size:16px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:7px 4px;cursor:pointer;color:var(--ink)}
+.opts button{font-size:19px}
+.row button.sel{border-color:var(--accent);background:var(--soft)}
+.row button.right{border-color:var(--green);background:#e3efe6;color:var(--green)}
+.row button.wrong{border-color:var(--red);background:#f6e0dc;color:var(--red);text-decoration:line-through}
+.q.done-right{border-color:var(--green)}.q.done-wrong{border-color:var(--red)}
+.row button.on[data-v="ok"]{background:var(--green);color:#fff;border-color:var(--green)}
+.row button.on[data-v="slow"],.row button.on[data-v="tone"]{background:var(--amber);color:#fff;border-color:var(--amber)}
+.row button.on[data-v="bad"]{background:var(--red);color:#fff;border-color:var(--red)}
+.row button.on[data-v="form"]{background:#7d7366;color:#fff;border-color:#7d7366}
+.row button.on[data-v="same"],.row button.on[data-v="diff"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hint{text-align:center;font-size:17px;color:var(--muted);min-height:24px;margin-bottom:6px}
+.hide-py .hint{visibility:hidden}
+.ans{display:none;text-align:center;font-size:18px;color:var(--green);margin-bottom:6px}
+.show-ans .ans{display:block}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.btn{font:inherit;font-size:17px;padding:8px 18px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.small{font-size:15px;padding:5px 12px}
+.btn:disabled{opacity:.45;cursor:default}
+.play{width:100%;font-size:18px!important;margin-bottom:8px}
+.msg{color:var(--red)}
+.groupbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 16px 14px;margin:16px 0}
+.checks{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:17px}
+.checks label{cursor:pointer}
+.timer{font-family:monospace;font-size:16px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;font-size:16px}
+th,td{border-bottom:1px solid var(--line);padding:8px 7px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+.tag{display:inline-block;padding:1px 9px;border-radius:999px;color:#fff;font-size:14px;white-space:nowrap;margin:1px 0}
+.t0{background:var(--green)}.t1{background:var(--amber)}.t2{background:var(--red)}.tn{background:#b7ab9b}
+.tip{font-size:15px;color:#5a5048}
+.errs{font-size:14px;color:var(--red)}
+.banner{background:#fff3d6;border:1px solid #e8cf8f;border-radius:10px;padding:8px 14px;margin:10px 0}
+.hidden{display:none}
+@media print{.tabs,.settings,.bar,.no-print{display:none!important}body{background:#fff}.q,.groupbox,tr{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>拼音诊断 · 第二版</h1>
+  <p class="sub">小学四年级 · 部编版常用词 · 先筛查、再定位、可复测对比</p>
+  <div class="note no-print" id="familyCloud">
+    <b>☁ 高语牧 · 家庭云端学习档案</b>
+    <p class="sub">本卷独立保存。解锁后同步完成的一级筛查、二级定位及逐题记录；历史记录可跨设备恢复。未完成的一级筛查草稿仍按原版保存于本机。新复测不会把旧答案带入。</p>
+    <div class="bar"><label>家庭暗号 <input id="familyPass" type="password" autocomplete="off" placeholder="原家庭暗号" style="font:inherit;padding:6px;border:1px solid var(--line);border-radius:6px;max-width:180px"></label><button class="btn small" id="familyUnlock">解锁家庭档案</button><button class="btn small ghost" id="familySync">同步记录</button><button class="btn small ghost" id="familyRestore">从云端恢复</button></div>
+    <div id="familyStatus" role="status" class="sub">正在连接云端……</div>
+    <small>学期：<input id="familySemester" value="2026秋" style="width:95px;font:inherit"> · <a href="https://timothygao.github.io/gaoyumu-grade4-science/chinese/grade4-new-textbook.html">返回语文字词卷</a></small>
+  </div>
+
+  <div class="settings no-print">
+    <span>播音：</span><select id="voiceSel"></select>
+    <span>语速</span><input type="range" id="rate" min="0.5" max="1.1" step="0.05" value="0.8"><span id="rateV">0.8</span>
+    <button class="btn small ghost" id="testVoice">试听</button>
+    <span class="sub" style="margin:0;font-size:14px">想要更自然的声音：系统设置 → 辅助功能 → 朗读内容 → 系统声音 → 管理声音，下载带“优化”或“高级”字样的中文声音，再刷新本页。</span>
+  </div>
+
+  <div class="tabs no-print">
+    <button data-p="l1" class="on">一级筛查</button>
+    <button data-p="l2">二级定位</button>
+    <button data-p="hist">历史记录</button>
+  </div>
+
+  <!-- ===== 一级筛查 ===== -->
+  <section id="l1" class="page on">
+    <div class="note">
+      <b>用途：</b>12 组易混点快速摸底，找出哪几组需要细查。<br>
+      <b>题量：</b>选拼音 36 题 + 看字朗读 44 词 + 看拼音写词语 22 个，约 25 分钟。建议分两次做，比如今天做选拼音和朗读，明天做写词语。作答会自动保存，关掉页面也不丢。<br>
+      <b>结果：</b>三部分全部完成后才统一判分，中途不显示对错。
+    </div>
+    <div id="draftBanner" class="banner hidden"></div>
+    <div class="bar no-print">
+      <span>试卷：</span>
+      <select id="setSel"><option value="A">A 卷（首次）</option><option value="B">B 卷（复测）</option></select>
+      <button class="btn ghost small" id="newL1">开始新的一次</button>
+    </div>
+
+    <h2>第一部分 · 看汉字选拼音</h2>
+    <p class="sub">孩子独立完成。</p>
+    <div id="p1" class="grid"></div>
+
+    <h2>第二部分 · 看汉字朗读</h2>
+    <p class="sub">孩子读，家长标记：<b style="color:var(--green)">准确</b>＝读对且顺；<b style="color:var(--amber)">犹豫</b>＝读对但要停下想；<b style="color:var(--red)">读错</b>。</p>
+    <div class="bar no-print"><button class="btn ghost small" id="togglePy1">显示拼音（家长看）</button></div>
+    <div id="p2" class="grid hide-py"></div>
+
+    <h2>第三部分 · 看拼音写词语</h2>
+    <p class="sub">先打印写字单，孩子在田字格里写汉字。写完后家长点“显示答案”批改：<b style="color:var(--green)">写对</b>；<b style="color:var(--red)">读音错</b>＝写成了对立词或别的读音的字，是拼音问题；<b style="color:#7d7366">字的问题</b>＝同音字、笔画错或不会写，不算拼音错。</p>
+    <div class="bar no-print">
+      <button class="btn small" id="printW1">打印写字单</button>
+      <button class="btn small ghost" id="ansW1">写完了，显示答案</button>
+    </div>
+    <div id="p3" class="grid"></div>
+
+    <div class="bar no-print">
+      <button class="btn" id="finishL1">完成，出筛查报告</button>
+      <span id="msgL1" class="msg"></span>
+    </div>
+    <div id="outL1"></div>
+  </section>
+
+  <!-- ===== 二级定位 ===== -->
+  <section id="l2" class="page">
+    <div class="note">
+      <b>用途：</b>只针对一级筛查里出问题的几组，判断问题到底卡在哪一环：<br>
+      ① <b>听辨</b>：电脑播放两个词，孩子只听不看，判断一样还是不一样（耳朵能不能分清）<br>
+      ② <b>看拼音读</b>：只给拼音、不给汉字，家长标记并计时（能不能把拼音读准、读快）<br>
+      ③ <b>听音写拼音</b>：电脑播放，孩子在纸上写带声调的拼音（能不能把声音写成拼音）<br>
+      ④ <b>看拼音写词语</b>：打印出来，孩子在田字格里写汉字（看到拼音能不能想到对的词）<br>
+      ⑤ <b>看汉字</b>：直接取最近一次一级筛查的结果（字和读音对不对得上）<br>
+      每组约 4–5 分钟。建议一次不超过 3 组。
+    </div>
+    <h4>选择要细查的组</h4>
+    <div id="l2checks" class="checks"></div>
+    <div class="bar no-print">
+      <button class="btn" id="startL2">生成定位测试</button>
+      <span id="msgL2a" class="msg"></span>
+    </div>
+    <div id="l2body"></div>
+    <div id="l2finishBar" class="bar no-print hidden">
+      <button class="btn" id="finishL2">完成，出定位报告</button>
+      <span id="msgL2" class="msg"></span>
+    </div>
+    <div id="outL2"></div>
+  </section>
+
+  <!-- ===== 历史 ===== -->
+  <section id="hist" class="page">
+    <div id="histBody"></div>
+    <div class="bar no-print">
+      <button class="btn ghost small" id="exportH">导出记录（备份）</button>
+      <button class="btn ghost small" id="clearH">清空记录</button>
+    </div>
+    <p class="sub">记录只保存在这台电脑的这个浏览器里。换浏览器或清理网站数据会丢失，建议偶尔导出备份。</p>
+  </section>
+</div>
+
+<script>
+/* ============ 题库 ============
+   c: [汉字词, 正确拼音, 干扰项]，干扰项都是普通话里存在的音节（标调组除外，标调组考的就是标调规则）
+   pairs: 最小对立词对，用于朗读和二级定位
+   r: 不成对的朗读词（不成对的组单独给出） */
+const G = [
+ {id:'an', k:'an / ang', listen:true,
+  tip:'前鼻音 an：舌尖抵上牙床，收得短；后鼻音 ang：嘴张大，舌根后缩，声音从鼻腔出来。',
+  cA:[['方向','fāng xiàng','fān xiàng'],['盼望','pàn wàng','pàng wàng'],['班长','bān zhǎng','bāng zhǎng']],
+  cB:[['晚上','wǎn shang','wǎng shang'],['帮助','bāng zhù','bān zhù'],['安静','ān jìng','āng jìng']],
+  pairs:[['开饭','kāi fàn','开放','kāi fàng'],['烂漫','làn màn','浪漫','làng màn'],['担心','dān xīn','当心','dāng xīn'],['反问','fǎn wèn','访问','fǎng wèn']]},
+ {id:'en', k:'en / eng', listen:true,
+  tip:'en 收在舌尖，eng 收在舌根。读完先别闭嘴，感受舌头停在哪里。',
+  cA:[['认真','rèn zhēn','rèng zhēn'],['生命','shēng mìng','shēn mìng'],['门口','mén kǒu','méng kǒu']],
+  cB:[['根本','gēn běn','gēng běn'],['风景','fēng jǐng','fēn jǐng'],['身体','shēn tǐ','shēng tǐ']],
+  pairs:[['人参','rén shēn','人生','rén shēng'],['陈旧','chén jiù','成就','chéng jiù'],['木盆','mù pén','木棚','mù péng'],['清真','qīng zhēn','清蒸','qīng zhēng']]},
+ {id:'in', k:'in / ing', listen:true,
+  tip:'in 短，收在舌尖；ing 舌根后缩，尾音稍拖。',
+  cA:[['心情','xīn qíng','xīng qíng'],['平静','píng jìng','pín jìng'],['音乐','yīn yuè','yīng yuè']],
+  cB:[['金色','jīn sè','jīng sè'],['明天','míng tiān','mín tiān'],['树林','shù lín','shù líng']],
+  pairs:[['信服','xìn fú','幸福','xìng fú'],['人民','rén mín','人名','rén míng'],['亲近','qīn jìn','清静','qīng jìng'],['金鱼','jīn yú','鲸鱼','jīng yú']]},
+ {id:'ian', k:'ian / iang', listen:true,
+  tip:'ian 像“烟”，收在舌尖；iang 像“央”，收在舌根，嘴张得更大。',
+  cA:[['相信','xiāng xìn','xiān xìn'],['年轻','nián qīng','niáng qīng'],['想念','xiǎng niàn','xiǎn niàn']],
+  cB:[['两边','liǎng biān','liǎn biān'],['前进','qián jìn','qiáng jìn'],['香甜','xiāng tián','xiān tián']],
+  pairs:[['鲜花','xiān huā','香花','xiāng huā'],['前面','qián miàn','墙面','qiáng miàn'],['先进','xiān jìn','相近','xiāng jìn'],['大连','dà lián','大梁','dà liáng']]},
+ {id:'z', k:'z / zh', listen:true,
+  tip:'平舌 z：舌尖抵下牙背；翘舌 zh：舌尖翘起顶上腭前部。对着镜子看舌头。',
+  cA:[['自己','zì jǐ','zhì jǐ'],['支持','zhī chí','zī chí'],['作业','zuò yè','zhuò yè']],
+  cB:[['知道','zhī dào','zī dào'],['组长','zǔ zhǎng','zhǔ zhǎng'],['准备','zhǔn bèi','zǔn bèi']],
+  pairs:[['资助','zī zhù','支柱','zhī zhù'],['栽花','zāi huā','摘花','zhāi huā'],['自立','zì lì','智力','zhì lì'],['造就','zào jiù','照旧','zhào jiù']]},
+ {id:'c', k:'c / ch', listen:true,
+  tip:'方法同 z/zh：平舌舌尖向下，翘舌舌尖向上。',
+  cA:[['草地','cǎo dì','chǎo dì'],['吃饭','chī fàn','cī fàn'],['词语','cí yǔ','chí yǔ']],
+  cB:[['参加','cān jiā','chān jiā'],['城市','chéng shì','céng shì'],['错误','cuò wù','chuò wù']],
+  pairs:[['鱼刺','yú cì','鱼翅','yú chì'],['推辞','tuī cí','推迟','tuī chí'],['粗布','cū bù','初步','chū bù'],['木材','mù cái','木柴','mù chái']]},
+ {id:'s', k:'s / sh', listen:true,
+  tip:'方法同 z/zh。可加绕口令“四是四，十是十”。',
+  cA:[['森林','sēn lín','shēn lín'],['数学','shù xué','sù xué'],['丝瓜','sī guā','shī guā']],
+  cB:[['三角','sān jiǎo','shān jiǎo'],['声音','shēng yīn','sēng yīn'],['颜色','yán sè','yán shè']],
+  pairs:[['私人','sī rén','诗人','shī rén'],['散光','sǎn guāng','闪光','shǎn guāng'],['搜集','sōu jí','收集','shōu jí'],['桑叶','sāng yè','商业','shāng yè']]},
+ {id:'nl', k:'n / l', listen:true,
+  tip:'捏住鼻子读：还能读出来的是 l，读不出来的是 n。',
+  cA:[['男孩','nán hái','lán hái'],['力量','lì liàng','nì niàng'],['年龄','nián líng','lián níng']],
+  cB:[['努力','nǔ lì','lǔ nì'],['老师','lǎo shī','nǎo shī'],['能够','néng gòu','léng gòu']],
+  pairs:[['南部','nán bù','蓝布','lán bù'],['女客','nǚ kè','旅客','lǚ kè'],['浓重','nóng zhòng','隆重','lóng zhòng'],['无奈','wú nài','无赖','wú lài']]},
+ {id:'ui', k:'ui / iu', listen:false,
+  tip:'ui 是 u(e)i 的省写，iu 是 i(o)u 的省写。慢读时把中间的音还原：对＝d-u-ei，丢＝d-i-ou。',
+  cA:[['丢失','diū shī','duī shī'],['对面','duì miàn','diù miàn'],['队伍','duì wu','diù wu']],
+  cB:[['丢下','diū xià','duī xià'],['对手','duì shǒu','diù shǒu'],['排队','pái duì','pái diù']],
+  rA:[['球队','qiú duì'],['水流','shuǐ liú'],['追求','zhuī qiú'],['退休','tuì xiū']],
+  rB:[['垂柳','chuí liǔ'],['酒水','jiǔ shuǐ'],['回收','huí shōu'],['优秀','yōu xiù']]},
+ {id:'ie', k:'ie / ei', listen:false,
+  tip:'ie 从 i 滑到 e（像“耶”），ei 从 e 滑到 i（像“诶”）。写时注意字母顺序。',
+  cA:[['别人','bié rén','béi rén'],['美丽','měi lì','miě lì'],['蝴蝶','hú dié','hú déi']],
+  cB:[['眼泪','yǎn lèi','yǎn liè'],['灭火','miè huǒ','mèi huǒ'],['配合','pèi hé','piè hé']],
+  rA:[['分类','fēn lèi'],['分裂','fēn liè'],['北方','běi fāng'],['街道','jiē dào']],
+  rB:[['贝壳','bèi ké'],['写字','xiě zì'],['飞机','fēi jī'],['告别','gào bié']]},
+ {id:'yu', k:'ü / u', listen:true,
+  tip:'n、l 后面的 ü 保留两点（女 nǚ、绿 lǜ），和 u（努 nǔ、路 lù）是两个音；j、q、x、y 后面的 ü 去掉两点，但仍读 ü。',
+  cA:[['绿色','lǜ sè','lù sè'],['女儿','nǚ ér','nǔ ér'],['旅行','lǚ xíng','lǔ xíng']],
+  cB:[['律师','lǜ shī','lù shī'],['女生','nǚ shēng','nǔ shēng'],['毛驴','máo lǘ','máo lú']],
+  pairs:[['录音','lù yīn','绿荫','lǜ yīn'],['路人','lù rén','旅人','lǚ rén']],
+  rA:[['雪花','xuě huā'],['缺点','quē diǎn'],['跳跃','tiào yuè'],['绿叶','lǜ yè']],
+  rB:[['下雨','xià yǔ'],['女孩','nǚ hái'],['学习','xué xí'],['旅游','lǚ yóu']]},
+ {id:'tone', k:'标调位置', listen:false, noRead:true,
+  tip:'口诀：有 a 不放过，没 a 找 o、e，i、u 并列标在后。',
+  cA:[['推开','tuī kāi','tūi kāi'],['牛奶','niú nǎi','níu nǎi'],['快乐','kuài lè','kùai lè']],
+  cB:[['水果','shuǐ guǒ','shǔi guǒ'],['优秀','yōu xiù','yōu xìu'],['跳舞','tiào wǔ','tìao wǔ']]},
+];
+// 成对组的朗读词：A 卷用前两对，B 卷用后两对
+G.forEach(g=>{
+  if(!g.rA && g.pairs){
+    const flat=p=>p.flatMap(x=>[[x[0],x[1]],[x[2],x[3]]]);
+    g.rA=flat(g.pairs.slice(0,2)); g.rB=flat(g.pairs.slice(2,4));
+  }
+});
+const GI=Object.fromEntries(G.map((g,i)=>[g.id,i]));
+
+/* ============ 工具 ============ */
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
+const store={
+  get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+  del(k){try{localStorage.removeItem(k)}catch(e){}}
+};
+const HKEY='pinyin-diag-v2-history', DKEY='pinyin-diag-v2-draft';
+
+/* ============ 语音 ============ */
+let voice=null, rate=0.8;
+function loadVoices(){
+  if(!('speechSynthesis' in window)){$('#voiceSel').innerHTML='<option>此浏览器不支持语音</option>';return}
+  const vs=speechSynthesis.getVoices().filter(v=>/^zh[-_]CN/i.test(v.lang)||/^zh$/i.test(v.lang));
+  const score=v=>(/premium|高级/i.test(v.name)?3:0)+(/enhanced|优化/i.test(v.name)?2:0)+(/tingting|婷婷|lili|莉莉|yue|月/i.test(v.name)?1:0);
+  vs.sort((a,b)=>score(b)-score(a));
+  const sel=$('#voiceSel'); const prev=store.get('pinyin-voice','');
+  sel.innerHTML=vs.length?vs.map((v,i)=>`<option value="${i}">${v.name}</option>`).join(''):'<option>未找到中文声音</option>';
+  let idx=Math.max(0,vs.findIndex(v=>v.name===prev)); sel.value=idx; voice=vs[idx]||null;
+  sel.onchange=()=>{voice=vs[sel.value];store.set('pinyin-voice',voice?voice.name:'')};
+}
+if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+$('#rate').oninput=e=>{rate=+e.target.value;$('#rateV').textContent=rate.toFixed(2).replace(/0$/,'')};
+function say(t){
+  return new Promise(res=>{
+    if(!('speechSynthesis' in window))return res();
+    const u=new SpeechSynthesisUtterance(t); u.lang='zh-CN'; if(voice)u.voice=voice; u.rate=rate;
+    let done=false; const fin=()=>{if(!done){done=true;res()}};
+    u.onend=fin;u.onerror=fin;setTimeout(fin,5000);speechSynthesis.speak(u);
+  });
+}
+async function sayOne(t){speechSynthesis.cancel();await wait(60);await say(t)}
+async function sayPair(a,b){speechSynthesis.cancel();await wait(60);await say(a);await wait(800);await say(b)}
+$('#testVoice').onclick=()=>sayPair('鲜花','香花');
+
+/* ============ 标签页 ============ */
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===b.dataset.p));
+  if(b.dataset.p==='hist')renderHist();
+  if(b.dataset.p==='l2')renderL2Checks();
+});
+
+/* ============ 一级筛查 ============ */
+let L1=null;
+function newL1(set){
+  const q1=shuffle(G.flatMap(g=>g['c'+set].map(([w,ok,bad])=>({g:g.id,w,ok,opts:shuffle([ok,bad]),pick:null}))));
+  const q2=shuffle(G.filter(g=>!g.noRead).flatMap(g=>g['r'+set].map(([w,py])=>({g:g.id,w,py,v:null}))));
+  L1={set,q1,q2,q3:buildQ3(set),done:false,started:today()};
+  saveDraft();renderL1();
+}
+// 第三部分：看拼音写词语，每组 2 个。用另一套卷子的最小对立词，避免和本卷屏幕上出现过的汉字重复；
+// 每对随机取一个，另一个就是“写成它＝读音错”的对立词
+function buildQ3(set){
+  const other=set==='A'?'B':'A';
+  return shuffle(G.filter(g=>!g.noRead).flatMap(g=>{
+    let src;
+    if(g.pairs&&g.pairs.length===4)src=set==='A'?g.pairs.slice(2,4):g.pairs.slice(0,2);
+    else if(g.pairs&&g.pairs.length)src=g.pairs.slice(0,2);
+    if(src)return src.map(p=>Math.random()<.5?{g:g.id,w:p[0],py:p[1],alt:p[2],v:null}:{g:g.id,w:p[2],py:p[3],alt:p[0],v:null});
+    return shuffle(g['r'+other]).slice(0,2).map(([w,py])=>{
+      const p=(g.pairs||[]).find(p=>p[0]===w||p[2]===w);
+      return {g:g.id,w,py,alt:p?(p[0]===w?p[2]:p[0]):'',v:null};
+    });
+  }));
+}
+function saveDraft(){if(L1&&!L1.done)store.set(DKEY,L1)}
+function renderL1(){
+  $('#setSel').value=L1.set; $('#outL1').innerHTML=''; $('#msgL1').textContent='';
+  $('#finishL1').disabled=L1.done;
+  const p1=$('#p1');p1.innerHTML='';
+  L1.q1.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="no">${i+1}</div><div class="word">${q.w}</div><div class="row opts"></div>`;
+    const o=d.querySelector('.opts');
+    q.opts.forEach(t=>{
+      const b=document.createElement('button');b.className='py';b.textContent=t;
+      if(q.pick===t)b.classList.add('sel');
+      b.onclick=()=>{if(L1.done)return;q.pick=t;o.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));saveDraft()};
+      o.appendChild(b);
+    });
+    q.el=d;p1.appendChild(d);
+  });
+  const p2=$('#p2');p2.innerHTML='';p2.classList.add('hide-py');$('#togglePy1').textContent='显示拼音（家长看）';
+  L1.q2.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="no">${i+1}</div><div class="word">${q.w}</div><div class="hint py">${q.py}</div>
+      <div class="row"><button data-v="ok">准确</button><button data-v="slow">犹豫</button><button data-v="bad">读错</button></div>`;
+    bindMarks(d,q,()=>{if(!L1.done)saveDraft()},()=>L1.done);
+    p2.appendChild(d);
+  });
+  const p3=$('#p3');p3.innerHTML='';p3.classList.remove('show-ans');$('#ansW1').textContent='写完了，显示答案';
+  L1.q3.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="no">第 ${i+1} 个</div><div class="pyword py">${q.py}</div>
+      <div class="ans">${q.w}${q.alt?`<div class="tip">写成“${q.alt}”＝读音错</div>`:''}</div>
+      <div class="row"><button data-v="ok">写对</button><button data-v="bad">读音错</button><button data-v="form">字的问题</button></div>`;
+    bindMarks(d,q,()=>{if(!L1.done)saveDraft()},()=>L1.done);
+    p3.appendChild(d);
+  });
+}
+$('#ansW1').onclick=e=>{const p=$('#p3');p.classList.toggle('show-ans');e.target.textContent=p.classList.contains('show-ans')?'隐藏答案':'写完了，显示答案'};
+$('#printW1').onclick=()=>printSheet([{items:L1.q3}]);
+function bindMarks(el,q,onChange,locked){
+  const bs=el.querySelectorAll('.row button[data-v]');
+  bs.forEach(x=>x.classList.toggle('on',x.dataset.v===q.v));
+  bs.forEach(b=>b.onclick=()=>{
+    if(locked&&locked())return;
+    q.v=q.v===b.dataset.v?null:b.dataset.v;
+    bs.forEach(x=>x.classList.toggle('on',x.dataset.v===q.v));
+    onChange&&onChange();
+  });
+}
+$('#togglePy1').onclick=e=>{const h=$('#p2').classList.toggle('hide-py');e.target.textContent=h?'显示拼音（家长看）':'隐藏拼音'};
+$('#newL1').onclick=()=>{
+  const started=L1&&!L1.done&&(L1.q1.some(q=>q.pick)||L1.q2.some(q=>q.v));
+  if(started&&!confirm('当前这次还没做完，确定放弃并重新开始吗？'))return;
+  $('#draftBanner').classList.add('hidden');newL1($('#setSel').value);
+};
+$('#setSel').onchange=()=>{
+  const started=L1&&!L1.done&&(L1.q1.some(q=>q.pick)||L1.q2.some(q=>q.v));
+  if(started){if(!confirm('切换试卷会清空当前作答，确定吗？')){$('#setSel').value=L1.set;return}}
+  $('#draftBanner').classList.add('hidden');newL1($('#setSel').value);
+};
+const LV=['本次未见明显问题','待观察','建议二级定位'];
+$('#finishL1').onclick=()=>{
+  const a=L1.q1.filter(q=>!q.pick).length, b=L1.q2.filter(q=>!q.v).length, c=L1.q3.filter(q=>!q.v).length;
+  const miss=[];if(a)miss.push(`选拼音还有 ${a} 题没做`);if(b)miss.push(`朗读还有 ${b} 个词没标记`);if(c)miss.push(`写词语还有 ${c} 个没批改`);
+  if(miss.length){$('#msgL1').textContent=miss.join('；')+'。';return}
+  L1.done=true;store.del(DKEY);$('#finishL1').disabled=true;$('#msgL1').textContent='';
+  // 揭晓第一部分
+  L1.q1.forEach(q=>{
+    const r=q.pick===q.ok;q.el.classList.add(r?'done-right':'done-wrong');
+    q.el.querySelectorAll('button').forEach(b=>{b.classList.remove('sel');if(b.textContent===q.ok)b.classList.add('right');else if(b.textContent===q.pick)b.classList.add('wrong')});
+  });
+  const groups={};
+  G.forEach(g=>{
+    const wc=L1.q1.filter(q=>q.g===g.id&&q.pick!==q.ok);
+    const bad=L1.q2.filter(q=>q.g===g.id&&q.v==='bad'), slow=L1.q2.filter(q=>q.g===g.id&&q.v==='slow');
+    const ww=L1.q3.filter(q=>q.g===g.id&&q.v==='bad'), wf=L1.q3.filter(q=>q.g===g.id&&q.v==='form');
+    const score=wc.length*2+bad.length*2+ww.length*2+slow.length;
+    const lv=g.id==='tone'?(wc.length?2:0):(score===0?0:score<=2?1:2);
+    groups[g.id]={wc:wc.length,bad:bad.length,slow:slow.length,ww:ww.length,wf:wf.length,score,lv,
+      errs:[...wc.map(q=>q.w+'（选错）'),...bad.map(q=>q.w+'（读错）'),...ww.map(q=>q.w+'（写字读音错）'),...slow.map(q=>q.w+'（犹豫）')],
+      form:wf.map(q=>q.w)};
+  });
+  const rec=archivePinyin({kind:'L1',date:today(),set:L1.set,groups},[
+    ...L1.q1.map(q=>({group:q.g,type:'选拼音',word:q.w,expected:q.ok,answer:q.pick,correct:q.pick===q.ok})),
+    ...L1.q2.map(q=>({group:q.g,type:'看字朗读',word:q.w,expected:q.py,answer:q.v,correct:q.v==='ok'})),
+    ...L1.q3.map(q=>({group:q.g,type:'看拼音写词语',word:q.w,expected:q.w,answer:q.v,correct:q.v==='ok',pinyin:q.py,alt:q.alt||''}))
+  ]);
+  const h=store.get(HKEY,[]);h.push(rec);store.set(HKEY,h);
+  showL1Report(rec); familyAutoSync();
+};
+function showL1Report(rec){
+  const rows=G.map(g=>({g,r:rec.groups[g.id]})).sort((a,b)=>b.r.score-a.r.score);
+  const right=36-G.reduce((s,g)=>s+rec.groups[g.id].wc,0);
+  const focus=rows.filter(x=>x.r.lv===2&&x.g.id!=='tone');
+  const tone=rec.groups.tone.lv===2;
+  $('#outL1').innerHTML=`
+   <h2>筛查报告（${rec.set} 卷 · ${rec.date}）</h2>
+   <div class="note">选拼音 36 题对 ${right} 题。
+    ${focus.length?`<br><b>建议二级定位：</b>${focus.map(x=>x.g.k).join('、')}。下一步到“二级定位”页细查，找出卡在哪一环。`:'<br>没有需要二级定位的组。'}
+    ${tone?'<br><b>标调位置</b>有错：这是规则问题，不用细查，直接背口诀并练标调即可。':''}</div>
+   <table><tr><th>易混组</th><th>结果</th><th>出问题的词</th></tr>
+   ${rows.map(x=>`<tr><td class="py"><b>${x.g.k}</b></td><td><span class="tag t${x.r.lv}">${x.g.id==='tone'&&x.r.lv===2?'练标调规则':LV[x.r.lv]}</span></td>
+     <td>${x.r.errs.length?`<div class="errs">${x.r.errs.join('、')}</div>`:'<span class="tip">—</span>'}${x.r.form&&x.r.form.length?`<div class="tip">字的问题（不计分）：${x.r.form.join('、')}</div>`:''}${x.r.lv?`<div class="tip">${x.g.tip}</div>`:''}</td></tr>`).join('')}
+   </table>
+   <p class="sub">判定：选错、读错、写字读音错各记 2 分，犹豫记 1 分，字的问题不计分。0 分＝本次未见明显问题（样本有限，不等于已经稳定掌握）；1–2 分＝待观察；3 分及以上＝建议二级定位。</p>
+   ${focus.length?`<div class="bar no-print"><button class="btn" id="goL2">去二级定位</button></div>`:''}`;
+  const go=$('#goL2');if(go)go.onclick=()=>{l2Pre=focus.map(x=>x.g.id);document.querySelector('.tabs button[data-p="l2"]').click()};
+  $('#outL1').scrollIntoView({behavior:'smooth'});
+}
+// 启动：恢复草稿
+(function(){
+  const d=store.get(DKEY,null);
+  if(d&&d.q1&&!d.done){
+    if(!d.q3)d.q3=buildQ3(d.set);
+    L1=d;renderL1();
+    const n=d.q1.filter(q=>q.pick).length+d.q2.filter(q=>q.v).length+d.q3.filter(q=>q.v).length;
+    const total=d.q1.length+d.q2.length+d.q3.length;
+    const bn=$('#draftBanner');bn.textContent=`已恢复 ${d.started} 开始的 ${d.set} 卷（已完成 ${n}/${total}）。可以接着做。`;bn.classList.remove('hidden');
+  } else newL1('A');
+})();
+
+/* ============ 二级定位 ============ */
+let l2Pre=null, L2=null;
+function lastL1(){const h=store.get(HKEY,[]);for(let i=h.length-1;i>=0;i--)if(h[i].kind==='L1')return h[i];return null}
+function renderL2Checks(){
+  const last=lastL1();
+  let pre=l2Pre||(last?G.filter(g=>g.id!=='tone'&&last.groups[g.id]&&last.groups[g.id].lv===2).map(g=>g.id):[]);
+  $('#l2checks').innerHTML=G.filter(g=>g.id!=='tone').map(g=>{
+    const r=last&&last.groups[g.id];
+    return `<label><input type="checkbox" value="${g.id}" ${pre.includes(g.id)?'checked':''}> <span class="py">${g.k}</span>${r?` <span class="tag t${r.lv}" style="font-size:12px">${['未见问题','待观察','建议细查'][r.lv]}</span>`:''}</label>`;
+  }).join('');
+  if(!last)$('#msgL2a').textContent='还没有一级筛查记录，建议先做一级筛查；也可以直接勾选。';else $('#msgL2a').textContent='';
+}
+function buildL2Group(g){
+  const pairs=g.pairs||[];
+  // ① 听辨
+  let listen=[];
+  if(g.listen&&pairs.length){
+    let diff=pairs.map(p=>Math.random()<.5?[p[0],p[2]]:[p[2],p[0]]);
+    if(pairs.length<4)diff=diff.concat(pairs.map(p=>[p[2],p[0]]));
+    const nSame=Math.ceil(diff.length/2);
+    const same=shuffle(pairs.flatMap(p=>[p[0],p[2]])).slice(0,nSame).map(w=>[w,w]);
+    listen=shuffle([...diff.map(x=>({a:x[0],b:x[1],key:'diff'})),...same.map(x=>({a:x[0],b:x[1],key:'same'}))]).map(x=>({...x,v:null}));
+  }
+  // ② 看拼音读
+  let pool=pairs.flatMap(p=>[[p[0],p[1]],[p[2],p[3]]]);
+  [...(g.rA||[]),...(g.rB||[])].forEach(x=>{if(pool.length<8&&!pool.some(y=>y[0]===x[0]))pool.push(x)});
+  const read=shuffle(pool).slice(0,8).map(([w,py])=>({w,py,v:null}));
+  // ③ 听写 与 ④ 看拼音写词语：同一对词，一个拿来听写，另一个拿来写字，互不重复
+  const altOf=w=>{const p=pairs.find(p=>p[0]===w||p[2]===w);return p?(p[0]===w?p[2]:p[0]):''};
+  let dict,write;
+  // 每对词一个进听写、另一个进写字，同一张单子上不会同时出现一对词；不足 4 个用其余词补
+  const pick=pairs.map(()=>Math.random()<.5);
+  dict=pairs.map((p,i)=>pick[i]?[p[2],p[3]]:[p[0],p[1]]);
+  write=pairs.map((p,i)=>pick[i]?[p[0],p[1]]:[p[2],p[3]]);
+  const inPair=w=>pairs.some(p=>p[0]===w||p[2]===w);
+  const extra=shuffle([...(g.rA||[]),...(g.rB||[])].filter((x,i,a)=>!inPair(x[0])&&a.findIndex(y=>y[0]===x[0])===i));
+  while(dict.length<4&&extra.length)dict.push(extra.shift());
+  while(write.length<4&&extra.length)write.push(extra.shift());
+  dict=shuffle(dict).map(([w,py])=>({w,py,v:null}));
+  write=shuffle(write).map(([w,py])=>({w,py,alt:altOf(w),v:null}));
+  return {g:g.id,listen,read,dict,write,t0:null,secs:null};
+}
+$('#startL2').onclick=()=>{
+  const ids=[...document.querySelectorAll('#l2checks input:checked')].map(x=>x.value);
+  if(!ids.length){$('#msgL2a').textContent='请至少勾选一组。';return}
+  $('#msgL2a').textContent=ids.length>3?'超过 3 组，建议分两次做。':'';
+  L2=ids.map(id=>buildL2Group(G[GI[id]]));
+  $('#finishL2').disabled=false;
+  renderL2();
+};
+function renderL2(){
+  const body=$('#l2body');body.innerHTML='';$('#outL2').innerHTML='';
+  L2.forEach((s,si)=>{
+    const g=G[GI[s.g]];
+    const box=document.createElement('div');box.className='groupbox';
+    box.innerHTML=`<h3 class="py">${g.k}</h3>`;
+    // ① 听辨
+    if(s.listen.length){
+      box.insertAdjacentHTML('beforeend',`<h4>① 听辨（孩子背对屏幕或闭眼，家长点播放）</h4><div class="grid L"></div>`);
+      const grid=box.querySelector('.L');
+      s.listen.forEach((t,i)=>{
+        const d=document.createElement('div');d.className='q';
+        d.innerHTML=`<div class="no">${i+1}</div><button class="btn small play">▶ 播放两个词</button>
+          <div class="row"><button data-v="same">一样</button><button data-v="diff">不一样</button></div>`;
+        d.querySelector('.play').onclick=()=>sayPair(t.a,t.b);
+        bindMarks(d,t);
+        grid.appendChild(d);
+      });
+    } else {
+      box.insertAdjacentHTML('beforeend',`<h4>① 听辨</h4><p class="sub">这一组主要是拼写和对应问题，两个音本身差别明显，不做听辨。</p>`);
+    }
+    // ② 看拼音读
+    box.insertAdjacentHTML('beforeend',`<h4>② 看拼音读（只看拼音，不看汉字）</h4>
+      <div class="bar no-print"><button class="btn small" data-t="go">开始计时</button><button class="btn small ghost" data-t="stop" disabled>读完了</button><span class="timer">0.0 秒</span></div>
+      <div class="grid R"></div>`);
+    const gridR=box.querySelector('.R');
+    s.read.forEach((q,i)=>{
+      const d=document.createElement('div');d.className='q';
+      d.innerHTML=`<div class="no">${i+1}</div><div class="pyword py">${q.py}</div>
+        <div class="row"><button data-v="ok">准确</button><button data-v="slow">犹豫</button><button data-v="bad">读错</button></div>`;
+      bindMarks(d,q);gridR.appendChild(d);
+    });
+    const go=box.querySelector('[data-t=go]'),stop=box.querySelector('[data-t=stop]'),tm=box.querySelector('.timer');let iv=null;
+    go.onclick=()=>{s.t0=performance.now();s.secs=null;go.disabled=true;stop.disabled=false;iv=setInterval(()=>tm.textContent=((performance.now()-s.t0)/1000).toFixed(1)+' 秒',100)};
+    stop.onclick=()=>{clearInterval(iv);s.secs=(performance.now()-s.t0)/1000;tm.textContent=s.secs.toFixed(1)+' 秒（每词 '+(s.secs/s.read.length).toFixed(1)+' 秒）';stop.disabled=true;go.disabled=false;go.textContent='重新计时'};
+    // ③ 听写
+    box.insertAdjacentHTML('beforeend',`<h4>③ 听音写拼音（孩子在纸上写 1–4 号，带声调）</h4>
+      <div class="bar no-print"><button class="btn small ghost" data-a="ans">写完了，显示答案</button></div>
+      <div class="grid D"></div>`);
+    const gridD=box.querySelector('.D');
+    s.dict.forEach((q,i)=>{
+      const d=document.createElement('div');d.className='q';
+      d.innerHTML=`<div class="no">第 ${i+1} 个</div><button class="btn small play">▶ 播放</button><div class="ans"><span class="py">${q.py}</span>（${q.w}）</div>
+        <div class="row"><button data-v="ok">全对</button><button data-v="tone">只错声调</button><button data-v="bad">易混音错</button></div>`;
+      d.querySelector('.play').onclick=()=>sayOne(q.w);
+      bindMarks(d,q);gridD.appendChild(d);
+    });
+    box.querySelector('[data-a=ans]').onclick=e=>{gridD.classList.toggle('show-ans');e.target.textContent=gridD.classList.contains('show-ans')?'隐藏答案':'写完了，显示答案'};
+    // ④ 看拼音写词语
+    box.insertAdjacentHTML('beforeend',`<h4>④ 看拼音写词语（用打印出来的田字格写）</h4>
+      <p class="sub" style="margin-top:0">批改分三类：<b style="color:var(--green)">写对</b>；<b style="color:var(--red)">读音错</b>＝写成了对立词或别的读音的字，是拼音问题；<b style="color:#7d7366">字的问题</b>＝同音字、笔画错或不会写，不算拼音错。</p>
+      <div class="bar no-print"><button class="btn small ghost" data-a="wans">写完了，显示答案</button></div>
+      <div class="grid W"></div>`);
+    const gridW=box.querySelector('.W');
+    s.write.forEach((q,i)=>{
+      const d=document.createElement('div');d.className='q';
+      d.innerHTML=`<div class="no">第 ${i+1} 个</div><div class="pyword py">${q.py}</div>
+        <div class="ans">${q.w}${q.alt?`<div class="tip">写成“${q.alt}”＝读音错</div>`:''}</div>
+        <div class="row"><button data-v="ok">写对</button><button data-v="bad">读音错</button><button data-v="form">字的问题</button></div>`;
+      bindMarks(d,q);gridW.appendChild(d);
+    });
+    box.querySelector('[data-a=wans]').onclick=e=>{gridW.classList.toggle('show-ans');e.target.textContent=gridW.classList.contains('show-ans')?'隐藏答案':'写完了，显示答案'};
+    body.appendChild(box);
+  });
+  body.insertAdjacentHTML('afterbegin',`<div class="note no-print">第④环要先打印写字单：<button class="btn small" id="printW">打印看拼音写词语</button>
+    <span class="sub">单子上只写“第几组”，不标易混音名称，免得给孩子提示。</span></div>`);
+  $('#printW').onclick=printWrite;
+  $('#l2finishBar').classList.remove('hidden');$('#msgL2').textContent='';
+  body.scrollIntoView({behavior:'smooth'});
+}
+function printWrite(){printSheet(L2.map((s,gi)=>({label:`第 ${gi+1} 组`,items:s.write})))}
+function printSheet(sections){
+  const cells=n=>Array(n).fill('<span class="tz"></span>').join('');
+  const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>看拼音写词语</title><style>
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{font-family:"Kaiti SC","STKaiti","KaiTi",serif;padding:28px 36px;color:#2b2622}
+    h1{font-size:24px;margin:0 0 6px;letter-spacing:3px}
+    .meta{color:#666;margin-bottom:10px}
+    h2{font-size:16px;color:#8a7f72;margin:20px 0 4px;font-weight:normal}
+    .it{display:inline-block;margin:6px 26px 14px 0;text-align:center;vertical-align:top}
+    .no{font-size:13px;color:#999}
+    .py{font-family:"Times New Roman",serif;font-size:21px;margin:2px 0 6px;letter-spacing:.5px}
+    .tz{display:inline-block;width:56px;height:56px;border:1.5px solid #3f7a5a;margin-right:-1.5px;
+      background:linear-gradient(#3f7a5a66,#3f7a5a66) center/100% 1px no-repeat,linear-gradient(90deg,#3f7a5a66,#3f7a5a66) center/1px 100% no-repeat}
+  </style></head><body><h1>看拼音写词语</h1><div class="meta">日期：＿＿＿＿＿＿　　用时：＿＿＿＿ 分钟</div>
+  ${sections.map(sec=>`${sec.label?`<h2>${sec.label}</h2>`:''}${sec.items.map((q,i)=>`<div class="it"><div class="no">${i+1}</div><div class="py">${q.py}</div>${cells([...q.w].length)}</div>`).join('')}`).join('')}
+  </body></html>`;
+  const w=window.open('','_blank');
+  if(!w){alert('浏览器拦截了新窗口，请允许本页面弹出窗口后再点一次。');return}
+  w.document.write(html);w.document.close();w.focus();setTimeout(()=>w.print(),400);
+}
+const FIX={
+  听辨:'先练耳朵：电脑播放成对的词，孩子判断一样还是不一样，再说出听到的是哪一个。先慢速，再正常速度。这个阶段先不纠正发音。',
+  发音:'练口型和舌位：家长示范、对着镜子、夸张慢读，读准后再加快。',
+  音形转换:'两个方向都练：听音写拼音（声音→拼音）和看拼音写词语（拼音→词）。每天本组 5–8 个，写完马上对答案，只盯易混的那个音。',
+  熟练度:'练速度：同一组拼音卡片每天读一遍并计时，记下用时，看着时间一天天变短；同时多朗读课文。',
+  汉字对应:'练字音对应：把出错的字做成字卡，正面写字、背面写拼音，每天过一遍；读课文时圈出这些字。',
+};
+$('#finishL2').onclick=()=>{
+  if(!L2||$('#finishL2').disabled)return;
+  const miss=[];
+  L2.forEach(s=>{const g=G[GI[s.g]];
+    const n=s.listen.filter(t=>!t.v).length+s.read.filter(q=>!q.v).length+s.dict.filter(q=>!q.v).length+s.write.filter(q=>!q.v).length;
+    if(n)miss.push(`${g.k} 还有 ${n} 项没标记`);
+  });
+  if(miss.length){$('#msgL2').textContent=miss.join('；')+'。';return}
+  $('#msgL2').textContent='';
+  const l1=lastL1();const groups={};
+  L2.forEach(s=>{
+    const g=G[GI[s.g]];
+    const listen=s.listen.length?s.listen.filter(t=>t.v===t.key).length/s.listen.length:null;
+    const n=s.read.length;
+    const readAcc=s.read.filter(q=>q.v!=='bad').length/n, readFluent=s.read.filter(q=>q.v==='ok').length/n;
+    const per=s.secs?s.secs/n:null;
+    const dict=s.dict.filter(q=>q.v!=='bad').length/s.dict.length, dictTone=s.dict.filter(q=>q.v==='tone').length;
+    const wm=s.write.filter(q=>q.v!=='form');
+    const write=wm.length?wm.filter(q=>q.v==='ok').length/wm.length:null, writeForm=s.write.length-wm.length;
+    const l1g=l1&&l1.groups[s.g];
+    const hanziProb=l1g?(l1g.wc+l1g.bad+l1g.slow):null;
+    const f=[];
+    // 先找最上游的环节：耳朵分不清，后面的错多半是它带出来的，只报这一条
+    if(listen!==null&&listen<0.8)f.push('听辨');
+    else if(readAcc<0.85)f.push('发音');
+    else{
+      if(dict<0.75||(write!==null&&write<0.75))f.push('音形转换');
+      const slowPy=readFluent<0.75||(per&&per>2.5);
+      if(slowPy)f.push('熟练度');
+      else if(hanziProb>=2)f.push('汉字对应');
+    }
+    groups[s.g]={listen,readAcc,readFluent,per,dict,dictTone,write,writeForm,hanziProb,findings:f,
+      errs:{listen:s.listen.filter(t=>t.v!==t.key).map(t=>t.a===t.b?`${t.a}·${t.b}（应为一样）`:`${t.a}·${t.b}（应为不一样）`),
+            read:s.read.filter(q=>q.v!=='ok').map(q=>q.py+(q.v==='bad'?'（错）':'（犹豫）')),
+            dict:s.dict.filter(q=>q.v==='bad').map(q=>q.w),
+            write:s.write.filter(q=>q.v==='bad').map(q=>q.w)}};
+  });
+  const rec=archivePinyin({kind:'L2',date:today(),groups},L2.flatMap(s=>[
+    ...s.listen.map(q=>({group:s.g,type:'听辨',word:q.a+'／'+q.b,expected:q.key,answer:q.v,correct:q.v===q.key})),
+    ...s.read.map(q=>({group:s.g,type:'看拼音读',word:q.w,expected:q.py,answer:q.v,correct:q.v==='ok'})),
+    ...s.dict.map(q=>({group:s.g,type:'听音写拼音',word:q.w,expected:q.py,answer:q.v,correct:q.v==='ok'})),
+    ...s.write.map(q=>({group:s.g,type:'看拼音写词语',word:q.w,expected:q.w,answer:q.v,correct:q.v==='ok',pinyin:q.py,alt:q.alt||''}))
+  ]));
+  const h=store.get(HKEY,[]);h.push(rec);store.set(HKEY,h);
+  $('#finishL2').disabled=true;showL2Report(rec,l1); familyAutoSync();
+};
+const pct=x=>x===null||x===undefined?'—':Math.round(x*100)+'%';
+const cls=(x,t)=>x===null||x===undefined?'tn':x>=t?'t0':x>=t-0.2?'t1':'t2';
+function showL2Report(rec,l1){
+  const ids=Object.keys(rec.groups);
+  const all=new Set(ids.flatMap(id=>rec.groups[id].findings));
+  $('#outL2').innerHTML=`
+   <h2>定位报告（${rec.date}）</h2>
+   <table><tr><th>易混组</th><th>① 听辨</th><th>② 看拼音读</th><th>③ 听写</th><th>④ 看拼音写</th><th>⑤ 看汉字<br><span class="sub" style="font-size:12px">${l1?'取自 '+l1.date:'无筛查记录'}</span></th></tr>
+   ${ids.map(id=>{const r=rec.groups[id],g=G[GI[id]];return `<tr>
+     <td class="py"><b>${g.k}</b></td>
+     <td><span class="tag ${cls(r.listen,0.8)}">${pct(r.listen)}</span>${r.errs.listen.length?`<div class="errs">${r.errs.listen.join('、')}</div>`:''}</td>
+     <td>准确 <span class="tag ${cls(r.readAcc,0.85)}">${pct(r.readAcc)}</span><br>流利 <span class="tag ${cls(r.readFluent,0.75)}">${pct(r.readFluent)}</span>${r.per?`<br><span class="tip">每词 ${r.per.toFixed(1)} 秒</span>`:''}${r.errs.read.length?`<div class="errs py">${r.errs.read.join('、')}</div>`:''}</td>
+     <td><span class="tag ${cls(r.dict,0.75)}">${pct(r.dict)}</span>${r.dictTone?`<div class="tip">另有 ${r.dictTone} 个只错声调</div>`:''}${r.errs.dict.length?`<div class="errs">${r.errs.dict.join('、')}</div>`:''}</td>
+     <td><span class="tag ${cls(r.write,0.75)}">${pct(r.write)}</span>${r.writeForm?`<div class="tip">另有 ${r.writeForm} 个是字的问题，不计入</div>`:''}${r.errs.write.length?`<div class="errs">${r.errs.write.join('、')}</div>`:''}</td>
+     <td>${r.hanziProb===null?'—':r.hanziProb?`<span class="tag t1">有 ${r.hanziProb} 处问题</span>`:'<span class="tag t0">无</span>'}</td></tr>
+     <tr><td></td><td colspan="5"><b>判断：</b>${r.findings.length?r.findings.map(f=>`<span class="tag t2">${f}</span>`).join(' '):'<span class="tag t0">本次未见明显问题</span>'}
+       ${r.findings.length?`<div class="tip">${g.tip}</div>`:''}</td></tr>`}).join('')}
+   </table>
+   ${all.size?`<h3>练法</h3><div class="note">${[...all].map(f=>`<b>${f}：</b>${FIX[f]}`).join('<br>')}</div>`:''}
+   <p class="sub">判断规则（从上游往下找）：听辨低于 80% → 听辨问题，先只解决这一条；听得清但看拼音读准确率低于 85% → 发音问题；读得准但听写或看拼音写词语低于 75% → 音形转换问题（字的问题不计入）；读得准但流利率低于 75% 或每词超过 2.5 秒 → 熟练度问题；看拼音又准又快、看汉字却出错 2 处以上 → 汉字对应问题。样本量小，结果是线索，不是定论。</p>`;
+  $('#outL2').scrollIntoView({behavior:'smooth'});
+}
+
+/* ============ 历史 ============ */
+function renderHist(){
+  const h=store.get(HKEY,[]);
+  const l1=h.filter(r=>r.kind==='L1'), l2=h.filter(r=>r.kind==='L2');
+  let html='<h2>一级筛查对比</h2>';
+  if(!l1.length)html+='<p class="sub">还没有记录。</p>';
+  else html+=`<div style="overflow-x:auto"><table><tr><th>易混组</th>${l1.map(r=>`<th>${r.date.slice(5)}<br>${r.set} 卷</th>`).join('')}</tr>
+    ${G.map(g=>`<tr><td class="py">${g.k}</td>${l1.map(r=>{const x=r.groups[g.id];return x?`<td><span class="tag t${x.lv}">${x.score} 分</span></td>`:'<td>—</td>'}).join('')}</tr>`).join('')}
+    </table></div><p class="sub">分数越低越好。复测请用另一套卷子，避免记住答案。</p>`;
+  html+='<h2>二级定位记录</h2>';
+  if(!l2.length)html+='<p class="sub">还没有记录。</p>';
+  else html+=`<table><tr><th>日期</th><th>易混组</th><th>听辨</th><th>看拼音读</th><th>听写</th><th>看拼音写</th><th>判断</th></tr>
+    ${l2.flatMap(r=>Object.entries(r.groups).map(([id,x])=>`<tr><td>${r.date.slice(5)}</td><td class="py">${G[GI[id]].k}</td><td>${pct(x.listen)}</td><td>${pct(x.readAcc)} / ${pct(x.readFluent)}${x.per?`<br>${x.per.toFixed(1)}秒/词`:''}</td><td>${pct(x.dict)}</td><td>${pct(x.write)}</td><td>${x.findings.length?x.findings.join('、'):'未见明显问题'}</td></tr>`)).join('')}
+    </table>`;
+  $('#histBody').innerHTML=html;
+}
+$('#exportH').onclick=()=>{
+  const blob=new Blob([JSON.stringify(store.get(HKEY,[]),null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='拼音诊断记录.json';a.click();
+};
+$('#clearH').textContent='本机历史说明';
+$('#clearH').onclick=()=>alert('为保留原有复测历史，本云端版不提供清空记录功能。请用“开始新的一次”开启新复测。');
+
+/* ===== 家庭云端功能：不修改原诊断题库与评分 ===== */
+const FAMILY_QUIZ="gaoyumu-grade4-chinese-pinyin-diagnostic-v2-2026";
+const FAMILY_CHILD="高语牧";
+const FAMILY_URL="https://iqlnwzxmtjjgzisufljd.supabase.co";
+const FAMILY_KEY="sb_publishable_jnY3xbWPgPFBd6naW35bXQ_tzZcNOTE";
+let familyClient=null,familyUser=null,familyReady=false,familyBusy=false,familyConnectPromise=null;
+const familyStatus=t=>$('#familyStatus').textContent=t;
+const familySemester=()=>$('#familySemester').value.trim()||'2026秋';
+const familyId=()=>globalThis.crypto?.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const n=Math.random()*16|0;return(c==='x'?n:(n&3|8)).toString(16)});
+function archivePinyin(rec,items){
+  return {...rec,cloudId:familyId(),completedAt:new Date().toISOString(),semester:familySemester(),items:items.map((x,i)=>({...x,id:'p'+(i+1)})),synced:false};
+}
+function familyHistory(){return store.get(HKEY,[]);}
+function familyAutoSync(){
+ const h=familyHistory();const last=h[h.length-1];
+ if(!last?.cloudId){familyStatus('本机保存未确认，请检查浏览器存储权限。');return}
+ if(familyReady)familySync();else familyStatus('诊断已在本机保存；联网解锁后可同步。');
+}
+async function familyEnsure(){
+ if(familyConnectPromise)return familyConnectPromise;
+ familyConnectPromise=(async()=>{
+   if(!window.supabase)await new Promise((resolve,reject)=>{
+     const el=document.createElement('script');el.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0";el.onload=resolve;el.onerror=()=>reject(Error('无法加载云端组件'));document.head.appendChild(el);
+   });
+   if(!familyClient)familyClient=window.supabase.createClient(FAMILY_URL,FAMILY_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+   const res=await familyClient.auth.getSession();if(res.error)throw res.error;
+   if(!res.data.session){const a=await familyClient.auth.signInAnonymously();if(a.error)throw a.error}
+   const u=await familyClient.auth.getUser();if(u.error||!u.data.user)throw u.error||Error('登录未建立');
+   familyUser=u.data.user;
+   const a=await familyClient.from('family_access').select('user_id').eq('user_id',familyUser.id).maybeSingle();
+   if(a.error)throw a.error;familyReady=!!a.data;
+   familyStatus(familyReady?'家庭档案已解锁，可同步和恢复历史。':'云端已连接，输入原家庭暗号解锁。');
+ })();
+ try{await familyConnectPromise;}finally{familyConnectPromise=null}
+}
+async function familyUnlock(){
+ if(familyBusy)return;familyBusy=true;let ok=false;
+ try{
+   const pass=$('#familyPass').value.trim();if(!pass){familyStatus('请输入原家庭暗号。');return}
+   await familyEnsure();
+   if(!familyReady){
+     const a=await familyClient.functions.invoke('unlock-family',{body:{passphrase:pass}});
+     if(a.error||a.data?.ok!==true)throw a.error||Error(a.data?.error||'暗号验证失败');
+     await familyEnsure();if(!familyReady)throw Error('家庭权限尚未生效');
+   }
+   $('#familyPass').value='';ok=true;familyStatus('家庭档案已解锁。');
+ }catch(e){familyStatus('解锁失败：'+(e.message||e)+'。本机仍能练习。')}finally{familyBusy=false}
+ if(ok){await familySync();await familyRestore()}
+}
+async function familySync(){
+ if(familyBusy)return;
+ familyBusy=true;
+ try{
+   await familyEnsure();
+   if(!familyReady){familyStatus('请先解锁家庭档案；本机成绩保留。');return}
+   const pending=familyHistory().filter(x=>x.cloudId&&!x.synced&&Array.isArray(x.items)&&x.items.length);
+   let n=0;
+   for(const r of pending){
+     const total=r.items.length,correct=r.items.filter(x=>x.correct).length;
+     const row={id:r.cloudId,created_by:familyUser.id,child_name:FAMILY_CHILD,quiz_id:FAMILY_QUIZ,semester:r.semester,
+       phase:'拼音诊断|'+r.kind+'|'+(r.set||'定位'),round_no:r.kind==='L1'?1:2,total_questions:total,correct_questions:correct,score:Number((correct/total*100).toFixed(2)),completed_at:r.completedAt};
+     const exists=await familyClient.from('quiz_attempts_secure').select('id').eq('id',r.cloudId).maybeSingle();if(exists.error)throw exists.error;
+     if(!exists.data){const z=await familyClient.from('quiz_attempts_secure').insert(row);if(z.error)throw z.error}
+     const old=await familyClient.from('quiz_item_results_secure').select('question_type').eq('attempt_id',r.cloudId).limit(1000);if(old.error)throw old.error;
+     const known=new Set((old.data||[]).map(x=>x.question_type));
+     const rows=r.items.map((q,i)=>({attempt_id:r.cloudId,created_by:familyUser.id,child_name:FAMILY_CHILD,semester:r.semester,correct_char:q.word,expected_word:q.expected,question_type:'pinyin|'+q.id,
+       given_answer:JSON.stringify({item:q,report:i===0?{kind:r.kind,date:r.date,set:r.set,groups:r.groups}:undefined}),is_correct:q.correct,answered_at:r.completedAt})).filter(q=>!known.has(q.question_type));
+     for(let i=0;i<rows.length;i+=80){const z=await familyClient.from('quiz_item_results_secure').insert(rows.slice(i,i+80));if(z.error)throw z.error}
+     const verify=await familyClient.from('quiz_item_results_secure').select('question_type').eq('attempt_id',r.cloudId).limit(1000);if(verify.error)throw verify.error;
+     const keys=new Set((verify.data||[]).map(x=>x.question_type));if(!r.items.every(q=>keys.has('pinyin|'+q.id)))throw Error('逐题记录尚未全部上传，保留待同步状态');
+     const h=familyHistory();const local=h.find(x=>x.cloudId===r.cloudId);if(local){local.synced=true;store.set(HKEY,h)}n++;
+   }
+   const legacy=familyHistory().filter(x=>!x.cloudId).length;
+   familyStatus('云端已解锁 · 同步完成 '+n+' 次诊断'+(legacy?'；旧版 '+legacy+' 条仅有摘要，仍保留本机，不伪造逐题成绩。':'。'));
+ }catch(e){familyStatus('同步未完成：'+(e.message||e)+'。本机记录保留，可重试。')}finally{familyBusy=false}
+}
+async function familyRestore(){
+ if(familyBusy)return;familyBusy=true;
+ try{
+   await familyEnsure();if(!familyReady){familyStatus('请先解锁家庭档案。');return}
+   const a=await familyClient.from('quiz_attempts_secure').select('id,semester,phase,round_no,total_questions,completed_at').eq('quiz_id',FAMILY_QUIZ).eq('child_name',FAMILY_CHILD).eq('semester',familySemester()).order('completed_at',{ascending:true}).limit(500);
+   if(a.error)throw a.error;let n=0,partial=0;
+   for(const rec of a.data||[]){
+     if(familyHistory().some(x=>x.cloudId===rec.id))continue;
+     const b=await familyClient.from('quiz_item_results_secure').select('given_answer,question_type').eq('attempt_id',rec.id).limit(1000);if(b.error)throw b.error;
+     const decoded=(b.data||[]).map(x=>{try{return JSON.parse(x.given_answer)}catch{return null}}).filter(Boolean);
+     const report=decoded.find(x=>x.report)?.report;
+     const items=decoded.filter(x=>x.item).map(x=>x.item);
+     if(!report||!['L1','L2'].includes(report.kind)||!report.groups||items.length!==rec.total_questions||new Set(items.map(x=>x.id)).size!==rec.total_questions||Object.keys(report.groups).some(id=>!(id in GI))){partial++;continue}
+     const h=familyHistory();
+     if(!h.some(x=>x.cloudId===rec.id)){h.push({...report,cloudId:rec.id,completedAt:rec.completed_at,semester:rec.semester,items,synced:true});h.sort((x,y)=>String(x.completedAt||x.date).localeCompare(String(y.completedAt||y.date)));store.set(HKEY,h);n++}
+   }
+   renderHist();familyStatus('已恢复 '+n+' 次完成记录；本机正在作答的草稿未改变。'+(partial?'另有 '+partial+' 条云端记录不完整，暂未导入。':''));
+ }catch(e){familyStatus('恢复未完成：'+(e.message||e)+'。本机记录保留。')}finally{familyBusy=false}
+}
+$('#familyUnlock').onclick=familyUnlock;
+$('#familySync').onclick=familySync;
+$('#familyRestore').onclick=familyRestore;
+$('#familyPass').addEventListener('keydown',e=>{if(e.key==='Enter')familyUnlock()});
+$('#familySemester').value=store.get('pinyin-family-semester','2026秋');
+$('#familySemester').onchange=()=>store.set('pinyin-family-semester',familySemester());
+familyEnsure().then(()=>{if(familyReady)return familySync()}).catch(e=>familyStatus('暂时离线：'+(e.message||e)+'。本机可继续练习。'));
+
+</script>
+</body>
+</html>
